@@ -1,0 +1,48 @@
+.timityContainer {
+  margin-top: 60px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.appScreenshot {
+  margin: 50px auto;
+  width: 96%;
+  max-width: 869px;
+}
+
+.legalNotes {
+  max-width: 600px;
+  text-align: center;
+  font-size: small;
+}
+
+.featureGrid__container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.featureGrid {
+  margin: 50px 4%;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-auto-rows: auto;
+  grid-gap: 50px;
+}
+
+@media only screen and (min-width: 768px) {
+  .featureGrid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 50px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .featureGrid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 50px;
+  }
+}
