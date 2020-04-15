@@ -2,7 +2,7 @@
   "name": "Website",
   "version": "1.0.0",
   "description": "Andreas Link's personal website.",
-  "main": "index.js",
+  "main": "index.html",
   "scripts": {
     "dev": "parcel src/index.html",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.1.2"
   }
 }
