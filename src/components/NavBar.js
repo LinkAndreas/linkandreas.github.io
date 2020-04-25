@@ -23,6 +23,13 @@ export default function NavBar() {
       <NavLink
         className="navBar__link"
         activeClassName="navBar__link--active"
+        to="/publications"
+      >
+        Publications
+      </NavLink>
+      <NavLink
+        className="navBar__link"
+        activeClassName="navBar__link--active"
         to="/about"
       >
         About

@@ -3,17 +3,17 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 
 import NavBar from "./components/NavBar.js";
-import Routes from "./routes/routes.js";
+import Content from "./components/Content.js";
 import Footer from "./components/Footer.js";
 
 import "./styles/App.css";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter className="appRouter">
       <div className="appContainer">
         <NavBar />
-        <Routes />
+        <Content />
         <Footer />
       </div>
     </BrowserRouter>
