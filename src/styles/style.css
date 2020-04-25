@@ -1,8 +1,15 @@
 /* || General styles */
 body {
+  margin: 0 0;
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
   background-color: black;
   color: white;
+}
+
+html,
+body,
+#root {
+  height: 100%;
 }
 
 h1 {
@@ -25,12 +32,6 @@ blockquote {
   font-weight: 400;
 }
 
-footer {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-}
-
 h1,
 h2,
 h3,
@@ -39,6 +40,16 @@ h5,
 h6 {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+.code {
+  width: 94%;
+}
+
+@media only screen and (min-width: 950px) {
+  .code {
+    width: 895px;
+  }
 }
 
 /* || Utility styles */
