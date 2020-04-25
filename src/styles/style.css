@@ -41,6 +41,16 @@ h6 {
   margin-bottom: 0;
 }
 
+.code {
+  width: 94%;
+}
+
+@media only screen and (min-width: 950px) {
+  .code {
+    width: 895px;
+  }
+}
+
 /* || Utility styles */
 .inline {
   display: inline;
