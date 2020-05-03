@@ -1,9 +1,11 @@
 .publicationsContainer {
+  margin-top: 60px;
+  margin-left: 4%;
+  margin-right: 4%;
   flex: 1 1 auto;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: center;
-  margin: 0 4%;
+  justify-content: flex-start;
   max-width: 1024px;
 }
 

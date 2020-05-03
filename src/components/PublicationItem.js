@@ -11,7 +11,7 @@ export default function PublicationItem({
   bibTexLink,
 }) {
   return (
-    <div>
+    <div className="publicationItemContainer">
       <ul>
         <li>
           {`${authors}. `}
