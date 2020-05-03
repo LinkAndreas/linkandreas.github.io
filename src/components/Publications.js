@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/Publications.css";
-import PublicationItem from "../components/PublicationItem";
+import PublicationItem from "./PublicationItem";
 
 export default function Publications() {
   return (
