@@ -1,0 +1,27 @@
+.articleContainer {
+  padding-bottom: 0px;
+  border-bottom-style: solid;
+  border-bottom-color: #aaa;
+  border-bottom-width: 1px;
+  margin-bottom: 34px;
+}
+
+.articleContainer h1 {
+  font-weight: bold;
+}
+
+.articleContainer h3 {
+  font-size: 0.9em;
+}
+
+.articleContainer p {
+  line-height: 34px;
+  font-size: 20px;
+  color: #aaa;
+}
+
+.articleContainer .dateContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+}

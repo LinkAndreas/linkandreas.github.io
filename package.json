@@ -4,7 +4,7 @@
   "description": "Andreas Link's personal website.",
   "main": "index.html",
   "scripts": {
-    "clear": "rm -rf .cache/ dist/",
+    "clean": "rm -rf .cache/ dist/",
     "dev": "parcel src/index.html",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
     "format": "prettier \"src/**/*.{js,html}\" --write"
