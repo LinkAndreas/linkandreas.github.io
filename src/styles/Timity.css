@@ -7,15 +7,16 @@
 }
 
 .appScreenshot {
-  margin: 50px auto;
-  width: 96%;
-  max-width: 869px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  width: 92%;
 }
 
 .legalNotes {
   max-width: 600px;
   text-align: center;
   font-size: small;
+  padding-bottom: 35px;
 }
 
 .featureGrid__container {
@@ -37,6 +38,10 @@
   .featureGrid {
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 50px;
+  }
+
+  .appScreenshot {
+    width: 708px;
   }
 }
 

@@ -5,35 +5,37 @@ import "../styles/NavBar.css";
 export default function NavBar() {
   return (
     <nav className="navBar">
-      <NavLink
-        exact
-        className="navBar__link"
-        activeClassName="navBar__link--active"
-        to="/"
-      >
-        Articles
-      </NavLink>
-      <NavLink
-        className="navBar__link"
-        activeClassName="navBar__link--active"
-        to="/timity"
-      >
-        Timity
-      </NavLink>
-      <NavLink
-        className="navBar__link"
-        activeClassName="navBar__link--active"
-        to="/publications"
-      >
-        Publications
-      </NavLink>
-      <NavLink
-        className="navBar__link"
-        activeClassName="navBar__link--active"
-        to="/about"
-      >
-        About
-      </NavLink>
+      <div className="navLinks">
+        <NavLink
+          exact
+          className="navBar__link"
+          activeClassName="navBar__link--active"
+          to="/"
+        >
+          Articles
+        </NavLink>
+        <NavLink
+          className="navBar__link"
+          activeClassName="navBar__link--active"
+          to="/timity"
+        >
+          Timity
+        </NavLink>
+        <NavLink
+          className="navBar__link"
+          activeClassName="navBar__link--active"
+          to="/publications"
+        >
+          Publications
+        </NavLink>
+        <NavLink
+          className="navBar__link"
+          activeClassName="navBar__link--active"
+          to="/about"
+        >
+          About
+        </NavLink>
+      </div>
     </nav>
   );
 }
