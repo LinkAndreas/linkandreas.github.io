@@ -1,5 +1,4 @@
-.articleContainer {
-  padding-bottom: 0px;
+.articleContainer:not(:last-child) {
   border-bottom-style: solid;
   border-bottom-color: #aaa;
   border-bottom-width: 1px;
@@ -12,12 +11,15 @@
 
 .articleContainer h3 {
   font-size: 0.9em;
+  padding-bottom: 10px;
 }
 
 .articleContainer p {
   line-height: 34px;
   font-size: 20px;
   color: #aaa;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .articleContainer .dateContainer {

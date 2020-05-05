@@ -1,14 +1,11 @@
 .publicationsContainer {
   margin-top: 60px;
-  margin-left: 4%;
-  margin-right: 4%;
+  margin-bottom: 60px;
+  margin-left: 8%;
+  margin-right: 8%;
   flex: 1 1 auto;
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
   max-width: 1024px;
-}
-
-.publicationsContainer > h2:not(:first-child) {
-  margin-top: 40px;
 }
