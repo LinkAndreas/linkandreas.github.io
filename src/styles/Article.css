@@ -1,0 +1,29 @@
+.articleContainer:not(:last-child) {
+  border-bottom-style: solid;
+  border-bottom-color: #aaa;
+  border-bottom-width: 1px;
+  margin-bottom: 34px;
+}
+
+.articleContainer h1 {
+  font-weight: bold;
+}
+
+.articleContainer h3 {
+  font-size: 0.9em;
+  padding-bottom: 10px;
+}
+
+.articleContainer p {
+  line-height: 34px;
+  font-size: 20px;
+  color: #aaa;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.articleContainer .dateContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+}
