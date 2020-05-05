@@ -1,8 +1,8 @@
 import React from "react";
 import "../styles/Timity.css";
-import AppInfo from "../components/AppInfo.js";
-import AppStoreBadge from "../components/AppStoreBadge.js";
-import Feature from "../components/Feature.js";
+import AppInfo from "./AppInfo.js";
+import AppStoreBadge from "./AppStoreBadge.js";
+import Feature from "./Feature.js";
 
 /* Images */
 import screenshot from "../images/screenshot.png";

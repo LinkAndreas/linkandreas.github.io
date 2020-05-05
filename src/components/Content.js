@@ -1,10 +1,10 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-import Articles from "../pages/Articles.js";
-import Timity from "../pages/Timity.js";
-import Publications from "../pages/Publications.js";
-import About from "../pages/About.js";
+import Articles from "./Articles.js";
+import Timity from "./Timity.js";
+import Publications from "./Publications.js";
+import About from "./About.js";
 import "../styles/Content.css";
 
 export default function Content() {
