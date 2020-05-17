@@ -1,15 +1,35 @@
 import React from "react";
 import "../styles/About.css";
-import LinkedInBadge from "../components/LinkedInBadge.js";
-import XingBadge from "../components/XingBadge.js";
+import Avatar from "../components/Avatar.js";
+
+import academicIcon from "../images/academic.png";
+import companyIcon from "../images/company.png";
+import BibliographyEntry from "./BibliographyEntry";
 
 class About extends React.Component {
   render() {
     return (
       <div className="aboutContainer">
-        <div className="socialMedia">
-          <LinkedInBadge></LinkedInBadge>
-          <XingBadge></XingBadge>
+        <Avatar />
+        <div className="biography">
+          <BibliographyEntry
+            icon={companyIcon}
+            alt="company"
+            title="Software Engineer"
+            subtitle="at JamitLabs GmbH, Germany"
+          />
+          <BibliographyEntry
+            icon={academicIcon}
+            alt="master"
+            title="Master of Science (M.Sc. RWTH)"
+            subtitle="at RWTH Aachen University, Germany"
+          />
+          <BibliographyEntry
+            icon={academicIcon}
+            alt="bachelor"
+            title="Bachelor of Science (B.Sc. RWTH)"
+            subtitle="at RWTH Aachen University, Germany"
+          />
         </div>
       </div>
     );

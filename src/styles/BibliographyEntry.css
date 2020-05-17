@@ -1,0 +1,11 @@
+.bibliographyEntryContainer .verticalContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.bibliographyEntryContainer .horizontalContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}

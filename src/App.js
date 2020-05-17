@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 import NavBar from "./components/NavBar.js";
 import Content from "./components/Content.js";
@@ -9,13 +9,13 @@ import "./styles/App.css";
 
 const App = () => {
   return (
-    <BrowserRouter className="appRouter" forceRefresh={true}>
+    <HashRouter className="appRouter" forceRefresh={false}>
       <div className="appContainer">
         <NavBar />
         <Content />
         <Footer />
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
