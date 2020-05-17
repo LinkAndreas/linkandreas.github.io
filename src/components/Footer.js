@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer>
       <p>
-        Made by Link{" "}
+        Made by{" "}
         <NavLink className="inline timityOrange" to="/about">
           Andreas Link
         </NavLink>{" "}

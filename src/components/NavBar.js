@@ -15,10 +15,10 @@ export default function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ml-auto">
-            <Nav.Link className="navbar-item" as={NavLink} exact to="/">
+            {/* <Nav.Link className="navbar-item" as={NavLink} exact to="/">
               Articles
-            </Nav.Link>
-            <Nav.Link className="navbar-item" as={NavLink} to="/timity">
+            </Nav.Link> */}
+            <Nav.Link className="navbar-item" as={NavLink} exact to="/">
               Timity
             </Nav.Link>
             <Nav.Link className="navbar-item" as={NavLink} to="/publications">
