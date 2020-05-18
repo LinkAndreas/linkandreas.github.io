@@ -2,7 +2,7 @@
   "name": "linkandreas.github.io",
   "version": "1.0.0",
   "description": "Andreas Link's personal website.",
-  "homepage": "http://linkandreas.github.io",
+  "homepage": "http://linkandreas.github.io/linkandreas.github.io",
   "main": "index.html",
   "scripts": {
     "clean": "rm -rf .cache/ dist/",
@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.4.1",
-    "jquery": "^1.9.1",
+    "jquery": "^3.5.0",
     "popper.js": "^1.16.1",
     "prismjs": "^1.20.0",
     "react": "^16.13.1",
