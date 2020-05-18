@@ -1,16 +1,16 @@
 {
   "name": "linkandreas.github.io",
   "version": "1.0.0",
-  "description": "Andreas Link's personal website.",
-  "homepage": "http://linkandreas.github.io/linkandreas.github.io",
-  "main": "index.html",
+  "description": "Andreas Link's Portfolio",
+  "homepage": "http://linkandreas.github.io",
   "scripts": {
+    "build": "rm -rf dist && parcel build src/index.html",
     "clean": "rm -rf .cache/ dist/",
     "dev": "parcel src/index.html",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
     "format": "prettier \"src/**/*.{js,html}\" --write",
-    "predeploy": "npm run dev",
-    "deploy": "gh-pages -d dev"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -b master -d dist"
   },
   "repository": {
     "type": "git",
