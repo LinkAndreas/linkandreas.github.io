@@ -3,8 +3,12 @@
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
-  align-items: center;
+  align-items: left;
   max-width: 1024px;
   margin-left: 8%;
   margin-right: 8%;
+}
+
+.articlesContainer p {
+  margin-bottom: 0;
 }

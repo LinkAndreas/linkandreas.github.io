@@ -12,8 +12,8 @@ export default function Content() {
   return (
     <div className="content">
       <Switch>
-        {/* <Route exact path="/" component={Articles} /> */}
-        <Route exact path="/" component={Licenses} />
+        <Route exact path="/" component={Articles} />
+        <Route path="/licenses" component={Licenses} />
         <Route path="/timity" component={Timity} />
         <Route path="/publications" component={Publications} />
         <Route path="/about" component={About} />

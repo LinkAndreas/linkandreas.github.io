@@ -15,13 +15,13 @@ export default function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ml-auto">
-            {/* <LinkContainer exact to="/articles">
-              <Nav.Link>Articles</Nav.Link>
-            </LinkContainer>{" "} */}
             <LinkContainer exact to="/">
+              <Nav.Link>Articles</Nav.Link>
+            </LinkContainer>{" "}
+            <LinkContainer to="/licenses">
               <Nav.Link>Licenses</Nav.Link>
             </LinkContainer>
-            <LinkContainer exact to="/timity">
+            <LinkContainer to="/timity">
               <Nav.Link>Timity</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/publications">
