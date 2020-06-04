@@ -25,6 +25,7 @@ body {
 h1 {
   font-size: 2em;
   font-weight: bold;
+  padding-bottom: 16px;
 }
 
 h2 {
@@ -90,5 +91,9 @@ a:active {
 
 /* || Custom Colors*/
 .timityOrange {
+  color: #f77f00;
+}
+
+code {
   color: #f77f00;
 }

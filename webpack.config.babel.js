@@ -26,6 +26,10 @@ export const module = {
       loader: "url-loader",
       options: { limit: 10000 },
     },
+    {
+      test: /\.md$/,
+      use: "raw-loader"
+    },
   ],
 };
 

@@ -1,35 +1,32 @@
-import React from "react";
-import Prism from "prismjs";
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { okaidia } from "react-syntax-highlighter/dist/esm/styles/prism";
+import "../styles/CodeBlock.css";
 
-export class CodeBlock extends React.Component {
-  constructor(props) {
-    super(props);
+class CodeBlock extends PureComponent {
+  static propTypes = {
+    value: PropTypes.string.isRequired,
+    language: PropTypes.string,
+  };
 
-    this.ref = React.createRef();
-  }
-
-  componentDidMount() {
-    this.highlight();
-  }
-
-  componentDidUpdate() {
-    this.highlight();
-  }
-
-  highlight = () => {
-    if (this.ref && this.ref.current) {
-      Prism.highlightElement(this.ref.current);
-    }
+  static defaultProps = {
+    language: null,
   };
 
   render() {
-    const { code, plugins, language } = this.props;
     return (
-      <pre className={!plugins ? "" : plugins.join(" ")}>
-        <code ref={this.ref} className={`language-${language}`}>
-          {code.trim()}
-        </code>
-      </pre>
+      <div className="codeBlockContainer">
+        <SyntaxHighlighter
+          language={this.props.language}
+          style={okaidia}
+          showLineNumbers={true}
+        >
+          {this.props.value}
+        </SyntaxHighlighter>
+      </div>
     );
   }
 }
+
+export default CodeBlock;
