@@ -1,32 +1,15 @@
 import React, { PureComponent } from "react";
-import PropTypes from "prop-types";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { Prism } from "react-syntax-highlighter";
 import { okaidia } from "react-syntax-highlighter/dist/esm/styles/prism";
 import "../styles/CodeBlock.css";
 
-class CodeBlock extends PureComponent {
-  static propTypes = {
-    value: PropTypes.string.isRequired,
-    language: PropTypes.string,
-  };
-
-  static defaultProps = {
-    language: null,
-  };
-
-  render() {
-    return (
-      <div className="codeBlockContainer">
-        <SyntaxHighlighter
-          language={this.props.language}
-          style={okaidia}
-          showLineNumbers={true}
-        >
-          {this.props.value}
-        </SyntaxHighlighter>
-      </div>
-    );
-  }
+export default function CodeBlock(props) {
+  const { language, value } = props;
+  return (
+    <div className="codeBlockContainer">
+      <Prism language={language} style={okaidia} showLineNumbers={true}>
+        {value}
+      </Prism>
+    </div>
+  );
 }
-
-export default CodeBlock;
