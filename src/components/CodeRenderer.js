@@ -1,9 +1,9 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import { Prism } from "react-syntax-highlighter";
 import { okaidia } from "react-syntax-highlighter/dist/esm/styles/prism";
-import "../styles/CodeBlock.css";
+import "../styles/CodeRenderer.css";
 
-export default function CodeBlock(props) {
+export default function CodeRenderer(props) {
   const { language, value } = props;
   return (
     <div className="codeBlockContainer">
