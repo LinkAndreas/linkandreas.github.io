@@ -13,18 +13,15 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loader: "babel-loader",
+        loader: 'babel-loader',
       },
       {
-        test: /\.css$/,
-        use: [
-          "style-loader", 
-          "css-loader"
-        ],
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/,
-        loader: "url-loader",
+        loader: 'url-loader',
         options: { limit: 10000 },
       },
     ],
