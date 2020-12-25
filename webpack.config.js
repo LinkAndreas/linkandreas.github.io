@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const CnameWebpackPlugin = require('cname-webpack-plugin');
 
 module.exports = {
   entry: path.resolve(__dirname, "src", "index.js"),
@@ -31,6 +32,9 @@ module.exports = {
     new HtmlWebPackPlugin({
       filename: "index.html",
       template: path.resolve(__dirname, "src", "index.html"),
+    }),
+    new CnameWebpackPlugin({
+      domain: 'linkandreas.de',
     }),
   ],
 };
