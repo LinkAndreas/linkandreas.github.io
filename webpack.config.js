@@ -34,7 +34,7 @@ module.exports = {
       template: path.resolve(__dirname, "src", "index.html"),
     }),
     new CnameWebpackPlugin({
-      domain: 'linkandreas.de',
+      domain: 'www.linkandreas.de',
     }),
   ],
 };
