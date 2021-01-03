@@ -11,3 +11,11 @@
   fill: orange;
   margin-right: 20pt;
 }
+
+.feature__description__title {
+  white-space: nowrap;
+}
+
+.feature__description_subtitle {
+  color: #cccccc;
+}

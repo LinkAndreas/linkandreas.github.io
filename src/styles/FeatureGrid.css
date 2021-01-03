@@ -16,13 +16,11 @@
 @media only screen and (min-width: 768px) {
   .featureGrid {
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 50px;
   }
 }
 
 @media only screen and (min-width: 1024px) {
   .featureGrid {
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 50px;
   }
 }

@@ -9,7 +9,10 @@ import AppleLegalNotes from "./AppleLegalNotes.js";
 /* Images */
 import screenshot from "../images/licensesScreenshot.png";
 import appIcon from "../images/licensesAppIcon.png";
-import eventList from "../images/eventList.png";
+import swiftPmIcon from "../images/SwiftPM.png";
+import carthageIcon from "../images/Carthage.png";
+import cocoaPodsIcon from "../images/CocoaPods.png";
+import csvIcon from "../images/CSV.png";
 
 export default function Licenses() {
   return (
@@ -27,22 +30,28 @@ export default function Licenses() {
       <MacAppStoreBadge url="https://apps.apple.com/us/app/licenses/id1545822966" />
       <FeatureGrid>
         <Feature
-          title="Event List"
-          subtitle="Keep track of your most important events."
-          icon={eventList}
-          alt="Event List"
+          title="SwiftPM Manifests"
+          subtitle='Import "Package.resolved" manifest files.'
+          icon={swiftPmIcon}
+          alt="SwiftPM Manifests"
         />
         <Feature
-          title="Event List"
-          subtitle="Keep track of your most important events."
-          icon={eventList}
-          alt="Event List"
+          title="Carthage Manifests"
+          subtitle='Import "Cartfile.resolved" manifest files.'
+          icon={carthageIcon}
+          alt="Carthage Manifests"
         />
         <Feature
-          title="Event List"
-          subtitle="Keep track of your most important events."
-          icon={eventList}
-          alt="Event List"
+          title="CocoaPods Manifests"
+          subtitle='Import "Podfile.lock" manifest files.'
+          icon={cocoaPodsIcon}
+          alt="CocoaPods Manifests"
+        />
+        <Feature
+          title="CSV Export"
+          subtitle="Export licenses as spreadsheet file."
+          icon={csvIcon}
+          alt="CSV Support"
         />
       </FeatureGrid>
       <AppleLegalNotes />
