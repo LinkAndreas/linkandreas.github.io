@@ -19,19 +19,11 @@ export default function PublicationItem({
           {authors !== undefined || bibTexLink !== undefined ? (
             <span> </span>
           ) : null}
-          {pdfLink !== undefined ? (
-            <a className="timityOrange" href={pdfLink}>
-              PDF
-            </a>
-          ) : null}
+          {pdfLink !== undefined ? <a href={pdfLink}>PDF</a> : null}
           {authors !== undefined && bibTexLink !== undefined ? (
             <span> </span>
           ) : null}
-          {bibTexLink !== undefined ? (
-            <a className="timityOrange" href={bibTexLink}>
-              BibTex
-            </a>
-          ) : null}
+          {bibTexLink !== undefined ? <a href={bibTexLink}>BibTex</a> : null}
         </li>
       </ul>
     </div>
