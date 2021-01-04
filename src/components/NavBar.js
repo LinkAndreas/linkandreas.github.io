@@ -21,7 +21,7 @@ export default function NavBar() {
             <LinkContainer exact to="/">
               <Nav.Link>Licenses</Nav.Link>
             </LinkContainer>
-            <LinkContainer exact to="/Timity">
+            <LinkContainer exact to="/timity">
               <Nav.Link>Timity</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/publications">
