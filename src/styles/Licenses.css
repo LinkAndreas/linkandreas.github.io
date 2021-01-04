@@ -1,4 +1,4 @@
-.timityContainer {
+.licensesContainer {
   margin-top: 60px;
   display: flex;
   flex-flow: column nowrap;
@@ -6,14 +6,14 @@
   justify-content: center;
 }
 
-.timityAppScreenshot {
+.licensesAppScreenshot {
   margin-top: 40px;
   margin-bottom: 40px;
   width: 92%;
 }
 
-@media only screen and (min-width: 768px) {
-  .timityAppScreenshot {
-    width: 708px;
+@media only screen and (min-width: 1200px) {
+  .licensesAppScreenshot {
+    width: 1000px;
   }
 }

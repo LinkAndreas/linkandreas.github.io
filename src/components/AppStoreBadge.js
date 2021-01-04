@@ -4,10 +4,10 @@ import appStoreBadge from "../images/appStoreBadge.png";
 
 export default function AppStoreBadge({ url }) {
   return (
-    <div className="appStoreBadge">
+    <div>
       <a href={url}>
         <img
-          className="appStoreBadge__image"
+          className="appStoreBadge"
           src={appStoreBadge}
           alt="AppStore Badge"
         />
