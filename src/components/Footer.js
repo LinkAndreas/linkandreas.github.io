@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import PrivacyPolicy from "../components/PrivacyPolicy";
 import "../styles/Footer.css";
 
 export default function Footer() {
@@ -7,10 +8,14 @@ export default function Footer() {
     <footer>
       <p>
         Made by{" "}
-        <NavLink className="inline timityOrange" to="/about">
+        <NavLink className="inline" to="/about">
           Andreas Link
         </NavLink>{" "}
         in Karlsruhe
+      </p>
+
+      <p>
+        <PrivacyPolicy />
       </p>
     </footer>
   );
