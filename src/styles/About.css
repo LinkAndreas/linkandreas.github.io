@@ -1,0 +1,36 @@
+.aboutContainer {
+  margin-top: 60px;
+  margin-bottom: 60px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  max-width: 1024px;
+  margin-left: 8%;
+  margin-right: 8%;
+}
+
+.icon {
+  width: 30px;
+  color: #ea9434;
+  margin-right: 10px;
+}
+
+.biography {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #aaa;
+  padding-top: 60px;
+  padding-bottom: 10px;
+}
+
+.biography b {
+  color: white;
+}
+
+.biography > div {
+  margin-bottom: 20px;
+}

@@ -1,0 +1,94 @@
+/* || General styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0 0;
+  padding: 0 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  background-color: black;
+  color: white;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+h1 {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+p {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+blockquote {
+  font-size: 21px;
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+a {
+  color: #f77f00;
+}
+
+a:hover {
+  cursor: pointer;
+  color: #f77f00;
+}
+
+a:visited {
+  color: #f77f00;
+}
+
+a:active {
+  color: #f77f00;
+}
+
+.code {
+  width: 94%;
+}
+
+@media only screen and (min-width: 950px) {
+  .code {
+    width: 895px;
+  }
+}
+
+/* || Utility styles */
+.inline {
+  display: inline;
+}
+
+.noMargin {
+  margin: 0 0;
+}
+
+/* || Custom Colors*/
+.timityOrange {
+  color: #f77f00;
+}

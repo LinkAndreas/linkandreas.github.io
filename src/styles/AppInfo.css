@@ -1,0 +1,49 @@
+.appInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+}
+
+.appInfo__appIcon {
+  width: 120px;
+  height: 120px;
+  margin-right: 0px;
+  margin-bottom: 20px;
+}
+
+.appInfo__description {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.appInfo__description__title {
+  display: flex;
+  font-weight: normal;
+}
+
+.appInfo__description__subtitle {
+  color: #cccccc;
+  margin-top: 8px;
+  display: flex;
+  font-weight: normal;
+}
+
+@media only screen and (min-width: 768px) {
+  .appInfo {
+    flex-flow: row nowrap;
+  }
+
+  .appInfo__appIcon {
+    margin-right: 20px;
+    margin-bottom: 0px;
+  }
+
+  .appInfo__description {
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    justify-content: center;
+  }
+}

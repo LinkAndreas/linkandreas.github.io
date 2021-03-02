@@ -1,0 +1,21 @@
+.feature {
+  grid-area: "feature";
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+}
+
+.feature__icon {
+  width: 50px;
+  height: 50px;
+  fill: orange;
+  margin-right: 20pt;
+}
+
+.feature__description__title {
+  white-space: nowrap;
+}
+
+.feature__description_subtitle {
+  color: #cccccc;
+}

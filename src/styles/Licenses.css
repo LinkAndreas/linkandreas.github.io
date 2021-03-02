@@ -1,0 +1,19 @@
+.licensesContainer {
+  margin-top: 60px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.licensesAppScreenshot {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  width: 92%;
+}
+
+@media only screen and (min-width: 1200px) {
+  .licensesAppScreenshot {
+    width: 1000px;
+  }
+}
