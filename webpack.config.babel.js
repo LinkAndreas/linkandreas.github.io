@@ -1,4 +1,4 @@
-import { resolve } from "path";
+import { resolve, join } from "path";
 import HtmlWebPackPlugin from "html-webpack-plugin";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import CnameWebpackPlugin from "cname-webpack-plugin";
@@ -8,6 +8,12 @@ export const entry = resolve(__dirname, "src", "index.js");
 export const output = {
   filename: "main.js",
   path: resolve(__dirname, "dist"),
+};
+
+export const devServer = {
+  contentBase: join(__dirname, "dist"),
+  compress: true,
+  port: 3000,
 };
 
 export const module = {
@@ -28,7 +34,7 @@ export const module = {
     },
     {
       test: /\.md$/,
-      use: "raw-loader"
+      use: "raw-loader",
     },
   ],
 };
