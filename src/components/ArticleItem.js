@@ -9,7 +9,7 @@ export default function ArticleItem({ title, body, date, articleUrl }) {
         <h3 className="timityOrange">{date}</h3>
       </div>
       <Link to={articleUrl}>{title}</Link>
-      <p>{body}</p>
+      {body}
     </div>
   );
 }

@@ -10,13 +10,13 @@
 }
 
 .articleItemContainer h3 {
-  font-size: 0.9em;
+  font-size: 0.85em;
   padding-bottom: 10px;
 }
 
 .articleItemContainer p {
-  line-height: 34px;
-  font-size: 20px;
+  line-height: 30px;
+  font-size: 1em;
   color: #aaa;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -29,10 +29,19 @@
 }
 
 .articleItemContainer a {
-  font-size: 1.5em;
+  font-size: 1.25em;
   color: white;
 }
 
 .articleItemContainer a:hover {
+  cursor: pointer;
+  color: #f77f00;
+}
+
+.articleItemContainer a:visited {
+  color: white;
+}
+
+.articleItemContainer a:active {
   color: white;
 }
