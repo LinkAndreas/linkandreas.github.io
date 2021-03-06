@@ -15,7 +15,7 @@ export default function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ml-auto">
-            <LinkContainer to="/articles">
+            <LinkContainer exact to="/articles">
               <Nav.Link>Articles</Nav.Link>
             </LinkContainer>{" "}
             <LinkContainer to="/licenses">
@@ -27,7 +27,7 @@ export default function NavBar() {
             <LinkContainer to="/publications">
               <Nav.Link>Publications</Nav.Link>
             </LinkContainer>
-            <LinkContainer exact to="/">
+            <LinkContainer to="/">
               <Nav.Link>About</Nav.Link>
             </LinkContainer>
           </Nav>
