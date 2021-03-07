@@ -7,14 +7,14 @@ import FeatureGrid from "./FeatureGrid.js";
 import AppleLegalNotes from "./AppleLegalNotes.js";
 
 /* Images */
-import screenshot from "../images/timityScreenshot.png";
-import appIcon from "../images/timityAppIcon.png";
-import eventList from "../images/eventList.png";
-import timeCalculator from "../images/timeCalculator.png";
-import solarCalculator from "../images/solarCalculator.png";
-import eventCalculator from "../images/eventCalculator.png";
-import settings from "../images/settings.png";
-import durationCalculator from "../images/durationCalculator.png";
+import screenshot from "../../assets/images/timity/app.png";
+import appIcon from "../../assets/images/timity/appIcon.png";
+import eventList from "../../assets/images/timity/eventList.png";
+import timeCalculator from "../../assets/images/timity/timeCalculator.png";
+import solarCalculator from "../../assets/images/timity/solarCalculator.png";
+import eventCalculator from "../../assets/images/timity/eventCalculator.png";
+import settings from "../../assets/images/timity/settings.png";
+import durationCalculator from "../../assets/images/timity/durationCalculator.png";
 
 export default function Timity() {
   return (
