@@ -2,6 +2,7 @@ import { resolve, join } from "path";
 import HtmlWebPackPlugin from "html-webpack-plugin";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import CnameWebpackPlugin from "cname-webpack-plugin";
+import CopyWebpackPlugin from "copy-webpack-plugin";
 
 export const entry = resolve(__dirname, "src", "index.js");
 
@@ -44,6 +45,9 @@ export const plugins = [
   new HtmlWebPackPlugin({
     filename: "index.html",
     template: resolve(__dirname, "src", "index.html"),
+  }),
+  new CopyWebpackPlugin({
+    patterns: [{ from: "assets/articles/article1/images" }],
   }),
   new CnameWebpackPlugin({
     domain: "www.linkandreas.de",
