@@ -1,12 +1,12 @@
 .articlesContainer {
-  margin-top: 60px;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: center;
-  align-items: left;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  padding-left: 8%;
+  padding-right: 8%;
+  width: 100%;
   max-width: 1024px;
-  margin-left: 8%;
-  margin-right: 8%;
 }
 
 .articlesContainer p {

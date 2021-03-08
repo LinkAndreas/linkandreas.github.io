@@ -1,7 +1,23 @@
-.articleContainer p {
-  line-height: 34px;
-  font-size: 20px;
-  color: #aaa;
-  padding-top: 10px;
+.articleContainer {
+  width: 100%;
+  list-style: square inside;
+}
+
+.articleContainer li:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.articleContainer h1 {
+  padding-top: 16px;
   padding-bottom: 10px;
+}
+
+.articleContainer h2 {
+  padding-top: 14px;
+  padding-bottom: 8px;
+}
+
+.articleContainer h3 {
+  padding-top: 12px;
+  padding-bottom: 6px;
 }
