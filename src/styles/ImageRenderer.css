@@ -1,11 +1,11 @@
-.codeBlockContainer {
+.imageBlockContainer {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
-.codeBlock {
+.imageBlock {
   width: 100%;
   max-width: 900px;
 }
