@@ -1,11 +1,10 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import HeadingRenderer from "./CustomRenderer/HeadingRenderer.js";
 import CodeRenderer from "./CustomRenderer/CodeRenderer.js";
 import ImageRenderer from "./CustomRenderer/ImageRenderer.js";
 import ParagraphRenderer from "./CustomRenderer/ParagraphRenderer.js";
-import article1 from "../../assets/articles/07_03_2021/article.md";
+import article1 from "../../assets/articles/08_03_2021/article.md";
 import "../styles/Article.css";
 
 export default function Article() {
@@ -13,7 +12,7 @@ export default function Article() {
 
   let source = (() => {
     switch (date) {
-      case "07_03_2021":
+      case "08_03_2021":
         return article1;
 
       default:
