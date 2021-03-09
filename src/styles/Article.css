@@ -1,29 +1,23 @@
-.articleContainer:not(:last-child) {
-  border-bottom-style: solid;
-  border-bottom-color: #aaa;
-  border-bottom-width: 1px;
-  margin-bottom: 34px;
+.articleContainer {
+  width: 100%;
+  list-style: square inside;
+}
+
+.articleContainer li:not(:last-child) {
+  margin-bottom: 10px;
 }
 
 .articleContainer h1 {
-  font-weight: bold;
+  padding-top: 16px;
+  padding-bottom: 10px;
+}
+
+.articleContainer h2 {
+  padding-top: 14px;
+  padding-bottom: 8px;
 }
 
 .articleContainer h3 {
-  font-size: 0.9em;
-  padding-bottom: 10px;
-}
-
-.articleContainer p {
-  line-height: 34px;
-  font-size: 20px;
-  color: #aaa;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-.articleContainer .dateContainer {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: flex-start;
+  padding-top: 12px;
+  padding-bottom: 6px;
 }

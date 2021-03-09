@@ -1,0 +1,47 @@
+.articleItemContainer:not(:last-child) {
+  border-bottom-style: solid;
+  border-bottom-color: #aaa;
+  border-bottom-width: 1px;
+  margin-bottom: 34px;
+}
+
+.articleItemContainer h1 {
+  font-weight: bold;
+}
+
+.articleItemContainer h3 {
+  font-size: 0.85em;
+  padding-bottom: 10px;
+}
+
+.articleItemContainer p {
+  line-height: 30px;
+  font-size: 1em;
+  color: #aaa;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.articleItemContainer .dateContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+}
+
+.articleItemContainer a {
+  font-size: 1.25em;
+  color: white;
+}
+
+.articleItemContainer a:hover {
+  cursor: pointer;
+  color: #f77f00;
+}
+
+.articleItemContainer a:visited {
+  color: white;
+}
+
+.articleItemContainer a:active {
+  color: white;
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/MacAppStoreBadge.css";
-import macAppStoreBadge from "../images/macAppStoreBadge.png";
+import macAppStoreBadge from "../../assets/images/macAppStoreBadge.png";
 
 export default function MacAppStoreBadge({ url }) {
   return (

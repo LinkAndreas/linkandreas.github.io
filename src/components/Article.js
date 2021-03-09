@@ -1,14 +1,39 @@
 import React from "react";
+import { useParams } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import CodeRenderer from "./CodeRenderer.js";
+import ImageRenderer from "./ImageRenderer.js";
+import ParagraphRenderer from "./ParagraphRenderer.js";
+import article1 from "../../assets/articles/09_03_2021/article.md";
 import "../styles/Article.css";
 
-export default function Article({ title, body, date }) {
+export default function Article() {
+  let { date } = useParams();
+
+  let source = (() => {
+    switch (date) {
+      case "09_03_2021":
+        return article1;
+
+      default:
+        return null;
+    }
+  })();
+
   return (
     <div className="articleContainer">
-      <div className="dateContainer">
-        <h3 className="timityOrange">{date}</h3>
-      </div>
-      <h1>{title}</h1>
-      <p>{body}</p>
+      {source != null ? (
+        <ReactMarkdown
+          source={source}
+          renderers={{
+            code: CodeRenderer,
+            image: ImageRenderer,
+            paragraph: ParagraphRenderer,
+          }}
+        />
+      ) : (
+        <h1>Article not found :(</h1>
+      )}
     </div>
   );
 }

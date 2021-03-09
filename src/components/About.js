@@ -2,8 +2,8 @@ import React from "react";
 import "../styles/About.css";
 import Avatar from "../components/Avatar.js";
 
-import academicIcon from "../images/academic.png";
-import companyIcon from "../images/company.png";
+import academicIcon from "../../assets/images/about/academic.png";
+import companyIcon from "../../assets/images/about/company.png";
 import BibliographyEntry from "./BibliographyEntry";
 
 class About extends React.Component {

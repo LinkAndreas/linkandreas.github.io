@@ -7,12 +7,12 @@ import FeatureGrid from "./FeatureGrid.js";
 import AppleLegalNotes from "./AppleLegalNotes.js";
 
 /* Images */
-import screenshot from "../images/licensesScreenshot.png";
-import appIcon from "../images/licensesAppIcon.png";
-import swiftPmIcon from "../images/SwiftPM.png";
-import carthageIcon from "../images/Carthage.png";
-import cocoaPodsIcon from "../images/CocoaPods.png";
-import csvIcon from "../images/CSV.png";
+import screenshot from "../../assets/images/licenses/app.png";
+import appIcon from "../../assets/images/licenses/appIcon.png";
+import swiftPmIcon from "../../assets/images/licenses/SwiftPM.png";
+import carthageIcon from "../../assets/images/licenses/Carthage.png";
+import cocoaPodsIcon from "../../assets/images/licenses/CocoaPods.png";
+import csvIcon from "../../assets/images/licenses/CSV.png";
 
 export default function Licenses() {
   return (
