@@ -1,10 +1,7 @@
-.imageBlockContainer {
+.imageBlock {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   margin: 10px 0;
-}
-
-.imageBlock {
   width: 100%;
 }

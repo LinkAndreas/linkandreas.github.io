@@ -1,9 +1,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import CodeRenderer from "./CustomRenderer/CodeRenderer.js";
-import ImageRenderer from "./CustomRenderer/ImageRenderer.js";
-import ParagraphRenderer from "./CustomRenderer/ParagraphRenderer.js";
+import CodeRenderer from "./CodeRenderer.js";
+import ImageRenderer from "./ImageRenderer.js";
+import ParagraphRenderer from "./ParagraphRenderer.js";
 import article1 from "../../assets/articles/09_03_2021/article.md";
 import "../styles/Article.css";
 

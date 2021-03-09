@@ -1,7 +1,7 @@
 import React from "react";
 import { Prism } from "react-syntax-highlighter";
 import { okaidia } from "react-syntax-highlighter/dist/esm/styles/prism";
-import "../../styles/CodeRenderer.css";
+import "../styles/CodeRenderer.css";
 
 export default function CodeRenderer(props) {
   const { language, value } = props;
