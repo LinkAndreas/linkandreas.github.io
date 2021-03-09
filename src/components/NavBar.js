@@ -9,19 +9,19 @@ export default function NavBar() {
   return (
     <Container fluid>
       <Navbar collapseOnSelect expand="md" bg="transparent" variant="dark">
-        <Navbar.Brand as={NavLink} to="/">
+        <Navbar.Brand as={NavLink} to="/articles">
           Andreas Link
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ml-auto">
-            {/* <LinkContainer exact to="/articles">
+            <LinkContainer to="/articles">
               <Nav.Link>Articles</Nav.Link>
-            </LinkContainer>{" "} */}
-            <LinkContainer exact to="/">
+            </LinkContainer>
+            <LinkContainer to="/licenses">
               <Nav.Link>Licenses</Nav.Link>
             </LinkContainer>
-            <LinkContainer exact to="/timity">
+            <LinkContainer to="/timity">
               <Nav.Link>Timity</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/publications">

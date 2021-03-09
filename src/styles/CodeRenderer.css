@@ -1,0 +1,11 @@
+.codeBlockContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.codeBlock {
+  width: 100%;
+  max-width: 1250px;
+}
