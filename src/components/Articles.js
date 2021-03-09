@@ -11,8 +11,8 @@ export default function Articles() {
       <Switch>
         <Route exact path={path}>
           <ArticleItem
-            articleUrl={`${url}/08_03_2021`}
-            date="8th of March 2021"
+            articleUrl={`${url}/09_03_2021`}
+            date="9th of March 2021"
             title="Building a native macOS app using SwiftUI and Combine"
             body={
               <div>
