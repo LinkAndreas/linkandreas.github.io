@@ -1,4 +1,4 @@
-![Licenses App](composition.png)
+![Licenses App](app.png)
 
 # Building a native macOS app using SwiftUI and Combine
 
