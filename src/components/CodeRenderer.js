@@ -1,20 +1,25 @@
 import React from "react";
-import { Prism } from "react-syntax-highlighter";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { okaidia } from "react-syntax-highlighter/dist/esm/styles/prism";
 import "../styles/CodeRenderer.css";
 
-export default function CodeRenderer(props) {
-  const { language, value } = props;
-  return (
+export default function CodeRenderer({node, inline, className, children, ...props}) {
+  const match = /language-(\w+)/.exec(className || '')
+  return !inline && match ? (
     <div className="codeBlockContainer">
-      <Prism
-        language={language}
+      <SyntaxHighlighter
+        children={String(children).replace(/\n$/, '')}
         style={okaidia}
-        showLineNumbers={true}
+        language={match[1]}
+        PreTag="div"
         className="codeBlock"
-      >
-        {value}
-      </Prism>
+        {...props}
+      />
     </div>
+  ) : (
+    <code className={className} {...props}>
+      {children}
+    </code>
   );
 }
+
