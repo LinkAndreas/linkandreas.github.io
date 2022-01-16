@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Articles from "./Articles.js";
 import Licenses from "./Licenses.js";
 import Timity from "./Timity.js";
@@ -10,14 +10,14 @@ import "../styles/Content.css";
 export default function Content() {
   return (
     <div className="content">
-      <Switch>
-        <Redirect exact from="/" to="articles" />
-        <Route path="/articles" component={Articles} />
-        <Route path="/licenses" component={Licenses} />
-        <Route path="/timity" component={Timity} />
-        <Route path="/publications" component={Publications} />
-        <Route path="/about" component={About} />
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Navigate replace to="/articles" />} />
+        <Route path="/articles/*" element={<Articles />} />
+        <Route path="/licenses" element={<Licenses />} />
+        <Route path="/timity" element={<Timity />} />
+        <Route path="/publications" element={<Publications />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
     </div>
   );
 }

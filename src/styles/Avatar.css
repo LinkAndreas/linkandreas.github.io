@@ -1,11 +1,10 @@
-.avatarContainer {
-  background-image: url("../../assets/images/about/avatar.png");
+.avatarContainer img {
   width: 175px;
-  height: 175px;
-  background-size: cover;
-  background-position: top center;
-  border-radius: 50%;
+	height: 175px;
+	margin: 5px;
+	border-radius: 50%;
   border-width: 3px;
   border-color: white;
   border-style: solid;
+  transition: linear 0.25s;
 }

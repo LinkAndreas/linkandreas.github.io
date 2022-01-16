@@ -10,7 +10,7 @@ import "../styles/Article.css";
 export default function Article() {
   let { date } = useParams();
 
-  let source = (() => {
+  let children = (() => {
     switch (date) {
       case "09_03_2021":
         return article1;
@@ -22,13 +22,13 @@ export default function Article() {
 
   return (
     <div className="articleContainer">
-      {source != null ? (
+      {children != null ? (
         <ReactMarkdown
-          source={source}
-          renderers={{
+          children={children}
+          components={{
             code: CodeRenderer,
-            image: ImageRenderer,
-            paragraph: ParagraphRenderer,
+            img: ImageRenderer,
+            p: ParagraphRenderer,
           }}
         />
       ) : (

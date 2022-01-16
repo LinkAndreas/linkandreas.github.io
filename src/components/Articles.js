@@ -1,17 +1,16 @@
 import React from "react";
 import Article from "./Article.js";
 import ArticleItem from "./ArticleItem.js";
-import { useRouteMatch, Switch, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import "../styles/Articles.css";
 
 export default function Articles() {
-  let { url, path } = useRouteMatch();
   return (
     <div className="articlesContainer">
-      <Switch>
-        <Route exact path={path}>
+      <Routes>
+        <Route path="" element={
           <ArticleItem
-            articleUrl={`${url}/09_03_2021`}
+            id="09_03_2021"
             date="9th of March 2021"
             title="Building a native macOS app using SwiftUI and Combine"
             body={
@@ -30,10 +29,10 @@ export default function Articles() {
                 </p>
               </div>
             }
-          ></ArticleItem>
-        </Route>
-        <Route exact path={`${path}/:date`} component={Article} />
-      </Switch>
+          />
+        }/>
+        <Route path=":date" element={<Article />} />
+      </Routes>
     </div>
   );
 }
