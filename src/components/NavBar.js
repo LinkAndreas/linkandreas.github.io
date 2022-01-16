@@ -9,7 +9,7 @@ export default function NavBar() {
   return (
     <Container fluid>
       <Navbar collapseOnSelect expand="md" bg="transparent" variant="dark">
-        <Navbar.Brand as={NavLink} to="/articles">
+        <Navbar.Brand as={NavLink} to="/articles/*">
           Andreas Link
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
