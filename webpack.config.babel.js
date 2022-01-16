@@ -12,9 +12,10 @@ export const output = {
 };
 
 export const devServer = {
-  contentBase: join(__dirname, "dist"),
+  static: join(__dirname, "dist"),
   compress: true,
   port: 3000,
+  open: true
 };
 
 export const module = {
