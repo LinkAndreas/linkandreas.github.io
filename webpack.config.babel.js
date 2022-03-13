@@ -48,7 +48,10 @@ export const plugins = [
     template: resolve(__dirname, "src", "index.html"),
   }),
   new CopyWebpackPlugin({
-    patterns: [{ from: "assets/articles/09_03_2021/images" }],
+    patterns: [
+      { from: "assets/articles/09_03_2021/images" },
+      { from: "assets/articles/13_03_2022/images" }
+    ],
   }),
   new CnameWebpackPlugin({
     domain: "www.linkandreas.de",
