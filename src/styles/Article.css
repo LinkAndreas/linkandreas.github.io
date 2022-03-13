@@ -10,19 +10,31 @@
 .articleContainer h1 {
   font-size: 24px;
   padding-top: 16px;
-  padding-bottom: 10px;
+  padding-bottom: 12px;
 }
 
 .articleContainer h2 {
   font-size: 20px;
   padding-top: 14px;
-  padding-bottom: 8px;
+  padding-bottom: 10px;
 }
 
 .articleContainer h3 {
   font-size: 18px;
   padding-top: 12px;
+  padding-bottom: 8px;
+}
+
+.articleContainer h4 {
+  font-size: 16px;
+  padding-top: 10px;
   padding-bottom: 6px;
+}
+
+.articleContainer h5 {
+  font-size: 16px;
+  padding-top: 8px;
+  padding-bottom: 4px;
 }
 
 .articleContainer p {
