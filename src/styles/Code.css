@@ -1,9 +1,11 @@
 .hljs {
-  background: #292931;
+  font-size: 14px;
+  background: #00000000;
   color: #ffffffD9;
+  padding-top: 25px;
 }
 
-.xml .hljs-meta {
+.hljs-meta {
   color: #c0c0c0;
 }
 
@@ -34,13 +36,13 @@
 
 .hljs-regexp,
 .hljs-link {
-  color: #4FAFCB;
+  color: #6BDEFF;
 }
 
 .hljs-title,
 .hljs-symbol,
 .hljs-bullet {
-  color: #4FAFCB;
+  color: #6BDEFF;
 }
 
 .hljs-number {

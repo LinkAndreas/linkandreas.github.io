@@ -8,11 +8,9 @@ export default function CodeRenderer({node, inline, className, children, ...prop
   hljs.registerLanguage('swift', swift)
   const highlighted = hljs.highlight('swift', content)
   return !inline ? (
-    <div className="codeBlockContainer">
-        <pre className="hljs">
-          <code dangerouslySetInnerHTML={{ __html: highlighted.value }} />
-        </pre>
-    </div>
+    <pre className="hljs">
+      <code dangerouslySetInnerHTML={{ __html: highlighted.value }} />
+    </pre>
   ) : (
     <code className={className} {...props}>
       {children}
