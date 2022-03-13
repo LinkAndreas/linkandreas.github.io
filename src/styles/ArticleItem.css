@@ -1,7 +1,4 @@
 .articleItemContainer:not(:last-child) {
-  border-bottom-style: solid;
-  border-bottom-color: #aaa;
-  border-bottom-width: 1px;
   margin-bottom: 34px;
 }
 
