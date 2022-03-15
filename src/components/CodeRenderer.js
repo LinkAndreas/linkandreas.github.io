@@ -1,25 +1,19 @@
 import React from "react";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { okaidia } from "react-syntax-highlighter/dist/esm/styles/prism";
-import "../styles/CodeRenderer.css";
+import hljs from "highlight.js";
+import "../styles/Code.css";
+import swift from "highlight.js/lib/languages/swift";
 
 export default function CodeRenderer({node, inline, className, children, ...props}) {
-  const match = /language-(\w+)/.exec(className || '')
-  return !inline && match ? (
-    <div className="codeBlockContainer">
-      <SyntaxHighlighter
-        children={String(children).replace(/\n$/, '')}
-        style={okaidia}
-        language={match[1]}
-        PreTag="div"
-        className="codeBlock"
-        {...props}
-      />
-    </div>
+  const content = String(children).replace(/\n$/, '')
+  hljs.registerLanguage('swift', swift)
+  const highlighted = hljs.highlight('swift', content)
+  return !inline ? (
+    <pre className="hljs">
+      <code dangerouslySetInnerHTML={{ __html: highlighted.value }} />
+    </pre>
   ) : (
     <code className={className} {...props}>
       {children}
     </code>
   );
 }
-
