@@ -15,8 +15,8 @@ class About extends React.Component {
           <BibliographyEntry
             icon={companyIcon}
             alt="company"
-            title="Software Engineer"
-            subtitle="at JamitLabs GmbH, Germany"
+            title="Senior Software Engineer"
+            subtitle="at adesso mobile solutions GmbH, Germany"
           />
           <BibliographyEntry
             icon={academicIcon}
