@@ -50,7 +50,7 @@ export const plugins = [
   new CopyWebpackPlugin({
     patterns: [
       { from: "assets/articles/09_03_2021/images" },
-      { from: "assets/articles/13_03_2022/images" }
+      { from: "assets/articles/15_03_2022/images" }
     ],
   }),
   new CnameWebpackPlugin({
