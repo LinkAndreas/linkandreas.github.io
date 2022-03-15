@@ -1,104 +1,80 @@
 .hljs {
-  font-size: 14px;
+  font-size: 15px;
   background: #00000000;
-  color: #ffffffD9;
+  color: #e0e2e4;
   padding-top: 25px;
 }
 
-.hljs-meta {
-  color: #c0c0c0;
+.hljs::selection,
+.hljs span::selection {
+  background: #373b41;
 }
 
-.hljs-comment,
-.hljs-quote {
-  color: #6C7986;
-}
-
-.hljs-tag,
-.hljs-attribute,
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-literal,
-.hljs-name {
-  color: #FF79B3;
-}
-
-.hljs-variable,
-.hljs-template-variable {
-  color: #ffffffd9;
-}
-
-.hljs-code,
-.hljs-string,
-.hljs-meta .hljs-string {
-  color: #FF8170;
-}
-
-.hljs-regexp,
-.hljs-link {
-  color: #6BDEFF;
+.hljs::-moz-selection,
+.hljs span::-moz-selection {
+  background: #373b41;
 }
 
 .hljs-title,
+.hljs-name {
+  color: #f0c674;
+}
+
+.hljs-comment,
+.hljs-meta,
+.hljs-meta .hljs-keyword {
+  color: #707880;
+}
+
+.hljs-number,
 .hljs-symbol,
-.hljs-bullet {
-  color: #6BDEFF;
+.hljs-literal,
+.hljs-deletion,
+.hljs-link {
+ color: #cc6666
 }
 
-.hljs-number {
-  color: #D9C97C;
-}
-
-.hljs-section,
-.hljs-meta {
-  color: #DAB9FF;
-}
-
-.hljs-title.function_ {
-  color: #6DDEFF;
-}
-
-.hljs-class .hljs-title,
-.hljs-built_in,
-.hljs-params {
-  color: #6DDEFF;
-}
-
-.hljs-type {
-  color: #DABBFF;
-}
-
-.hljs-attr {
-  color: #DABAFF;
-}
-
-.hljs-subst {
-  color: #fff;
-}
-
-.hljs-formula {
-  background-color: #eee;
-  font-style: italic;
-}
-
-.hljs-addition {
-  background-color: #baeeba;
-}
-
-.hljs-deletion {
-  background-color: #ffc8bd;
-}
-
-.hljs-selector-id,
-.hljs-selector-class {
-  color: #9b703f;
-}
-
+.hljs-string,
 .hljs-doctag,
-.hljs-strong {
-  font-weight: bold;
+.hljs-addition,
+.hljs-regexp,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #b5bd68;
+}
+
+.hljs-attribute,
+.hljs-code,
+.hljs-selector-id {
+ color: #b294bb;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-bullet,
+.hljs-tag {
+ color: #81a2be;
+}
+
+.hljs-subst,
+.hljs-variable,
+.hljs-template-tag,
+.hljs-template-variable {
+  color: #8abeb7;
+}
+
+.hljs-type,
+.hljs-built_in,
+.hljs-quote,
+.hljs-section,
+.hljs-selector-class {
+  color: #de935f;
 }
 
 .hljs-emphasis {
   font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
 }
