@@ -4,6 +4,8 @@ Today we are going to take a look at how we can deal with asynchronous data in S
 
 This article introduces the reusable component `AsyncResourceView` that abstracts loading as well as failure states when fetching asynchronous data, such that we can focus on features rather than writing repetitive error-prone code.
 
+![Simple Example](simple_example_tiny_dark.gif)
+
 ## View Store
 
 First, let's implement the `AsyncResourceViewStore<Resource>` that is responsible for driving the UI. Given the loader, the store initially remains in the `notRequested` state until `loadResource` is called and the `loading` state is entered. Finally, depending on the result of the operation, either the `success` or `failure` state is entered.
@@ -226,7 +228,9 @@ public struct AsyncResourceDefaultNotRequestedView: View {
 
 #### AsyncResourceDefaultLoadingView
 
-In contrast, the default `loading` view is visible and will indicate progress until either the *success* or *failure-* state is entered. 
+In contrast, the default `loading` view is visible and will indicate progress until either the *success* or *failure-* state is entered.
+
+![Default Failure View](default_failure_view.png)
 
 ```swift
 public struct AsyncResourceDefaultLoadingView: View {
@@ -434,6 +438,7 @@ struct GalleryItem: Hashable {
 
 In this article, I presented the `AsyncResourceView`, a consistent way to deal with asynchronous resources in SwiftUI applications. Using the component, we can avoid repetitive code and spend more time on implementing features rather than writing the same loading- or error handling code throughout the App.
 Happy Coding 🚀
+
 
 
 
