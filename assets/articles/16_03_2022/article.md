@@ -230,8 +230,6 @@ public struct AsyncResourceDefaultNotRequestedView: View {
 
 In contrast, the default `loading` view is visible and will indicate progress until either the *success* or *failure-* state is entered.
 
-![Default Failure View](default_failure_view.png)
-
 ```swift
 public struct AsyncResourceDefaultLoadingView: View {
     private let title: String
@@ -249,6 +247,8 @@ public struct AsyncResourceDefaultLoadingView: View {
 #### AsyncResourceDefaultFailureView
 
 Finally, in case no `failure` closure exists, the `AsyncResourceDefaultFailureView` renders a counterclockwise arrow to retry the action in case that it failed. Note that custom views may also consider the error to provide additional information about why the action did not work as intended.
+
+![Default Failure View](default_failure_view.png)
 
 ```swift
 public struct AsyncResourceDefaultFailureView: View {
