@@ -740,6 +740,8 @@ struct OnboardingView: View {
 
 This article walked you through the steps that I took when building a native Mac app using _SwiftUI 2.0_ and _Combine_ from scratch. This way, I wanted to explore the capabilities of Swift UI and tried to examine whether it can be used in production. Even though a lot of the things that are offered by UIKit, like the `.emphasized` background style of a cell, are still missing, I appreciate the declarative nature of SwiftUI on the Mac. This way, we can avoid spending time on standard components like the master-detail view and rather focus on features that make up the app.
 
+Happy Coding 🚀
+
 # Credits:
 
 - [LicensePlist](https://github.com/mono0926/LicensePlist) - Masayuki Ono
