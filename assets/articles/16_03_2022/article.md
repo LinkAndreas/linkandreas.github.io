@@ -322,7 +322,7 @@ While the static preview renders itself based on the predefined state of the sto
 
 ## Use Case Example: "Color Gallery"
 
-![Logo](gallery_example_dark.gif)
+![Gallery Example](gallery_example_dark_optimized.gif)
 
 To visualize how the component is used, let's implement a color gallery where items are arranged in a three-column grid. Each item features the `AsyncResourceView` to request its color from the loader that will either return a random color or fail after [0.3, 3.0] seconds. As stated above, a retry button is shown in case the action failed. 
 
