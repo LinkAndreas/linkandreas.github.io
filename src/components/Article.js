@@ -5,7 +5,7 @@ import CodeRenderer from "./CodeRenderer.js";
 import ImageRenderer from "./ImageRenderer.js";
 import ParagraphRenderer from "./ParagraphRenderer.js";
 import article1 from "../../assets/articles/09_03_2021/article.md";
-import article2 from "../../assets/articles/15_03_2022/article.md";
+import article2 from "../../assets/articles/16_03_2022/article.md";
 import "../styles/Article.css";
 
 export default function Article() {
@@ -13,7 +13,7 @@ export default function Article() {
 
   let children = (() => {
     switch (date) {
-      case "15_03_2022":
+      case "16_03_2022":
         return article2;
 
       case "09_03_2021":
