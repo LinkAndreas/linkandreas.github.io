@@ -25,9 +25,9 @@
 }
 
 .appInfo__description__subtitle {
+  display: flex;
   color: #cccccc;
   margin-top: 8px;
-  display: flex;
   font-weight: normal;
 }
 
