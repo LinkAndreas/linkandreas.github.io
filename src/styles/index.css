@@ -10,7 +10,7 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
   background-color: #000000;
-  color: white;
+  color: #e0e2e4;
 }
 
 html,
@@ -91,5 +91,17 @@ a:active {
 }
 
 code {
-  color: #ffffff;
+  color: #e0e2e4;
+}
+
+li {
+  color: #aaaaaa;
+}
+
+strong {
+  color: #e0e2e4;
+}
+
+b {
+  color: #e0e2e4;
 }
