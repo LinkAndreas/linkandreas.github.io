@@ -22,7 +22,7 @@ The idea is to automatically derive the story number from the branch name and in
 
 ## Shell Script: Prepare Commit Message Hook
 
-Below, you can find the script that is executed as soon as a commit is made: 
+Below, you can find the script that is executed as soon as a commit is made:
 
 ```sh
 #!/bin/bash
