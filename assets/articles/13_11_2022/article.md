@@ -1,12 +1,12 @@
 # Story Numbers in Commit Messages - Leveraging the power of Git Hooks
 
-Especially in large software projects with many developers involved, it is best practice to include the story number from the ticket system like Jira or Azure DevOps in every commit. This will let you refer to the original requirements quickly and see how the team thought about the feature, bugfix or release when it was developed. Still, manually adding the number to every commit is cumbersome. Hence, today we will learn how to automatically derive the story number from the branch name and automate that procedure using Git Commit Hooks.
+Especially in large software projects with many developers involved, it is best practice to include the story number from the ticket system like Jira or Azure DevOps in every commit. This will let you refer to the original requirements quickly and see how the team thought about the feature, bug fix or release when it was developed. Still, manually adding the number to every commit is cumbersome. Hence, today, we will learn how to automatically derive the story number from the branch name and automate that procedure using Git Commit Hooks.
 
 ![Branch History](branch_history.svg)
 
 ## Story Number Extraction
 
-We assume that branches are named according to the Git Flow naming conventions, i.e., production code is contained in the `master` while pre-production code is found in the `develop` branch. The latter is the starting point for features, bug-fixes and relases, while hotfixes are made from the `master` branch.
+We assume that branches are named according to the Git Flow naming conventions, i.e., production code is contained in the `master` while pre-production code is found in the `develop` branch. The latter is the starting point for features, bug-fixes and releases, while hotfixes are made from the `master` branch.
 
 Branches other than the `master` and `develop` also contain the story number in their name, represented as `SN-XXXXXX`, where `XXXXXX` are digits. The prefix `SN` as well as the number of digits may vary depending on the naming conventions used in your project. As a result, branch names match the following pattern:
 
@@ -22,7 +22,7 @@ The idea is to automatically derive the story number from the branch name and in
 
 ## Shell Script: Prepare Commit Message Hook
 
-Below you can find the script that is executed as soon as a commit is made: 
+Below, you can find the script that is executed as soon as a commit is made: 
 
 ```sh
 #!/bin/bash
@@ -62,7 +62,7 @@ if [ -n "$BRANCH_NAME" ] &&  ! contained_in_list "$EXCLUDED_BRANCES" ", " "$BRAN
 fi
 ``` 
 
-First, we request an non-ambiguous abbreviation for the object referenced by HEAD:
+First, we request a non-ambiguous abbreviation for the object referenced by HEAD:
    
 ```sh
 determine_branch_name() {
@@ -87,7 +87,7 @@ determine_story_number() {
 >    - /feature/SN-374324-Implement-Dark-Mode
 >    - /feature/navigation/SN-725342-Handle-In-App-Deeplink
 
-To ensure that commits on the `master` or `develop` branch are not affected, we exit early in case that the branch is mentioned in the list of excluded branches. Likewise, we also ensure that the original commit message does not contain the story number yet. When all previous conditions are met, the original commit message is prefixed with the story number by modifying the content of the the `COMMIT_EDITMSG_FILE`:
+To ensure that commits on the `master` or `develop` branch are not affected, we exit early in case that the branch is mentioned in the list of excluded branches. Likewise, we also ensure that the original commit message does not contain the story number yet. When all previous conditions are met, the original commit message is prefixed with the story number by modifying the content of the `COMMIT_EDITMSG_FILE`:
 
 ```sh
 if [ -n "$BRANCH_NAME" ] &&  ! contained_in_list "$EXCLUDED_BRANCES" ", " "$BRANCH_NAME"; then
@@ -103,7 +103,7 @@ fi
 
 The following steps are necessary to activate the hook in your project:
 
-1. Navigate to the *hooks* directory:
+1. Navigate to the *hooks*' directory:
 
    ```sh
    cd /<git-repository>/.git/hooks

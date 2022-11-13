@@ -18,13 +18,13 @@ export default function Articles() {
                 <div>
                   <p>
                     Especially in large software projects with many developers involved,
-                    it is best practice to include the story number from the ticket system like
-                    Jira or Azure DevOps in every commit. This will let you refer to the original
-                    requirements quickly and see how the team thought about the feature, bugfix or
-                    release when it was developed. Still, manually adding the number to every
-                    commit is cumbersome. Hence, today we will learn how to automatically derive
-                    the story number from the branch name and automate that procedure using
-                    Git Commit Hooks.
+                    it is best practice to include the story number from the ticket system
+                    like Jira or Azure DevOps in every commit. This will let you refer to
+                    the original requirements quickly and see how the team thought about the
+                    feature, bug fix or release when it was developed. Still, manually adding
+                    the number to every commit is cumbersome. Hence, today, we will learn how
+                    to automatically derive the story number from the branch name and automate
+                    that procedure using Git Commit Hooks.
                   </p>
                 </div>
               }
