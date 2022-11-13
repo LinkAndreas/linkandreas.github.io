@@ -38,9 +38,34 @@ p {
   font-weight: 400;
 }
 
+strong {
+  color: #e0e2e4;
+}
+
+b {
+  color: #e0e2e4;
+}
+
+em {
+  color: #e0e2e4;
+}
+
+pre {
+  margin: 0px;
+  padding: 16px 0px;
+}
+
 blockquote {
-  font-size: 21px;
   font-weight: 400;
+  margin: 0px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 1em;
+  border-left: 0.1em #e0e2e4 solid;
+}
+
+blockquote .paragraphBlock {
+  padding: 0px;
 }
 
 h1,
@@ -98,10 +123,10 @@ li {
   color: #aaaaaa;
 }
 
-strong {
-  color: #e0e2e4;
+ul {
+  list-style-position: outside;
 }
 
-b {
-  color: #e0e2e4;
+ol {
+  list-style-position: outside;
 }
