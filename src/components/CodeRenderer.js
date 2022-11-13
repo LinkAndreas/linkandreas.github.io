@@ -13,9 +13,9 @@ export default function CodeRenderer({ node, inline, className, children, ...pro
   const language = match !== null ? match[1] : null
 
   return (!inline && language !== null) ? (
-    <pre className="hljs">
+    <div className="hljs">
       <code dangerouslySetInnerHTML={{ __html: hljs.highlight(code, { 'language': language }).value }} />
-    </pre>
+    </div>
   ) : (
     <code className={className} {...props}>
       {children}
