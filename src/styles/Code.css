@@ -2,7 +2,6 @@
   font-size: 15px;
   background: #00000000;
   color: #e0e2e4;
-  padding-top: 25px;
 }
 
 .hljs::selection,
@@ -31,7 +30,7 @@
 .hljs-literal,
 .hljs-deletion,
 .hljs-link {
- color: #cc6666
+  color: #cc6666
 }
 
 .hljs-string,
@@ -46,14 +45,14 @@
 .hljs-attribute,
 .hljs-code,
 .hljs-selector-id {
- color: #b294bb;
+  color: #b294bb;
 }
 
 .hljs-keyword,
 .hljs-selector-tag,
 .hljs-bullet,
 .hljs-tag {
- color: #81a2be;
+  color: #81a2be;
 }
 
 .hljs-subst,

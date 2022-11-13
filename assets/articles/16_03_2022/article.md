@@ -434,7 +434,7 @@ struct GalleryItem: Hashable {
 }
 ```
 
-## Conclusion
+# Conclusion
 
 In this article, I presented the `AsyncResourceView`, a consistent way to deal with asynchronous resources in SwiftUI applications. Using the component, we can avoid repetitive code and spend more time on implementing features rather than writing the same loading- or error handling code throughout the App. You can checkout the project on GitHub ([Link](https://github.com/LinkAndreas/AsyncResourceView)). 
 

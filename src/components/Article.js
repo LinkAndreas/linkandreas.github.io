@@ -6,6 +6,7 @@ import ImageRenderer from "./ImageRenderer.js";
 import ParagraphRenderer from "./ParagraphRenderer.js";
 import article1 from "../../assets/articles/09_03_2021/article.md";
 import article2 from "../../assets/articles/16_03_2022/article.md";
+import article3 from "../../assets/articles/13_11_2022/article.md";
 import "../styles/Article.css";
 
 export default function Article() {
@@ -13,6 +14,9 @@ export default function Article() {
 
   let children = (() => {
     switch (date) {
+      case "13_11_2022":
+        return article3;
+
       case "16_03_2022":
         return article2;
 
