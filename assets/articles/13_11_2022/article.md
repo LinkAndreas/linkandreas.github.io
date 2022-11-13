@@ -1,0 +1,139 @@
+# Story Numbers in Commit Messages - Leveraging the power of Git Hooks
+
+Especially in large software projects with many developers involved, it is best practice to include the story number from the ticket system like Jira or Azure DevOps in every commit. This will let you refer to the original requirements quickly and see how the team thought about the feature, bugfix or release when it was developed. Still, manually adding the number to every commit is cumbersome. Hence, today we will learn how to automatically derive the story number from the branch name and automate that procedure using Git Commit Hooks.
+
+![Branch History](branch_history.svg)
+
+## Story Number Extraction
+
+We assume that branches are named according to the Git Flow naming conventions, i.e., production code is contained in the `master` while pre-production code is found in the `develop` branch. The latter is the starting point for features, bug-fixes and relases, while hotfixes are made from the `master` branch.
+
+Branches other than the `master` and `develop` also contain the story number in their name, represented as `SN-XXXXXX`, where `XXXXXX` are digits. The prefix `SN` as well as the number of digits may vary depending on the naming conventions used in your project. As a result, branch names match the following pattern:
+
+- /**\<type\>**/**SN-XXXXXX**-\<description\>, where `X in [0-9]` and `<type> in {feature, release, bugfix, hotfix}`
+
+Subsequently, examples for each branch type are given:
+- /**feature**/**SN-362845**-Add-dynamic-island-support
+- /**release**/**SN-284321**-Release-v3.0.0
+- /**bugfix**/**SN-839453**-Fix-memory-leak-in-home-tab
+- /**hotfix**/**SN-839453**-Fix-app-crash-in-onboarding
+
+The idea is to automatically derive the story number from the branch name and include it in every commit. To achieve this, we leverage the power of git commit hooks to modify the message before the commit is made. As a result, adding the number becomes much simpler, since it does not need to be remembered among consecutive commits. Instead, developers only have to specify the story number once when the branch is created.
+
+## Shell Script: Prepare Commit Message Hook
+
+Below you can find the script that is executed as soon as a commit is made: 
+
+```sh
+#!/bin/bash
+
+determine_branch_name() {
+  git rev-parse --abbrev-ref HEAD
+}
+
+determine_story_number() {
+  content=$1
+  
+  echo "$content" |\
+    grep -Eo '^(\w+/)*(\w+[-_])?[0-9]+' |\
+    grep -Eo '(\w+[-])+[0-9]+' |\
+    tr "[:lower:]" "[:upper:]"
+}
+
+contained_in_list() {
+  list=$1
+  delimiter=$2
+  item=$3
+  [[ "$list" =~ ($delimiter|^)$item($delimiter|$) ]]
+}
+
+COMMIT_EDITMSG_FILE=$1
+COMMIT_MESSAGE=$(cat "$COMMIT_EDITMSG_FILE")
+BRANCH_NAME=$(determine_branch_name)
+STORY_NUMBER=$(determine_story_number "$BRANCH_NAME")
+EXCLUDED_BRANCES="master, develop"
+
+if [ -n "$BRANCH_NAME" ] &&  ! contained_in_list "$EXCLUDED_BRANCES" ", " "$BRANCH_NAME"; then
+  if [ "$STORY_NUMBER" = "" ] || [[ "$COMMIT_MESSAGE" == "[$STORY_NUMBER]"* ]]; then
+    exit 0
+  else
+    echo "[$STORY_NUMBER] $COMMIT_MESSAGE" > "$COMMIT_EDITMSG_FILE"
+  fi
+fi
+``` 
+
+First, we request an non-ambiguous abbreviation for the object referenced by HEAD:
+   
+```sh
+determine_branch_name() {
+  git rev-parse --abbrev-ref HEAD
+}
+```
+
+Given the branch name, `determine_story_number` chains multiple extended regular expressions to identify the story number in case it exists. In addition, all lowercased letters are replaced by upper case letters:
+
+```sh
+determine_story_number() {
+  content=$1
+  
+  echo "$content" |\
+    grep -Eo '^(\w+/)*(\w+[-_])?[0-9]+' |\
+    grep -Eo '(\w+[-])+[0-9]+' |\
+    tr "[:lower:]" "[:upper:]"
+}
+```
+
+> Note: paths with an arbitrary step count are allowed:
+>    - /feature/SN-374324-Implement-Dark-Mode
+>    - /feature/navigation/SN-725342-Handle-In-App-Deeplink
+
+To ensure that commits on the `master` or `develop` branch are not affected, we exit early in case that the branch is mentioned in the list of excluded branches. Likewise, we also ensure that the original commit message does not contain the story number yet. When all previous conditions are met, the original commit message is prefixed with the story number by modifying the content of the the `COMMIT_EDITMSG_FILE`:
+
+```sh
+if [ -n "$BRANCH_NAME" ] &&  ! contained_in_list "$EXCLUDED_BRANCES" ", " "$BRANCH_NAME"; then
+  if [ "$STORY_NUMBER" = "" ] || [[ "$COMMIT_MESSAGE" == "[$STORY_NUMBER]"* ]]; then
+    exit 0
+  else
+    echo "[$STORY_NUMBER] $COMMIT_MESSAGE" > "$COMMIT_EDITMSG_FILE"
+  fi
+fi
+```
+
+## Using the Prepare Commit Message Hook in your Projects
+
+The following steps are necessary to activate the hook in your project:
+
+1. Navigate to the *hooks* directory:
+
+   ```sh
+   cd /<git-repository>/.git/hooks
+   ```
+
+2. Create a file called `prepare-commit-msg`:
+
+   ```sh
+   touch prepare-commit-msg
+   ```
+
+   > Note: You can also remove the suffix `.sample` from `prepare-commit-msg.sample` in case it exists.
+
+3. Copy the script as the `prepare-commit-msg` hook's content:
+
+   ```sh
+   cat <script content> > prepare-commit-msg
+   ```
+
+4. Make the hook executable by updating its permissions:
+
+   ```sh
+   chmod a+x prepare-commit-msg
+   ```
+
+That's it! As soon as the hook is active, the story number is read from the branch name and automatically included in every commit. 
+
+# References:
+
+- [Git Commit Messages - Best Practices](https://initialcommit.com/blog/git-commit-messages-best-practices) - Matthew Forsyth
+- [Branch Naming Conventions](https://deepsource.io/blog/git-branch-naming-conventions/) - Sanket
+
+Happy Coding 🚀

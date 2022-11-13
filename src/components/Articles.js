@@ -11,26 +11,45 @@ export default function Articles() {
         <Route path="" element={
           <div>
             <ArticleItem
+              id="13_11_2022"
+              date="13th of November 2022"
+              title="Story Numbers in Commit Messages - Leveraging the power of Git Hooks"
+              body={
+                <div>
+                  <p>
+                    Especially in large software projects with many developers involved,
+                    it is best practice to include the story number from the ticket system like
+                    Jira or Azure DevOps in every commit. This will let you refer to the original
+                    requirements quickly and see how the team thought about the feature, bugfix or
+                    release when it was developed. Still, manually adding the number to every
+                    commit is cumbersome. Hence, today we will learn how to automatically derive
+                    the story number from the branch name and automate that procedure using
+                    Git Commit Hooks.
+                  </p>
+                </div>
+              }
+            />
+            <ArticleItem
               id="16_03_2022"
               date="16th of March 2022"
               title="AsyncResourceView - Simplified Resource Loading"
               body={
                 <div>
                   <p>
-                  Modern apps heavily rely on resources that are received 
-                  over the network, and hence may be affected by connectivity issues 
-                  or data loss. If, for example, you travel by train within Germany, 
-                  you may be surprised how often you will experience radio gaps or 
-                  interruptions due to weak cellular reception. Hence, we as developers 
-                  have to design our apps to include feedback when an action takes longer 
-                  than expected and offer the ability to retry the action in case that 
-                  it failed. This way, we can make our apps stand out, since they can 
-                  cope with conditions that are far from optimal.
+                    Modern apps heavily rely on resources that are received
+                    over the network, and hence may be affected by connectivity issues
+                    or data loss. If, for example, you travel by train within Germany,
+                    you may be surprised how often you will experience radio gaps or
+                    interruptions due to weak cellular reception. Hence, we as developers
+                    have to design our apps to include feedback when an action takes longer
+                    than expected and offer the ability to retry the action in case that
+                    it failed. This way, we can make our apps stand out, since they can
+                    cope with conditions that are far from optimal.
                   </p>
                   <p>
-                  AsyncResourceView offers a consistent way to deal with loading as well as 
-                  error states in SwiftUI applications. This way, developers can focus on 
-                  features rather than writing repetitive error-prone code.
+                    AsyncResourceView offers a consistent way to deal with loading as well as
+                    error states in SwiftUI applications. This way, developers can focus on
+                    features rather than writing repetitive error-prone code.
                   </p>
                 </div>
               }
@@ -57,7 +76,7 @@ export default function Articles() {
               }
             />
           </div>
-        }/>
+        } />
         <Route path=":date" element={<Article />} />
       </Routes>
     </div>
