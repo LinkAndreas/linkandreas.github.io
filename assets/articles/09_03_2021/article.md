@@ -742,7 +742,7 @@ This article walked you through the steps that I took when building a native Mac
 
 Happy Coding 🚀
 
-# Credits:
+# References:
 
 - [LicensePlist](https://github.com/mono0926/LicensePlist) - Masayuki Ono
 - [The Composable Architecture](https://github.com/pointfreeco/swift-composable-architecture) - Point-Free

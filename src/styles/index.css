@@ -10,7 +10,7 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
   background-color: #000000;
-  color: white;
+  color: #e0e2e4;
 }
 
 html,
@@ -38,9 +38,34 @@ p {
   font-weight: 400;
 }
 
+strong {
+  color: #e0e2e4;
+}
+
+b {
+  color: #e0e2e4;
+}
+
+em {
+  color: #e0e2e4;
+}
+
+pre {
+  margin: 0px;
+  padding: 16px 0px;
+}
+
 blockquote {
-  font-size: 21px;
   font-weight: 400;
+  margin: 0px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 1em;
+  border-left: 0.1em #e0e2e4 solid;
+}
+
+blockquote .paragraphBlock {
+  padding: 0px;
 }
 
 h1,
@@ -91,5 +116,17 @@ a:active {
 }
 
 code {
-  color: #ffffff;
+  color: #e0e2e4;
+}
+
+li {
+  color: #aaaaaa;
+}
+
+ul {
+  list-style-position: outside;
+}
+
+ol {
+  list-style-position: outside;
 }
