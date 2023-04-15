@@ -22,7 +22,7 @@ const articles = [
         id: '16_03_2022',
         date: '16th of March 2022',
         markdown: article2,
-        title: 'AsyncResourceView - Simplified Resource Loading',
+        title: 'AsyncResourceView: Simplified Resource Loading',
         description: `Modern apps heavily rely on resources that are received
         over the network, and hence may be affected by connectivity issues
         or data loss. If, for example, you travel by train within Germany,
@@ -41,7 +41,7 @@ const articles = [
         id: '13_11_2022',
         date: '13th of November 2022',
         markdown: article3,
-        title: 'Story Numbers in Commit Messages - Leveraging the power of Git Hooks',
+        title: 'Story Numbers in Commit Messages: Leveraging the power of Git Hooks',
         description: `Especially in large software projects with many developers involved,
         it is best practice to include the story number from the ticket system
         like Jira or Azure DevOps in every commit. This will let you refer to

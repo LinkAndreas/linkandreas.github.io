@@ -16,7 +16,7 @@ export default function Article() {
     <div className="articleContainer">
       {article != null ? (
         <Metadata
-          title={article.title}
+          title={`${article.title} - Andreas Link`}
           description={article.description}
           children={
             <ReactMarkdown
