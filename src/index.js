@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import * as ReactDOMClient from 'react-dom/client';
 import { HashRouter } from "react-router-dom";
 
 import NavBar from "./components/NavBar.js";
@@ -22,6 +22,9 @@ const App = () => {
   );
 };
 
+const container = document.getElementById("root");
+const root = ReactDOMClient.createRoot(container);
+
 if (typeof window !== "undefined") {
-  ReactDOM.render(<App />, document.getElementById("root"));
+  root.render(<App />);
 }
