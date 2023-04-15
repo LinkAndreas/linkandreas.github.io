@@ -1,31 +1,33 @@
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import React, { useEffect } from "react";
+
+const setTitle = title => {
+    const element1 = document.querySelector('title');
+    const element2 = document.querySelector("meta[property='og:title']");
+    const element3 = document.querySelector("meta[name='twitter:title']");
+
+    element1.innerText = title;
+    element2.setAttribute('content', title);
+    element3.setAttribute('content', title);
+};
+
+const setDescription = description => {
+    const element1 = document.querySelector("meta[name='description']");
+    const element2 = document.querySelector("meta[property='og:description']");
+    const element3 = document.querySelector("meta[name='twitter:description']");
+
+    element1.setAttribute('content', description);
+    element2.setAttribute('content', description);
+    element3.setAttribute('content', description);
+};
 
 export default function Metadata({ title, description, children }) {
+    useEffect(() => {
+        setTitle(title);
+        setDescription(description);
+    });
+
     return (
         <div>
-            <Helmet>
-                { /* Standard tags */}
-                <title>{title}</title>
-                if (description) {
-                    <meta name='description' content={description} />
-                }
-
-                { /* Facebook tags */}
-                <meta property='og:type' content='article' />
-                <meta property='og:title' content={title} />
-                if (description) {
-                    <meta property='og:description' content={description} />
-                }
-
-                { /* Twitter tags */}
-                <meta name='twitter:creator' content='Andreas Link' />
-                <meta name='twitter:card' content='article' />
-                <meta name='twitter:title' content={title} />
-                if (description) {
-                    <meta name='twitter:description' content={description} />
-                }
-            </Helmet>
             {children}
         </div>
     )
