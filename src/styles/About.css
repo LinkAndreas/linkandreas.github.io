@@ -10,6 +10,13 @@
   margin-right: 8%;
 }
 
+.aboutContent {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
 .icon {
   width: 30px;
   color: #ea9434;
@@ -31,6 +38,6 @@
   color: white;
 }
 
-.biography > div {
+.biography>div {
   margin-bottom: 20px;
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import * as ReactDOMClient from 'react-dom/client';
 import { HashRouter } from "react-router-dom";
-import { HelmetProvider } from 'react-helmet-async';
 
 import NavBar from "./components/NavBar.js";
 import Content from "./components/Content.js";
@@ -14,15 +13,13 @@ import "./styles/App.css";
 const helmetContext = {};
 const App = () => {
   return (
-    <HelmetProvider helmetContext={helmetContext}>
-      <HashRouter className="appRouter" forceRefresh={false}>
-        <div className="appContainer">
-          <NavBar />
-          <Content />
-          <Footer />
-        </div>
-      </HashRouter>
-    </HelmetProvider>
+    <HashRouter className="appRouter" forceRefresh={false}>
+      <div className="appContainer">
+        <NavBar />
+        <Content />
+        <Footer />
+      </div>
+    </HashRouter>
   );
 };
 
