@@ -2,6 +2,41 @@
 
 In agile software development, continuous deployment is key to collect user feedback leading to more reliable and successful iOS apps. Still, deploying to AppStore Connect is challenging due to managing signing certificates, provisioning profiles, and build numbers. In this article, we'll explore how to automate this process, allowing you to release your apps with a single button press.
 
+## Environment Variables
+
+First, we need to configure the following environment variables in the 
+
+| Key                     | Example Value     |
+|-------------------------|-------------------|
+| BUNDLE_IDENTIFIER       | com.example.app   |
+| TEAM_ID                 | A123456789        |
+| SIMULATOR_DEVICE_TYPE   | iPhone-14         |
+| SIMULATOR_RUNTIME       | iOS-16-2          |
+
+Explanations:
+- `BUNDLE_IDENTIFIER`: The identifier used by Apple to uniquely identify the application.
+- `TEAM_ID`: The identifier for each team enrolled in the Apple Developer Program.
+- `SIMULATOR_DEVICE_TYPE`: The simulator device used to run tests in the workflow.
+- `SIMULATOR_RUNTIME`: Runtime version of the iOS simulator.
+
+## Secrets
+
+| Key                            | Example Value        |
+|--------------------------------|----------------------|
+| APP_ID                         | XXXXXXXXXX           |
+| KEYCHAIN_PASSWORD              | XXXXXXXXXX           |
+| P12_PASSWORD                   | XXXXXXXXXX           |
+| API_KEY_ID                     | XXXXXXXXXX           |
+| API_KEY_ISSUER_ID              | XXXXXXXXXX           |
+| API_KEY_BASE64       	         | XXXXXXXXXX           |
+| BUILD_CERTIFICATE_BASE64       | XXXXXXXXXX           |
+| BUILD_PROVISION_PROFILE_BASE64 | XXXXXXXXXX           |
+
+
+```sh
+openssl base64 -in ./AuthKey_XXXXXXXX.p8 | pbcopy
+```
+
 ## Deployment Workflow
 
 Now that we automated test execution, we can focus on the automatic deployment to AppStore Connect. This way, we can distribute the application to TestFlight and get feedback from internal- and external testers.
@@ -280,3 +315,10 @@ jobs:
           security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
           rm ~/Library/MobileDevice/Provisioning\ Profiles/build_provisioning_profile.mobileprovision
 ```
+
+# References:
+
+- [Sign Xcode Applications](https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development) - Github
+- [iOS CI/CD Worklfow using Github Actions](https://www.cobeisfresh.com/blog/how-to-implement-a-ci-cd-workflow-for-ios-using-github-actions) - cobeisfresh
+
+Happy Coding 🚀

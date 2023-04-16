@@ -151,3 +151,5 @@ jobs:
             grep -E -o -i "([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})" | \
             while read -r identifier; do xcrun simctl delete "$identifier"; echo "Removed simulator with identifier: $identifier"; done
 ```
+
+Happy Coding 🚀
