@@ -53,22 +53,24 @@ Explanation:
 - `SIGNING_CERTIFICATE_PASSWORD`: The password for your Apple signing certificate.
 - `PROVISIONING_PROFILE_BASE64`: The provisioning profile encoded in base64 format.
 
-You can use the following command to encode the
+You can use the following commands to encode secrets in base64 format and copy it to the pasteboard:
 
 ```sh
 # API_KEY_BASE64
 openssl base64 -in AuthKey_{KEY_ID}.p8 | pbcopy
+
 # SIGNING_CERTIFICATE_BASE64
 openssl base64 -in {SIGNING_CERTIFICATE_NAME}.p12 | pbcopy 
+
 # PROVISIONING_PROFILE_BASE64
 openssl base64 -in {PROVISIONING_PROFILE_NAME}.mobileprovision | pbcopy 
 ```
 
 ## Deployment Workflow
 
-Now that we automated test execution, we can focus on the automatic deployment to AppStore Connect. This way, we can distribute the application to TestFlight and get feedback from internal- and external testers.
+Having specified all secrets and pipeline configuration variables, we can create a dedicated workflow that automates deployment to AppStore Connect. This way, we can distribute the application to TestFlight and get feedback from internal- and external testers.
 
-Similar to test execution we start with a similar blueprint:
+We start with the following blueprint:
 
 ```yml
 name: Deploy to App Store Connect
@@ -95,7 +97,7 @@ on:
 
 ###  Step 1: Checkout Repository
 
-First, we use the same step to gain access to the source code:
+First, we use the checkout step to gain access to the source code:
 
 ```yaml
 - name: Checkout repository
@@ -117,7 +119,7 @@ The API Key is decoded from the base64-encoded Secret and stored in the current 
 
 ### Step 3: Install Signing Certificate
 
-Next, the signing certificate is decoded and stored in a new keychain that is created on the agent. Note that we need to unlock the keychain to be accessed when archiving the application:
+Next, the signing certificate is decoded and stored in the `app-signing` keychain. We unlock the keychain to have access to the signing certificate when archiving the application:
 
 ```sh
 SIGNING_CERTIFICATE_PATH=$RUNNER_TEMP/signing_certificate.p12
@@ -138,8 +140,7 @@ security list-keychain -d user -s "$KEYCHAIN_PATH"
 
 ### Step 4: Install Provisioning Profile
 
-Finally, the provising profile is stored in the agent's library directory:
-- `~/Library/MobileDevice/Provisioning\ Profiles`
+Finally, the provising profile is decoded and stored in the agent's library directory(`~/Library/MobileDevice/Provisioning\ Profiles`):
 
 ```sh
 PROVISIONING_PROFILE_PATH=$RUNNER_TEMP/provisioning_profile.mobileprovision
@@ -152,17 +153,7 @@ mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
 cp $PROVISIONING_PROFILE_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 ```
 
-### Step 5: Inject Build Number
-
-Each build that is submitted to AppStore Connect needs to have a build number that is greater than the maximum known build number of all builds ever submitted. Since manually keeping track of build numbers is tedious, we utitlize the pipelines built-in counter, i.e., `github.run_number` that is incremented on every build. This way, we only need to specify the marketing version that is shown in the AppStore:  
-
-```sh
-buildNumber=${{ github.run_number }}
-echo "Current build number: $buildNumber"
-agvtool new-version -all $buildNumber
-```
-
-### Step 6: Inject `TEAM_ID`, `BUNDLE_ID` and `PROVISIONING_PROFILE_NAME` into `exportOptions.plist`
+### Step 5: Configure `exportOptions.plist`
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -196,6 +187,17 @@ agvtool new-version -all $buildNumber
     sed -i '' "s/{{TEAM_ID}}/$TEAM_ID/g" exportOptions.plist
     sed -i '' "s/{{BUNDLE_ID}}/$BUNDLE_ID/g" exportOptions.plist
     sed -i '' "s/{{PROVISIONING_PROFILE_NAME}}/$PROVISIONING_PROFILE_NAME/g" exportOptions.plist
+```
+
+### Step 6: Inject Build Number
+
+Now that we have the signing certificate, provisioning profile and API Key in place, we need to determine the build number.
+Each build that is submitted to AppStore Connect needs to have a build number that is greater than the maximum known build number of all builds ever submitted. Since manually keeping track of build numbers is tedious, we utitlize the pipelines built-in counter, i.e., `github.run_number` that is incremented on every build. This way, we only need to specify the marketing version that is shown in the AppStore:  
+
+```sh
+buildNumber=${{ github.run_number }}
+echo "Current build number: $buildNumber"
+agvtool new-version -all $buildNumber
 ```
 
 ### Step 7: Build, Sign and Archive
