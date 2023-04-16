@@ -8,48 +8,48 @@ First, we need to configure the following environment variables in your project'
 
 | Key                     | Value (Example)   |
 |-------------------------|-------------------|
-| BUNDLE_IDENTIFIER       | com.example.app   |
+| APP_ID                  | 1234567           |
 | TEAM_ID                 | A123456789        |
+| BUNDLE_ID               | com.example.app   |
 | SIMULATOR_DEVICE_TYPE   | iPhone-14         |
 | SIMULATOR_RUNTIME       | iOS-16-2          |
 
-Explanations:
-- `BUNDLE_IDENTIFIER`: The identifier used by Apple to uniquely identify the application.
-  - Location: AppStore Connect > Apps > App > App Information > Bundle Identifier
-- `TEAM_ID`: The identifier for each team enrolled in the Apple Developer Program.
+Explanation:
+- `APP_ID`: The identifier that uniquely identifies the application.
+  - Location: AppStore Connect > Apps > App > App Information > Apple ID
+- `TEAM_ID`: The identifier for the team enrolled in the Apple Developer Program.
   - Location: AppStore Connect > Edit Profile > TeamID
+- `BUNDLE_ID`: The identifier used by Apple to uniquely identify the application.
+  - Location: AppStore Connect > Apps > App > App Information > Bundle Identifier
 - `SIMULATOR_DEVICE_TYPE`: The simulator device used to run tests in the workflow.
-- `SIMULATOR_RUNTIME`: Runtime version of the iOS simulator.
+- `SIMULATOR_RUNTIME`: The Runtime version of the iOS simulator.
 
 ## Secrets
 
-Next, we create the following secrets in your project's settings:
+Next, we create the following secrets in the project's settings:
 
 | Key                            | Value (Example)      |
 |--------------------------------|----------------------|
-| APP_ID                         | XXXXXXXXXX           |
-| KEYCHAIN_PASSWORD              | XXXXXXXXXX           |
-| P12_PASSWORD                   | XXXXXXXXXX           |
+| API_KEY_BASE64       	         | XXXXXXXXXX           |
 | API_KEY_ID                     | XXXXXXXXXX           |
 | API_KEY_ISSUER_ID              | XXXXXXXXXX           |
-| API_KEY_BASE64       	         | XXXXXXXXXX           |
-| BUILD_CERTIFICATE_BASE64       | XXXXXXXXXX           |
-| BUILD_PROVISION_PROFILE_BASE64 | XXXXXXXXXX           |
+| KEYCHAIN_PASSWORD              | XXXXXXXXXX           |
+| SIGNING_CERTIFICATE_BASE64     | XXXXXXXXXX           |
+| SIGNING_CERTIFICATE_PASSWORD   | XXXXXXXXXX           |
+| PROVISIONING_PROFILE_BASE64    | XXXXXXXXXX           |
 
-Secrets store sensitive information in your project's repository and provide them as encrypted environment variables to your workflows, ensuring that their values are hidden from the web interface and can only be updated, not seen, once stored.
+Github secrets store sensitive information in the project's repository and provide them as encrypted environment variables to the workflows, ensuring that their values are hidden from the web interface and can only be updated, not seen, once stored.
 
-Explanations:
-- `APP_ID`: The identifier that uniquly identifies the application.
-  - Location: AppStore Connect > Apps > App > App Information 
-- `KEYCHAIN_PASSWORD`: The password used to unlock the keychain.
-- `P12_PASSWORD`: The password protecting the signing certificate (`BUILD_CERTIFICATE_BASE64`).
+Explanation:
+- `API_KEY_BASE64`: The private key to authorize against the AppStore Connect API encoded in base64 format.
 - `API_KEY_ID`: The key's Id.
   - Location: App Store Connect > Users and Access > Keys
 - `API_KEY_ISSUER_ID`: The identifier of the issuer who created the authentication token.
   - Location: App Store Connect > Users and Access > Keys > Issuer Id
-- `API_KEY_BASE64`: The private key to authorize against the AppStore Connect API encoded in base64 format.
-- `BUILD_CERTIFICATE_BASE64`: The signing certificate encoded in base64 format.
-- `BUILD_PROVISION_PROFILE_BASE64`: The provisioning profile encoded in base64 format.
+- `KEYCHAIN_PASSWORD`: The password used to unlock the keychain.
+- `SIGNING_CERTIFICATE_BASE64`: The signing certificate encoded in base64 format.
+- `SIGNING_CERTIFICATE_PASSWORD`: The password for your Apple signing certificate.
+- `PROVISIONING_PROFILE_BASE64`: The provisioning profile encoded in base64 format.
 
 You can use the following command to encode the
 
@@ -113,11 +113,11 @@ The API Key is decoded from the base64-encoded Secret and stored in the current 
 Next, the signing certificate is decoded and stored in a new keychain that is created on the agent. Note that we need to unlock the keychain to be accessed when archiving the application:
 
 ```sh
-SIGNING_CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+SIGNING_CERTIFICATE_PATH=$RUNNER_TEMP/signing_certificate.p12
 KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
 
 # Read Signing Certificate
-echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o "$SIGNING_CERTIFICATE_PATH"
+echo -n "$SIGNING_CERTIFICATE_BASE64" | base64 --decode -o "$SIGNING_CERTIFICATE_PATH"
 
 # Create Keychain
 security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
@@ -125,7 +125,7 @@ security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
 security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
 
 # Import Signing Certificate to Keychain
-security import "$SIGNING_CERTIFICATE_PATH" -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
+security import "$SIGNING_CERTIFICATE_PATH" -P "$SIGNING_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
 security list-keychain -d user -s "$KEYCHAIN_PATH"
 ```
 
@@ -135,10 +135,10 @@ Finally, the provising profile is stored in the agent's library directory:
 - `~/Library/MobileDevice/Provisioning\ Profiles`
 
 ```sh
-PROVISIONING_PROFILE_PATH=$RUNNER_TEMP/build_provisioning_profile.mobileprovision
+PROVISIONING_PROFILE_PATH=$RUNNER_TEMP/provisioning_profile.mobileprovision
 
 # Read Provisioning Profile
-echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o "$PROVISIONING_PROFILE_PATH"
+echo -n "$PROVISIONING_PROFILE_BASE64" | base64 --decode -o "$PROVISIONING_PROFILE_PATH"
 
 # Import Provisioning Profile
 mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
@@ -153,10 +153,45 @@ Each build that is submitted to AppStore Connect needs to have a build number th
 buildNumber=${{ github.run_number }}
 echo "Current build number: $buildNumber"
 agvtool new-version -all $buildNumber
-sed -i "" "s/CFBundleVersion/$buildNumber/" exportOptions.plist
 ```
 
-### Step 6: Build, Sign and Archive
+### Step 6: Inject `TEAM_ID`, `BUNDLE_ID` and `PROVISIONING_PROFILE_NAME` into `exportOptions.plist`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>method</key>
+    <string>app-store</string>
+    <key>teamID</key>
+    <string>{{TEAM_ID}}</string>
+    <key>uploadSymbols</key>
+    <true/>
+    <key>signingStyle</key>
+    <string>manual</string>
+    <key>provisioningProfiles</key>
+    <dict>
+        <key>{{BUNDLE_ID}}</key>
+        <string>{{PROVISIONING_PROFILE_NAME}}</string>
+    </dict>
+</dict>
+</plist>
+```
+
+```sh
+- name: Configure exportOptions.plist
+  env: 
+    TEAM_ID: ${{ vars.TEAM_ID }}
+    BUNDLE_ID: ${{ vars.BUNDLE_ID }}
+    PROVISIONING_PROFILE_NAME: ${{ vars.PROVISIONING_PROFILE_NAME }}
+  run: |
+    sed -i '' "s/{{TEAM_ID}}/$TEAM_ID/g" exportOptions.plist
+    sed -i '' "s/{{BUNDLE_ID}}/$BUNDLE_ID/g" exportOptions.plist
+    sed -i '' "s/{{PROVISIONING_PROFILE_NAME}}/$PROVISIONING_PROFILE_NAME/g" exportOptions.plist
+```
+
+### Step 7: Build, Sign and Archive
 
 Having setup the environment, we can archive the application as an `xcarchive`. Note that we are using manual code signing with the provising profile that we imported in an earlier step: 
 
@@ -171,7 +206,7 @@ set -o pipefail && xcodebuild clean archive \
   PROVISIONING_PROFILE_SPECIFIER=Distribution | xcpretty
 ```
 
-### Step 7: Export Archive
+### Step 8: Export Archive
 
 As soon as the archive is available, we can export the iOS AppStore Package (`.ipa`) considering our export options.
 
@@ -183,7 +218,7 @@ set -o pipefail && xcodebuild -exportArchive \
   -exportPath $RUNNER_TEMP | xcpretty
 ```
 
-### Step 8: Publish Archive
+### Step 9: Publish Archive
 
 ```yaml
 - name: Publish App.ipa file
@@ -193,7 +228,7 @@ set -o pipefail && xcodebuild -exportArchive \
     path: ${{ runner.temp }}/App.ipa
 ```
 
-### Step 9: Validate Build Artifact
+### Step 10: Validate Build Artifact
 
 ```sh
 xcrun altool --validate-app \
@@ -203,7 +238,7 @@ xcrun altool --validate-app \
   --apiIssuer ${{ secrets.API_KEY_ISSUER_ID }}
 ```
 
-### Step 10: Upload Build Artifact to AppStore Connect
+### Step 11: Upload Build Artifact to AppStore Connect
 
 ```sh
 xcrun altool --upload-app \
@@ -213,11 +248,11 @@ xcrun altool --upload-app \
   --apiIssuer ${{ secrets.API_KEY_ISSUER_ID }}
 ```
 
-### Step 11: Cleanup keychain and provisioning profile
+### Step 12: Cleanup keychain and provisioning profile
 
 ```sh
 security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
-rm ~/Library/MobileDevice/Provisioning\ Profiles/build_provisioning_profile.mobileprovision
+rm ~/Library/MobileDevice/Provisioning\ Profiles/provisioning_profile.mobileprovision
 ```
 
 ### Deploy to AppStore Connect Workflow
@@ -249,15 +284,15 @@ jobs:
 
       - name: Install Signing Certificate
         env:
-          BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
-          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          SIGNING_CERTIFICATE_BASE64: ${{ secrets.SIGNING_CERTIFICATE_BASE64 }}
+          SIGNING_CERTIFICATE_PASSWORD: ${{ secrets.SIGNING_CERTIFICATE_PASSWORD }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
         run: |
-          SIGNING_CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+          SIGNING_CERTIFICATE_PATH=$RUNNER_TEMP/signing_certificate.p12
           KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
 
           # Read Signing Certificate
-          echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o "$SIGNING_CERTIFICATE_PATH"
+          echo -n "$SIGNING_CERTIFICATE_BASE64" | base64 --decode -o "$SIGNING_CERTIFICATE_PATH"
 
           # Create Keychain
           security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
@@ -265,17 +300,17 @@ jobs:
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
 
           # Import Signing Certificate to Keychain
-          security import "$SIGNING_CERTIFICATE_PATH" -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
+          security import "$SIGNING_CERTIFICATE_PATH" -P "$SIGNING_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
           security list-keychain -d user -s "$KEYCHAIN_PATH"
 
       - name: Install Provisioning Profile
         env:
-          BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
+          PROVISIONING_PROFILE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
         run: |
-          PROVISIONING_PROFILE_PATH=$RUNNER_TEMP/build_provisioning_profile.mobileprovision
+          PROVISIONING_PROFILE_PATH=$RUNNER_TEMP/provisioning_profile.mobileprovision
 
           # Read Provisioning Profile
-          echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o "$PROVISIONING_PROFILE_PATH"
+          echo -n "$PROVISIONING_PROFILE_BASE64" | base64 --decode -o "$PROVISIONING_PROFILE_PATH"
 
           # Import Provisioning Profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
@@ -287,6 +322,16 @@ jobs:
           echo "Current build number: $buildNumber"
           agvtool new-version -all $buildNumber
           sed -i "" "s/CFBundleVersion/$buildNumber/" exportOptions.plist
+
+      - name: Configure exportOptions.plist
+        env: 
+          TEAM_ID: ${{ vars.TEAM_ID }}
+          BUNDLE_ID: ${{ vars.BUNDLE_ID }}
+          PROVISIONING_PROFILE_NAME: ${{ vars.PROVISIONING_PROFILE_NAME }}
+        run: |
+          sed -i '' "s/{{TEAM_ID}}/$TEAM_ID/g" exportOptions.plist
+          sed -i '' "s/{{BUNDLE_ID}}/$BUNDLE_ID/g" exportOptions.plist
+          sed -i '' "s/{{PROVISIONING_PROFILE_NAME}}/$PROVISIONING_PROFILE_NAME/g" exportOptions.plist
 
       - name: Build, Sign and Archive
         run: |
@@ -333,7 +378,7 @@ jobs:
         if: ${{ always() }}
         run: |
           security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
-          rm ~/Library/MobileDevice/Provisioning\ Profiles/build_provisioning_profile.mobileprovision
+          rm ~/Library/MobileDevice/Provisioning\ Profiles/provisioning_profile.mobileprovision
 ```
 
 # References:
