@@ -2,8 +2,8 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { articles } from "../data/ArticleData.js";
 import ReactMarkdown from "react-markdown";
-import CodeRenderer from "./CodeRenderer.js";
 import Metadata from "./Metadata.js";
+import CodeRenderer from "./CodeRenderer.js";
 import ImageRenderer from "./ImageRenderer.js";
 import ParagraphRenderer from "./ParagraphRenderer.js";
 import gfm from 'remark-gfm'
