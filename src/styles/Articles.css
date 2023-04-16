@@ -19,3 +19,13 @@
     padding-right: 64px;
   }
 }
+
+.articlesContainer a {
+  opacity: 1;
+  text-decoration: none;
+  transition: opacity 0.16s;
+}
+
+.articlesContainer a:hover {
+  opacity: 0.7;
+}
