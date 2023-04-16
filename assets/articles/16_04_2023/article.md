@@ -6,13 +6,14 @@ In agile software development, continuous deployment is key to collect user feed
 
 First, we need to configure the following environment variables in your project's settings (`Project` > `Settings` > `Security` > `Secrets and Environment Variables` > `actions`):
 
-| Key                     | Value (Example)   |
-|-------------------------|-------------------|
-| APP_ID                  | 1234567           |
-| TEAM_ID                 | A123456789        |
-| BUNDLE_ID               | com.example.app   |
-| SIMULATOR_DEVICE_TYPE   | iPhone-14         |
-| SIMULATOR_RUNTIME       | iOS-16-2          |
+| Key                       | Value (Example)   |
+|---------------------------|-------------------|
+| APP_ID                    | 1234567           |
+| TEAM_ID                   | A123456789        |
+| BUNDLE_ID                 | com.example.app   |
+| PROVISIONING_PROFILE_NAME | Distribution      |
+| SIMULATOR_DEVICE_TYPE     | iPhone-14         |
+| SIMULATOR_RUNTIME         | iOS-16-2          |
 
 Explanation:
 - `APP_ID`: The identifier that uniquely identifies the application.
@@ -21,6 +22,7 @@ Explanation:
   - Location: AppStore Connect > Edit Profile > TeamID
 - `BUNDLE_ID`: The identifier used by Apple to uniquely identify the application.
   - Location: AppStore Connect > Apps > App > App Information > Bundle Identifier
+- `PROVISIONING_PROFILE_NAME`: The name of the provisioning profile.
 - `SIMULATOR_DEVICE_TYPE`: The simulator device used to run tests in the workflow.
 - `SIMULATOR_RUNTIME`: The Runtime version of the iOS simulator.
 
@@ -54,7 +56,12 @@ Explanation:
 You can use the following command to encode the
 
 ```sh
-openssl base64 -in ./AuthKey_XXXXXXXX.p8 | pbcopy
+# API_KEY_BASE64
+openssl base64 -in AuthKey_{KEY_ID}.p8 | pbcopy
+# SIGNING_CERTIFICATE_BASE64
+openssl base64 -in {SIGNING_CERTIFICATE_NAME}.p12 | pbcopy 
+# PROVISIONING_PROFILE_BASE64
+openssl base64 -in {PROVISIONING_PROFILE_NAME}.mobileprovision | pbcopy 
 ```
 
 ## Deployment Workflow
