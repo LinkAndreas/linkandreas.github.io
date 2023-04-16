@@ -4,9 +4,9 @@ In agile software development, continuous deployment is key to collect user feed
 
 ## Environment Variables
 
-First, we need to configure the following environment variables in the 
+First, we need to configure the following environment variables in your project's settings (`Project` > `Settings` > `Security` > `Secrets and Environment Variables` > `actions`):
 
-| Key                     | Example Value     |
+| Key                     | Value (Example)   |
 |-------------------------|-------------------|
 | BUNDLE_IDENTIFIER       | com.example.app   |
 | TEAM_ID                 | A123456789        |
@@ -15,13 +15,17 @@ First, we need to configure the following environment variables in the
 
 Explanations:
 - `BUNDLE_IDENTIFIER`: The identifier used by Apple to uniquely identify the application.
+  - Location: AppStore Connect > Apps > App > App Information > Bundle Identifier
 - `TEAM_ID`: The identifier for each team enrolled in the Apple Developer Program.
+  - Location: AppStore Connect > Edit Profile > TeamID
 - `SIMULATOR_DEVICE_TYPE`: The simulator device used to run tests in the workflow.
 - `SIMULATOR_RUNTIME`: Runtime version of the iOS simulator.
 
 ## Secrets
 
-| Key                            | Example Value        |
+Next, we create the following secrets in your project's settings:
+
+| Key                            | Value (Example)      |
 |--------------------------------|----------------------|
 | APP_ID                         | XXXXXXXXXX           |
 | KEYCHAIN_PASSWORD              | XXXXXXXXXX           |
@@ -32,6 +36,22 @@ Explanations:
 | BUILD_CERTIFICATE_BASE64       | XXXXXXXXXX           |
 | BUILD_PROVISION_PROFILE_BASE64 | XXXXXXXXXX           |
 
+Secrets store sensitive information in your project's repository and provide them as encrypted environment variables to your workflows, ensuring that their values are hidden from the web interface and can only be updated, not seen, once stored.
+
+Explanations:
+- `APP_ID`: The identifier that uniquly identifies the application.
+  - Location: AppStore Connect > Apps > App > App Information 
+- `KEYCHAIN_PASSWORD`: The password used to unlock the keychain.
+- `P12_PASSWORD`: The password protecting the signing certificate (`BUILD_CERTIFICATE_BASE64`).
+- `API_KEY_ID`: The key's Id.
+  - Location: App Store Connect > Users and Access > Keys
+- `API_KEY_ISSUER_ID`: The identifier of the issuer who created the authentication token.
+  - Location: App Store Connect > Users and Access > Keys > Issuer Id
+- `API_KEY_BASE64`: The private key to authorize against the AppStore Connect API encoded in base64 format.
+- `BUILD_CERTIFICATE_BASE64`: The signing certificate encoded in base64 format.
+- `BUILD_PROVISION_PROFILE_BASE64`: The provisioning profile encoded in base64 format.
+
+You can use the following command to encode the
 
 ```sh
 openssl base64 -in ./AuthKey_XXXXXXXX.p8 | pbcopy
