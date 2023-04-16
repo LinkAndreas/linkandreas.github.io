@@ -6,6 +6,7 @@ import CodeRenderer from "./CodeRenderer.js";
 import Metadata from "./Metadata.js";
 import ImageRenderer from "./ImageRenderer.js";
 import ParagraphRenderer from "./ParagraphRenderer.js";
+import gfm from 'remark-gfm'
 import "../styles/Article.css";
 
 export default function Article() {
@@ -26,6 +27,7 @@ export default function Article() {
                 img: ImageRenderer,
                 p: ParagraphRenderer,
               }}
+              remarkPlugins={[gfm]}
             />
           }
         />
