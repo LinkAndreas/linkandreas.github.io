@@ -12,7 +12,7 @@ const articles = [
         title: 'Automating your iOS App Development Workflow: Continuous Deployment with GitHub Actions',
         description: `In agile software development, continuous deployment is key to collect 
         user feedback leading to more reliable and successful iOS apps. Still, deploying to 
-        AppStore Connect is challenging due to signing certificates, provisioning profiles, 
+        AppStore Connect is challenging due to managing signing certificates, provisioning profiles, 
         and build numbers. In this article, we'll explore how to automate this process, allowing 
         you to release your apps with a single button press.`
     },

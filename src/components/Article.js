@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { articles } from "./ArticleData.js";
+import { articles } from "../data/ArticleData.js";
 import ReactMarkdown from "react-markdown";
 import CodeRenderer from "./CodeRenderer.js";
 import Metadata from "./Metadata.js";
