@@ -1,13 +1,13 @@
-import article5 from "../../assets/articles/16_04_2023/article.md";
-import article4 from "../../assets/articles/15_04_2023/article.md";
+import article5 from "../../assets/articles/17_04_2023/article.md";
+import article4 from "../../assets/articles/10_04_2023/article.md";
 import article3 from "../../assets/articles/13_11_2022/article.md";
 import article2 from "../../assets/articles/16_03_2022/article.md";
 import article1 from "../../assets/articles/09_03_2021/article.md";
 
 const articles = [
     {
-        id: '16_04_2023',
-        date: '16th of April 2023',
+        id: '17_04_2023',
+        date: '17th of April 2023',
         markdown: article5,
         title: 'Automating your iOS App Development Workflow: Continuous Deployment with GitHub Actions',
         description: `In agile software development, continuous deployment is key to collect 
@@ -17,8 +17,8 @@ const articles = [
         you to release your apps with a single button press.`
     },
     {
-        id: '15_04_2023',
-        date: '15th of April 2023',
+        id: '10_04_2023',
+        date: '10th of April 2023',
         markdown: article4,
         title: 'Automating your iOS App Development Workflow: Continuous Testing with GitHub Actions',
         description: `Are you striving to iterate quickly to deliver new features,

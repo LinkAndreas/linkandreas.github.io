@@ -152,4 +152,13 @@ jobs:
             while read -r identifier; do xcrun simctl delete "$identifier"; echo "Removed simulator with identifier: $identifier"; done
 ```
 
+# Conclusion
+
+In this article, we explored how we can leverage the power of github actions to automate test execution whenever a pull-request is created. This is particularly useful in larger teams, as it effectively minimizes the occurrence of bugs and ensures continuous enhancement of the codebase.
+
+# References:
+
+- [Quickstart for Github Actions](https://docs.github.com/en/actions/quickstart) - Github
+- [Building from the Command Line with Xcode](https://developer.apple.com/library/archive/technotes/tn2339/_index.html) - Apple
+
 Happy Coding 🚀
