@@ -3,12 +3,14 @@ import hljs from 'highlight.js';
 import swift from 'highlight.js/lib/languages/swift';
 import bash from 'highlight.js/lib/languages/bash';
 import yaml from 'highlight.js/lib/languages/yaml';
-import "../styles/Code.css";
+import xml from 'highlight.js/lib/languages/xml';
+import "../styles/CodeRenderer.css";
 
 export default function CodeRenderer({ node, inline, className, children, ...props }) {
   hljs.registerLanguage('swift', swift)
   hljs.registerLanguage('bash', bash)
   hljs.registerLanguage('yaml', yaml)
+  hljs.registerLanguage('xml', xml)
 
   const code = String(children).replace(/\n$/, '')
   const match = /language-(\w+)/.exec(className || '')

@@ -1,0 +1,16 @@
+.tableBlock {
+    table-layout: fixed;
+    width: 100%;
+    margin-top: 16px;
+    margin-bottom: 12px;
+    border-collapse: collapse;
+}
+
+.tableBlock th,
+.tableBlock td {
+    font-size: 14px;
+    text-align: left;
+    padding: 16px;
+    overflow-wrap: anywhere;
+    border: 1px solid #e0e2e4;
+}
