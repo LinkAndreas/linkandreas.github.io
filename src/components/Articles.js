@@ -1,6 +1,6 @@
 import React from "react";
 import Article from "./Article.js";
-import { articles } from "./ArticleData.js";
+import { articles } from "../data/ArticleData.js";
 import ArticleItem from "./ArticleItem.js";
 import Metadata from "./Metadata.js";
 import { Routes, Route } from "react-router-dom";
@@ -15,7 +15,7 @@ export default function Articles() {
           <Routes>
             <Route path="" element={
               <div>
-                {articles.reverse().map((article, index) => (
+                {articles.map((article, index) => (
                   <ArticleItem
                     key={index}
                     id={article.id}
@@ -23,9 +23,12 @@ export default function Articles() {
                     title={article.title}
                     body={
                       <div>
-                        {article.description.split("\n\n").map((line, index) => (
-                          <p key={index}>{line}</p>
-                        ))}
+                        {
+                          article.description
+                            .split("\n\n")
+                            .map((line, index) => (
+                              <p key={index}>{line}</p>
+                            ))}
                       </div>
                     }
                   />
