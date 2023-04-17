@@ -40,7 +40,7 @@ Next, we create the following secrets in the project's settings:
 | SIGNING_CERTIFICATE_PASSWORD   | XXXXXXXXXX           |
 | PROVISIONING_PROFILE_BASE64    | XXXXXXXXXX           |
 
-Github secrets store sensitive information in the project's repository and provide them as encrypted environment variables to the workflows, ensuring that their values are hidden from the web interface and can only be updated, not seen, once stored.
+Github secrets store sensitive information in the project's repository and provide them as encrypted workflow configuration variables to the workflows, ensuring that their values are hidden from the web interface and can only be updated, not seen, once stored.
 
 Explanation:
 - `API_KEY_BASE64`: The private key to authorize against the AppStore Connect API encoded in base64 format.
@@ -68,7 +68,7 @@ openssl base64 -in {PROVISIONING_PROFILE_NAME}.mobileprovision | pbcopy
 
 ## Deployment Workflow
 
-Having specified all secrets and pipeline configuration variables, we can create a dedicated workflow that automates deployment to AppStore Connect. This way, we can distribute the application to TestFlight and get feedback from internal- and external testers.
+Having specified all secrets and configuration variables, we can create a dedicated workflow that automates deployment to AppStore Connect. This way, we can distribute the application to TestFlight and get feedback from internal- and external testers.
 
 We start with the following blueprint:
 
@@ -115,7 +115,7 @@ echo "After saving:"
 ls ~/.private_keys
 ```
 
-The API Key is decoded from the base64-encoded Secret and stored in the current directory.
+The API Key is decoded from the base64-encoded secret and stored in the current directory.
 
 ### Step 3: Install Signing Certificate
 
@@ -140,7 +140,7 @@ security list-keychain -d user -s "$KEYCHAIN_PATH"
 
 ### Step 4: Install Provisioning Profile
 
-Finally, the provising profile is decoded and stored in the agent's library directory(`~/Library/MobileDevice/Provisioning\ Profiles`):
+Similarly, the provising profile is decoded and stored in the agent's library directory(`~/Library/MobileDevice/Provisioning\ Profiles`):
 
 ```sh
 PROVISIONING_PROFILE_PATH=$RUNNER_TEMP/provisioning_profile.mobileprovision
@@ -153,7 +153,25 @@ mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
 cp $PROVISIONING_PROFILE_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 ```
 
+The provisioning profiles specify the devices the application is allowed to run. In addition, they ensure that the app is from a trusted source and has not been tampered with. 
+
 ### Step 5: Configure `exportOptions.plist`
+
+Next, we inject the provisioning profile's name, the Team- and Bundle-ID into the `exportOptions.plist` that is used by `xcodebuild` when distributing the archive. The injection is done using the `sed` command with which we can replace the placeholders `{{Placeholder}}` with their corresponding values:
+
+```sh
+- name: Configure exportOptions.plist
+  env: 
+    TEAM_ID: ${{ vars.TEAM_ID }}
+    BUNDLE_ID: ${{ vars.BUNDLE_ID }}
+    PROVISIONING_PROFILE_NAME: ${{ vars.PROVISIONING_PROFILE_NAME }}
+  run: |
+    sed -i '' "s/{{TEAM_ID}}/$TEAM_ID/g" exportOptions.plist
+    sed -i '' "s/{{BUNDLE_ID}}/$BUNDLE_ID/g" exportOptions.plist
+    sed -i '' "s/{{PROVISIONING_PROFILE_NAME}}/$PROVISIONING_PROFILE_NAME/g" exportOptions.plist
+```
+
+This way, we can customize the export process and specify the distribution method as well as the provisioning profile, used when code signing the app.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -177,22 +195,10 @@ cp $PROVISIONING_PROFILE_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 </plist>
 ```
 
-```sh
-- name: Configure exportOptions.plist
-  env: 
-    TEAM_ID: ${{ vars.TEAM_ID }}
-    BUNDLE_ID: ${{ vars.BUNDLE_ID }}
-    PROVISIONING_PROFILE_NAME: ${{ vars.PROVISIONING_PROFILE_NAME }}
-  run: |
-    sed -i '' "s/{{TEAM_ID}}/$TEAM_ID/g" exportOptions.plist
-    sed -i '' "s/{{BUNDLE_ID}}/$BUNDLE_ID/g" exportOptions.plist
-    sed -i '' "s/{{PROVISIONING_PROFILE_NAME}}/$PROVISIONING_PROFILE_NAME/g" exportOptions.plist
-```
-
 ### Step 6: Inject Build Number
 
 Now that we have the signing certificate, provisioning profile and API Key in place, we need to determine the build number.
-Each build that is submitted to AppStore Connect needs to have a build number that is greater than the maximum known build number of all builds ever submitted. Since manually keeping track of build numbers is tedious, we utitlize the pipelines built-in counter, i.e., `github.run_number` that is incremented on every build. This way, we only need to specify the marketing version that is shown in the AppStore:  
+Each buildnmber submitted to AppStore Connect is required to be strictly greater than the maximum known build number of all builds ever submitted. Since manually keeping track of build numbers is tedious, we utitlize the workflow's built-in counter, i.e., `github.run_number` that is incremented on every build. This way, we only need to specify the marketing version that is shown in the AppStore:  
 
 ```sh
 buildNumber=${{ github.run_number }}
@@ -202,7 +208,7 @@ agvtool new-version -all $buildNumber
 
 ### Step 7: Build, Sign and Archive
 
-Having setup the environment, we can archive the application as an `xcarchive`. Note that we are using manual code signing with the provising profile that we imported in an earlier step: 
+Having setup the environment, we can archive the application as an `xcarchive`. Note that we use manual signing with the provising profile that we imported in an earlier step: 
 
 ```sh
 set -o pipefail && xcodebuild clean archive \
@@ -217,7 +223,7 @@ set -o pipefail && xcodebuild clean archive \
 
 ### Step 8: Export Archive
 
-As soon as the archive is available, we can export the iOS AppStore Package (`.ipa`) considering our export options.
+As soon as the archive is built, we can export the iOS AppStore Package (`.ipa`) considering the `exportOptions`.
 
 ```sh
 ARTIFACT_FILEPATH=$RUNNER_TEMP/App.ipa
@@ -229,6 +235,8 @@ set -o pipefail && xcodebuild -exportArchive \
 
 ### Step 9: Publish Archive
 
+An iOS AppStore Package (`.ipa`) is technically identical to a `zip` file and can be extracted by renaming it's file extension. That's why it makes sence to publish it as a workflow artifact, such that we can access to the package and verify whether all ressources are properly bundled:
+
 ```yaml
 - name: Publish App.ipa file
   uses: actions/upload-artifact@v3
@@ -238,6 +246,8 @@ set -o pipefail && xcodebuild -exportArchive \
 ```
 
 ### Step 10: Validate Build Artifact
+
+Before uploading the application package to AppStore Connect, we use the `altool` command to validate it. In case the AppStore will not accept the package the validation will fail. E.g., we might have missed adding an App Icon which is required by the store:
 
 ```sh
 xcrun altool --validate-app \
@@ -249,6 +259,8 @@ xcrun altool --validate-app \
 
 ### Step 11: Upload Build Artifact to AppStore Connect
 
+In case the validation succeeded, we can upload the package via the AppStore Connect API.
+
 ```sh
 xcrun altool --upload-app \
   -f ${{ runner.temp }}/App.ipa \
@@ -258,6 +270,8 @@ xcrun altool --upload-app \
 ```
 
 ### Step 12: Cleanup keychain and provisioning profile
+
+Even though Github's own runners always ensure that we start with a clean environment it is best practive to clean up certificates that are no longer needed. In case we would use a self hosted runner, these artifacts could otherwiese remain and cause unintended side-effects on subsequent builds.
 
 ```sh
 security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
@@ -389,6 +403,10 @@ jobs:
           security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
           rm ~/Library/MobileDevice/Provisioning\ Profiles/provisioning_profile.mobileprovision
 ```
+
+# Conclusion
+
+In this article, we went through the necessary steps to automate deployment of an iOS application via Github Actions. Having setup the dedicated workflow, we can release the app upon the press of a button and rather focus on building features while getting valuable feedback from testers and users. 
 
 # References:
 
