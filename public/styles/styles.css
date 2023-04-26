@@ -1,0 +1,132 @@
+/* || General styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0 0;
+  padding: 0 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  background-color: #000000;
+  color: #e0e2e4;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+h1 {
+  font-size: 2em;
+  font-weight: bold;
+  padding-bottom: 16px;
+}
+
+h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+p {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+strong {
+  color: #e0e2e4;
+}
+
+b {
+  color: #e0e2e4;
+}
+
+em {
+  color: #e0e2e4;
+}
+
+pre {
+  margin: 0px;
+  padding: 16px 0px;
+}
+
+blockquote {
+  font-weight: 400;
+  margin: 0px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 1em;
+  border-left: 0.1em #e0e2e4 solid;
+}
+
+blockquote .paragraphBlock {
+  padding: 0px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+a {
+  color: #f77f00;
+}
+
+a:hover {
+  cursor: pointer;
+  color: #f77f00;
+}
+
+a:active {
+  color: #f77f00;
+}
+
+.code {
+  width: 94%;
+}
+
+@media only screen and (min-width: 950px) {
+  .code {
+    width: 895px;
+  }
+}
+
+/* || Utility styles */
+.inline {
+  display: inline;
+}
+
+.noMargin {
+  margin: 0 0;
+}
+
+/* || Custom Colors*/
+.timityOrange {
+  color: #f77f00;
+}
+
+code {
+  color: #e0e2e4;
+}
+
+li {
+  color: #aaaaaa;
+}
+
+ul {
+  list-style-position: outside;
+}
+
+ol {
+  list-style-position: outside;
+}
