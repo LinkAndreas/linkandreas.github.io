@@ -5,13 +5,9 @@
   "homepage": "http://linkandreas.github.io",
   "scripts": {
     "bootstrap": "npm install --include=dev",
-    "start": "webpack serve --mode=development --config 'webpack.config.babel.js'",
-    "build": "webpack --mode=production --config 'webpack.config.babel.js'",
-    "clean": "rm -rf .cache/ dist/ node_modules/",
-    "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
-    "format": "prettier \"src/**/*.{js,html}\" --write",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -b master -d dist"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
   "repository": {
     "type": "git",
