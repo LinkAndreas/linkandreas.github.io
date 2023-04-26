@@ -1,4 +1,15 @@
-.articlesContainer {
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.appRouter,
+.appContainer {
+  height: 100%;
+}
+
+.content {
   display: flex;
   flex-flow: column nowrap;
   margin-top: 40px;
@@ -6,15 +17,17 @@
   padding-left: 8%;
   padding-right: 8%;
   width: 100%;
+  height: 100%;
   max-width: 800px;
+  list-style: square inside;
 }
 
-.articlesContainer p {
+.content p {
   margin-bottom: 0;
 }
 
 @media only screen and (min-width: 800px) {
-  .articlesContainer {
+  .content {
     padding-left: 64px;
     padding-right: 64px;
   }

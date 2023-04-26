@@ -1,7 +1,6 @@
-.content {
-  width: 100%;
-  flex: 1 0 auto;
+.articlesContainer {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+  justify-content: center;
 }

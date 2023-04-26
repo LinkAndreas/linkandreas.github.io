@@ -1,6 +1,4 @@
 .aboutContainer {
-  margin-top: 40px;
-  margin-bottom: 40px;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -15,12 +13,6 @@
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-}
-
-.icon {
-  width: 30px;
-  color: #ea9434;
-  margin-right: 10px;
 }
 
 .biography {

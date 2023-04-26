@@ -10,3 +10,11 @@
   flex-flow: column nowrap;
   align-items: center;
 }
+
+.icon {
+  width: 30px;
+  height: auto;
+  color: #ea9434;
+  margin-right: 10px;
+  margin-bottom: 4px;
+}

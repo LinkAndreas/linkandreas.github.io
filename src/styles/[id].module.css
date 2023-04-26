@@ -1,5 +1,6 @@
 .articleContainer {
-  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
   list-style: square inside;
 }
 
