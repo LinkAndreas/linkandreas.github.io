@@ -1,11 +1,11 @@
 import React from "react";
-import "../styles/Avatar.css";
+import Image from 'next/image'
+import styles from "../styles/Avatar.module.css";
 
-/* Images */
-import avatarImage from "../../assets/images/about/avatar.png";
+import avatarImage from "../../public/images/about_avatar.png";
 
 export default function Avatar() {
-  return <div className="avatarContainer">
-    <img className="avatar__image" src={avatarImage} alt="Avatar Image" />
+  return <div className={styles.avatarContainer}>
+    <Image className={styles.avatar__image} src={avatarImage} alt="Avatar Image" />
   </div>;
 }

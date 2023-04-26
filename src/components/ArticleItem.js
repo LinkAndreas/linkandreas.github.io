@@ -1,14 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import "../styles/ArticleItem.css";
+import Link from 'next/link'
+import styles from "../styles/ArticleItem.module.css";
 
 export default function ArticleItem({ id, title, body, date }) {
   return (
-    <div className="articleItemContainer">
-      <div className="dateContainer">
+    <div className={styles.articleItemContainer}>
+      <div className={styles.dateContainer}>
         <h3 className="timityOrange">{date}</h3>
       </div>
-      <Link to={id}>{title}</Link>
+      <Link href={`articles/${id}`}>{title}</Link>
       {body}
     </div>
   );

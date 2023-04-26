@@ -1,13 +1,14 @@
 import React from "react";
-import "../styles/Feature.css";
+import Image from 'next/image'
+import styles from "../styles/Feature.module.css";
 
 export default function Feature({ title, subtitle, icon, alt }) {
   return (
-    <div className="feature">
-      <img className="feature__icon" src={icon} alt={alt} />
-      <div className="feature__description">
-        <h2 className="feature__description__title noMargin">{title}</h2>
-        <p className="feature__description_subtitle ">{subtitle}</p>
+    <div className={styles.feature}>
+      <Image className={styles.feature__icon} src={icon} alt={alt} />
+      <div className={styles.feature__description}>
+        <h2 className={`${styles.feature__description__title} noMargin`}>{title}</h2>
+        <p className={styles.feature__description_subtitle}>{subtitle}</p>
       </div>
     </div>
   );
