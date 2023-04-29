@@ -5,6 +5,7 @@
   "homepage": "http://linkandreas.github.io",
   "scripts": {
     "bootstrap": "npm install --include=dev",
+    "clean": "rm -rf .cache/ out/ dist/ node_modules/",
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
