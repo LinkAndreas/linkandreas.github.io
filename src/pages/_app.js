@@ -22,6 +22,7 @@ export default function MyApp({ Component, pageProps }) {
           locale: 'en_US',
           url: 'https://www.linkandreas.de/',
           siteName: 'Andreas Link',
+          images: []
         }}
         twitter={{
           handle: '@handle',

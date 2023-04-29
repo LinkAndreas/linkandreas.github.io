@@ -14,7 +14,8 @@ const articles = [
             user feedback leading to more reliable and successful iOS apps. Still, deploying to 
             AppStore Connect is challenging due to managing signing certificates, provisioning profiles, 
             and build numbers. In this article, we'll explore how to automate this process, allowing 
-            you to release your apps with a single button press.`
+            you to release your apps with a single button press.`,
+        images: []
     },
     {
         id: '10_04_2023',
@@ -25,7 +26,8 @@ const articles = [
             all while ensuring the reliability and performance of your iOS application? 
             Efficient workflows are key to achiving this goal. In this article, we'll 
             explore how we can leverage the power of Github Actions to automate testing 
-            of iOS applications.`
+            of iOS applications.`,
+        images: []
     },
     {
         id: '13_11_2022',
@@ -39,7 +41,16 @@ const articles = [
             feature, bug fix or release when it was developed. Still, manually adding
             the number to every commit is cumbersome. Hence, today, we will learn how
             to automatically derive the story number from the branch name and automate
-            that procedure using Git Commit Hooks.`
+            that procedure using Git Commit Hooks.`,
+        images: [
+            {
+                url: "/images/article_13_11_2022_branch_history.svg",
+                width: 615,
+                height: 222,
+                alt: 'Article Teaser Image',
+                type: 'image/svg',
+            }
+        ]
     },
     {
         id: '16_03_2022',
@@ -58,7 +69,16 @@ const articles = [
     
             AsyncResourceView offers a consistent way to deal with loading as well as
             error states in SwiftUI applications. This way, developers can focus on
-            features rather than writing repetitive error-prone code.`
+            features rather than writing repetitive error-prone code.`,
+        images: [
+            {
+                url: "/images/article_16_03_2022_logo_dark.png",
+                width: 3705,
+                height: 1267,
+                alt: 'Article Teaser Image',
+                type: 'image/jpeg',
+            }
+        ]
     },
     {
         id: '09_03_2021',
@@ -73,7 +93,16 @@ const articles = [
     
             To mitigate this issue, I developed Licenses, a native macOS
             app that automates this procedure by collecting and exporting
-            your licenses into a single spreadsheet (CSV) file.`
+            your licenses into a single spreadsheet (CSV) file.`,
+        images: [
+            {
+                url: "/images/article_09_03_2021_app.png",
+                width: 2282,
+                height: 1342,
+                alt: 'Article Teaser Image',
+                type: 'image/jpeg',
+            }
+        ]
     }
 ];
 
