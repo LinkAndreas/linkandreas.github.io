@@ -2,6 +2,11 @@ const CnameWebpackPlugin = require('cname-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
+  output: 'export',
+  distDir: 'dist',
+  images: {
+    unoptimized: true,
+  },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.md$/,
