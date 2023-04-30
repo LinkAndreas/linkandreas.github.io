@@ -48,7 +48,6 @@ const articles = [
                 width: 2608,
                 height: 941,
                 alt: 'Article Teaser Image',
-                type: 'image/png',
             }
         ]
     },
@@ -76,7 +75,6 @@ const articles = [
                 width: 3706,
                 height: 1853,
                 alt: 'Article Teaser Image',
-                type: 'image/png',
             }
         ]
     },
@@ -100,7 +98,6 @@ const articles = [
                 width: 2282,
                 height: 1342,
                 alt: 'Article Teaser Image',
-                type: 'image/png',
             }
         ]
     }
