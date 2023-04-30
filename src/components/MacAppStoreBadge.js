@@ -1,13 +1,15 @@
 import React from "react";
-import "../styles/MacAppStoreBadge.css";
-import macAppStoreBadge from "../../assets/images/macAppStoreBadge.png";
+import Image from 'next/image'
+import styles from "../styles/MacAppStoreBadge.module.css";
+
+import macAppStoreBadge from "../../public/images/macAppStoreBadge.png";
 
 export default function MacAppStoreBadge({ url }) {
   return (
     <div>
       <a href={url}>
-        <img
-          className="macAppStoreBadge"
+        <Image
+          className={styles.macAppStoreBadge}
           src={macAppStoreBadge}
           alt="Mac AppStore Badge"
         />

@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/PublicationItem.css";
+import styles from "../styles/PublicationItem.module.css";
 
 export default function PublicationItem({
   authors,
@@ -11,7 +11,7 @@ export default function PublicationItem({
   bibTexLink,
 }) {
   return (
-    <div className="publicationItemContainer">
+    <div className={styles.publicationItemContainer}>
       <ul>
         <li>
           {`${authors}. `}

@@ -1,6 +1,7 @@
 import React from "react";
-import "../styles/ImageRenderer.css";
+import Image from "next/image";
+import styles from "../styles/ImageRenderer.module.css";
 
 export default function ImageRenderer(props) {
-  return <img {...props} className="imageBlock" />;
+  return <Image src={"/images/" + props.src} alt="Image" width={500} height={500} className={styles.imageBlock} />
 }

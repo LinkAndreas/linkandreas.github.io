@@ -1,10 +1,10 @@
 import React from "react";
-import "../styles/FeatureGrid.css";
+import styles from "../styles/FeatureGrid.module.css";
 
 export default function FeatureGrid({ children }) {
   return (
-    <div className="featureGridContainer">
-      <div className="featureGrid">{children}</div>
+    <div className={styles.featureGridContainer}>
+      <div className={styles.featureGrid}>{children}</div>
     </div>
   );
 }

@@ -1,0 +1,20 @@
+.timityContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.timityAppScreenshot {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  width: 85%;
+  height: auto;
+}
+
+@media only screen and (min-width: 1000px) {
+  .timityAppScreenshot {
+    width: 850px;
+    height: auto;
+  }
+}

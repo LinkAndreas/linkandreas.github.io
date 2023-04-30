@@ -1,23 +1,18 @@
-import React, { useEffect } from "react";
+import React from "react";
+import Script from 'next/script'
 
 export default function PrivacyPolicy() {
-  useEffect(() => {
-    const script = document.createElement("script");
-
-    script.type = "text/javascript";
-    script.innerHTML =
-      '!function(e,t){var n=function(){var e=t.createElement("script"),n=t.getElementsByTagName("script")[0];e.src="https://cdn.iubenda.com/iubenda.js",n.parentNode.insertBefore(e,n)};e.addEventListener?e.addEventListener("load",n,!1):e.attachEvent?e.attachEvent("onload",n):e.onload=n}(window,document);';
-    script.async = true;
-
-    if (document.body != null) document.body.appendChild(script);
-  });
-
   return (
-    <a
-      href="https://www.iubenda.com/privacy-policy/86928215"
-      className="iubenda-black no-brand iubenda-embed"
-    >
-      Privacy Policy
-    </a>
+    <div>
+      <Script id="show-banner" strategy="beforeInteractive">
+        {`(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);`}
+      </Script>
+      <a
+        href="https://www.iubenda.com/privacy-policy/86928215"
+        className="iubenda-black no-brand iubenda-noiframe iubenda-embed iubenda-noiframe "
+      >
+        Privacy Policy
+      </a>
+    </div>
   );
 }

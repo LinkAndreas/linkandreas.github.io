@@ -1,13 +1,13 @@
 import React from "react";
-
-import "../styles/BibliographyEntry.css";
+import Image from 'next/image'
+import styles from "../styles/BibliographyEntry.module.css";
 
 export default function BibliographyEntry({ icon, alt, title, subtitle }) {
   return (
-    <div className="bibliographyEntryContainer">
-      <div className="verticalContainer">
-        <div className="horizontalContainer">
-          <img src={icon} alt={alt} className="icon" />
+    <div className={styles.bibliographyEntryContainer}>
+      <div className={styles.verticalContainer}>
+        <div className={styles.horizontalContainer}>
+          <Image src={icon} alt={alt} className={styles.icon} />
           <b>{title}</b>
         </div>
         {subtitle}
