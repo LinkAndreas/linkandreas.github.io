@@ -1,9 +1,0 @@
-.imageBlock {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  width: 100%;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}

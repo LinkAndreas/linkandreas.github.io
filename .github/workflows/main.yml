@@ -15,9 +15,11 @@ jobs:
           npm run clean
           npm run bootstrap
           npm run build
+          npm run export
+          touch ./out/.nojekyll
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.0.0
         with:
           branch: gh-pages
-          folder: dist
+          folder: out
