@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta property="og:type" content="website"/><meta property="og:locale" content="en_US"/><title>Story Numbers in Commit Messages: Leveraging the power of Git Hooks</title><meta name="robots" content="index,follow"/><meta name="description" content="Especially in large software projects with many developers involved,
+            it is best practice to include the story number from the ticket system
+            like Jira or Azure DevOps in every commit. This will let you refer to
+            the original requirements quickly and see how the team thought about the
+            feature, bug fix or release when it was developed. Still, manually adding
+            the number to every commit is cumbersome. Hence, today, we will learn how
+            to automatically derive the story number from the branch name and automate
+            that procedure using Git Commit Hooks."/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:site" content="@site"/><meta name="twitter:creator" content="@handle"/><meta property="og:title" content="Story Numbers in Commit Messages: Leveraging the power of Git Hooks"/><meta property="og:description" content="Especially in large software projects with many developers involved,
+            it is best practice to include the story number from the ticket system
+            like Jira or Azure DevOps in every commit. This will let you refer to
+            the original requirements quickly and see how the team thought about the
+            feature, bug fix or release when it was developed. Still, manually adding
+            the number to every commit is cumbersome. Hence, today, we will learn how
+            to automatically derive the story number from the branch name and automate
+            that procedure using Git Commit Hooks."/><meta property="og:url" content="https://www.linkandreas.de/articles/13_11_2022"/><meta property="og:image" content="/images/article_13_11_2022_branch_history.png"/><meta property="og:image:alt" content="Article Teaser Image"/><meta property="og:image:type" content="image/png"/><meta property="og:image:width" content="2608"/><meta property="og:image:height" content="941"/><meta property="og:site_name" content="Andreas Link"/><link rel="canonical" href="https://www.linkandreas.de/articles/13_11_2022"/><meta name="next-head-count" content="20"/><script id="show-banner" data-nscript="beforeInteractive">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script><link rel="preload" href="/_next/static/css/5d1a40d87bdc9ae6.css" as="style"/><link rel="stylesheet" href="/_next/static/css/5d1a40d87bdc9ae6.css" data-n-g=""/><link rel="preload" href="/_next/static/css/88dd2e2cc48225a2.css" as="style"/><link rel="stylesheet" href="/_next/static/css/88dd2e2cc48225a2.css" data-n-p=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script><script src="/_next/static/chunks/webpack-631d87836c08b1b9.js" defer=""></script><script src="/_next/static/chunks/framework-2c79e2a64abdb08b.js" defer=""></script><script src="/_next/static/chunks/main-deafda337c616f20.js" defer=""></script><script src="/_next/static/chunks/pages/_app-2d88e0ac7b041052.js" defer=""></script><script src="/_next/static/chunks/675-1303c59f4dea6577.js" defer=""></script><script src="/_next/static/chunks/252-0372aac53a566808.js" defer=""></script><script src="/_next/static/chunks/pages/articles/%5Bid%5D-1393d3dfdb918466.js" defer=""></script><script src="/_next/static/-3w302hGf1IOKCnTy-i41/_buildManifest.js" defer=""></script><script src="/_next/static/-3w302hGf1IOKCnTy-i41/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div class="App_appContainer___ZcR0"><div class="container-fluid"><nav class="navbar navbar-expand-md navbar-dark bg-transparent"><a class="navbar-brand" href="/articles">Andreas Link</a><button aria-controls="responsive-navbar-nav" type="button" aria-label="Toggle navigation" class="navbar-toggler collapsed"><span class="navbar-toggler-icon"></span></button><div class="navbar-collapse collapse" id="responsive-navbar-nav"><div class="ml-auto navbar-nav"><a data-rr-ui-event-key="/articles" class="nav-link" href="/articles">Articles</a><a data-rr-ui-event-key="/licenses" class="nav-link" href="/licenses">Licenses</a><a data-rr-ui-event-key="/timity" class="nav-link" href="/timity">Timity</a><a data-rr-ui-event-key="/publications" class="nav-link" href="/publications">Publications</a><a data-rr-ui-event-key="/about" class="nav-link" href="/about">About</a></div></div></nav></div><div class="App_content__2tPe8"><div class="_id__articleContainer__XAN2P"><h1>Story Numbers in Commit Messages: Leveraging the power of Git Hooks</h1>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Especially in large software projects with many developers involved, it is best practice to include the story number from the ticket system like Jira or Azure DevOps in every commit. This will let you refer to the original requirements quickly and see how the team thought about the feature, bug fix or release when it was developed. Still, manually adding the number to every commit is cumbersome. Hence, today, we will learn how to automatically derive the story number from the branch name and automate that procedure using Git Commit Hooks.</p>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3"><img alt="Image" loading="lazy" width="500" height="500" decoding="async" data-nimg="1" class="ImageRenderer_imageBlock__t65UQ" style="color:transparent" src="/images/article_13_11_2022_branch_history.png"/></p>
+<h2>Story Number Extraction</h2>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">We assume that branches are named according to the Git Flow naming conventions, i.e., production code is contained in the <code node="[object Object]">master</code> while pre-production code is found in the <code node="[object Object]">develop</code> branch. The latter is the starting point for features, bug-fixes and releases, while hotfixes are made from the <code node="[object Object]">master</code> branch.</p>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Branches other than the <code node="[object Object]">master</code> and <code node="[object Object]">develop</code> also contain the story number in their name, represented as <code node="[object Object]">SN-XXXXXX</code>, where <code node="[object Object]">XXXXXX</code> are digits. The prefix <code node="[object Object]">SN</code> as well as the number of digits may vary depending on the naming conventions used in your project. As a result, branch names match the following pattern:</p>
+<ul>
+<li>/<strong>&lt;type&gt;</strong>/<strong>SN-XXXXXX</strong>-&lt;description&gt;, where <code node="[object Object]">X in [0-9]</code> and <code node="[object Object]">&lt;type&gt; in {feature, release, bugfix, hotfix}</code></li>
+</ul>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Subsequently, examples for each branch type are given:</p>
+<ul>
+<li>/<strong>feature</strong>/<strong>SN-362845</strong>-Add-dynamic-island-support</li>
+<li>/<strong>release</strong>/<strong>SN-284321</strong>-Release-v3.0.0</li>
+<li>/<strong>bugfix</strong>/<strong>SN-839453</strong>-Fix-memory-leak-in-home-tab</li>
+<li>/<strong>hotfix</strong>/<strong>SN-839453</strong>-Fix-app-crash-in-onboarding</li>
+</ul>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">The idea is to automatically derive the story number from the branch name and include it in every commit. To achieve this, we leverage the power of git commit hooks to modify the message before the commit is made. As a result, adding the number becomes much simpler, since it does not need to be remembered among consecutive commits. Instead, developers only have to specify the story number once when the branch is created.</p>
+<h2>Shell Script: Prepare Commit Message Hook</h2>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Below, you can find the script that is executed as soon as a commit is made:</p>
+<pre><code class="language-sh" node="[object Object]">#!/bin/bash
+
+determine_branch_name() {
+  git rev-parse --abbrev-ref HEAD
+}
+
+determine_story_number() {
+  content=$1
+  
+  echo &quot;$content&quot; |\
+    grep -Eo &#x27;^(\w+/)*(\w+[-_])?[0-9]+&#x27; |\
+    grep -Eo &#x27;(\w+[-])+[0-9]+&#x27; |\
+    tr &quot;[:lower:]&quot; &quot;[:upper:]&quot;
+}
+
+contained_in_list() {
+  list=$1
+  delimiter=$2
+  item=$3
+  [[ &quot;$list&quot; =~ ($delimiter|^)$item($delimiter|$) ]]
+}
+
+COMMIT_EDITMSG_FILE=$1
+COMMIT_MESSAGE=$(cat &quot;$COMMIT_EDITMSG_FILE&quot;)
+BRANCH_NAME=$(determine_branch_name)
+STORY_NUMBER=$(determine_story_number &quot;$BRANCH_NAME&quot;)
+EXCLUDED_BRANCES=&quot;master, develop&quot;
+
+if [ -n &quot;$BRANCH_NAME&quot; ] &amp;&amp;  ! contained_in_list &quot;$EXCLUDED_BRANCES&quot; &quot;, &quot; &quot;$BRANCH_NAME&quot;; then
+  if [ &quot;$STORY_NUMBER&quot; = &quot;&quot; ] || [[ &quot;$COMMIT_MESSAGE&quot; == &quot;[$STORY_NUMBER]&quot;* ]]; then
+    exit 0
+  else
+    echo &quot;[$STORY_NUMBER] $COMMIT_MESSAGE&quot; &gt; &quot;$COMMIT_EDITMSG_FILE&quot;
+  fi
+fi
+</code></pre>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">First, we request a non-ambiguous abbreviation for the object referenced by HEAD:</p>
+<pre><code class="language-sh" node="[object Object]">determine_branch_name() {
+  git rev-parse --abbrev-ref HEAD
+}
+</code></pre>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Given the branch name, <code node="[object Object]">determine_story_number</code> chains multiple extended regular expressions to identify the story number in case it exists. In addition, all lowercased letters are replaced by upper case letters:</p>
+<pre><code class="language-sh" node="[object Object]">determine_story_number() {
+  content=$1
+  
+  echo &quot;$content&quot; |\
+    grep -Eo &#x27;^(\w+/)*(\w+[-_])?[0-9]+&#x27; |\
+    grep -Eo &#x27;(\w+[-])+[0-9]+&#x27; |\
+    tr &quot;[:lower:]&quot; &quot;[:upper:]&quot;
+}
+</code></pre>
+<blockquote>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Note: paths with an arbitrary step count are allowed:</p>
+<ul>
+<li>/feature/SN-374324-Implement-Dark-Mode</li>
+<li>/feature/navigation/SN-725342-Handle-In-App-Deeplink</li>
+</ul>
+</blockquote>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">To ensure that commits on the <code node="[object Object]">master</code> or <code node="[object Object]">develop</code> branch are not affected, we exit early in case that the branch is mentioned in the list of excluded branches. Likewise, we also ensure that the original commit message does not contain the story number yet. When all previous conditions are met, the original commit message is prefixed with the story number by modifying the content of the <code node="[object Object]">COMMIT_EDITMSG_FILE</code>:</p>
+<pre><code class="language-sh" node="[object Object]">if [ -n &quot;$BRANCH_NAME&quot; ] &amp;&amp;  ! contained_in_list &quot;$EXCLUDED_BRANCES&quot; &quot;, &quot; &quot;$BRANCH_NAME&quot;; then
+  if [ &quot;$STORY_NUMBER&quot; = &quot;&quot; ] || [[ &quot;$COMMIT_MESSAGE&quot; == &quot;[$STORY_NUMBER]&quot;* ]]; then
+    exit 0
+  else
+    echo &quot;[$STORY_NUMBER] $COMMIT_MESSAGE&quot; &gt; &quot;$COMMIT_EDITMSG_FILE&quot;
+  fi
+fi
+</code></pre>
+<h2>Using the Prepare Commit Message Hook in your Projects</h2>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">The following steps are necessary to activate the hook in your project:</p>
+<ol>
+<li>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Navigate to the <em>hooks</em>&#x27; directory:</p>
+<pre><code class="language-sh" node="[object Object]">cd /&lt;git-repository&gt;/.git/hooks
+</code></pre>
+</li>
+<li>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Create a file called <code node="[object Object]">prepare-commit-msg</code>:</p>
+<pre><code class="language-sh" node="[object Object]">touch prepare-commit-msg
+</code></pre>
+<blockquote>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Note: You can also remove the suffix <code node="[object Object]">.sample</code> from <code node="[object Object]">prepare-commit-msg.sample</code> in case it exists.</p>
+</blockquote>
+</li>
+<li>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Copy the script as the <code node="[object Object]">prepare-commit-msg</code> hook&#x27;s content:</p>
+<pre><code class="language-sh" node="[object Object]">cat &lt;script content&gt; &gt; prepare-commit-msg
+</code></pre>
+</li>
+<li>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Make the hook executable by updating its permissions:</p>
+<pre><code class="language-sh" node="[object Object]">chmod a+x prepare-commit-msg
+</code></pre>
+</li>
+</ol>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">That&#x27;s it! As soon as the hook is active, the story number is read from the branch name and automatically included in every commit.</p>
+<h1>References:</h1>
+<ul>
+<li><a href="https://initialcommit.com/blog/git-commit-messages-best-practices">Git Commit Messages - Best Practices</a> - Matthew Forsyth</li>
+<li><a href="https://deepsource.io/blog/git-branch-naming-conventions/">Branch Naming Conventions</a> - Sanket</li>
+</ul>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Happy Coding 🚀</p></div></div><footer class="Footer_footer__pJUho"><p>Made by<!-- --> <a class="inline" href="/about">Andreas Link</a> <!-- -->in Karlsruhe</p><div><div><a href="https://www.iubenda.com/privacy-policy/86928215" class="iubenda-black no-brand iubenda-noiframe iubenda-embed iubenda-noiframe ">Privacy Policy</a></div></div></footer></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"article":{"id":"13_11_2022","date":"13th of November 2022","markdown":"# Story Numbers in Commit Messages: Leveraging the power of Git Hooks\n\nEspecially in large software projects with many developers involved, it is best practice to include the story number from the ticket system like Jira or Azure DevOps in every commit. This will let you refer to the original requirements quickly and see how the team thought about the feature, bug fix or release when it was developed. Still, manually adding the number to every commit is cumbersome. Hence, today, we will learn how to automatically derive the story number from the branch name and automate that procedure using Git Commit Hooks.\n\n![Branch History](article_13_11_2022_branch_history.png)\n\n## Story Number Extraction\n\nWe assume that branches are named according to the Git Flow naming conventions, i.e., production code is contained in the `master` while pre-production code is found in the `develop` branch. The latter is the starting point for features, bug-fixes and releases, while hotfixes are made from the `master` branch.\n\nBranches other than the `master` and `develop` also contain the story number in their name, represented as `SN-XXXXXX`, where `XXXXXX` are digits. The prefix `SN` as well as the number of digits may vary depending on the naming conventions used in your project. As a result, branch names match the following pattern:\n\n- /**\\\u003ctype\\\u003e**/**SN-XXXXXX**-\\\u003cdescription\\\u003e, where `X in [0-9]` and `\u003ctype\u003e in {feature, release, bugfix, hotfix}`\n\nSubsequently, examples for each branch type are given:\n- /**feature**/**SN-362845**-Add-dynamic-island-support\n- /**release**/**SN-284321**-Release-v3.0.0\n- /**bugfix**/**SN-839453**-Fix-memory-leak-in-home-tab\n- /**hotfix**/**SN-839453**-Fix-app-crash-in-onboarding\n\nThe idea is to automatically derive the story number from the branch name and include it in every commit. To achieve this, we leverage the power of git commit hooks to modify the message before the commit is made. As a result, adding the number becomes much simpler, since it does not need to be remembered among consecutive commits. Instead, developers only have to specify the story number once when the branch is created.\n\n## Shell Script: Prepare Commit Message Hook\n\nBelow, you can find the script that is executed as soon as a commit is made:\n\n```sh\n#!/bin/bash\n\ndetermine_branch_name() {\n  git rev-parse --abbrev-ref HEAD\n}\n\ndetermine_story_number() {\n  content=$1\n  \n  echo \"$content\" |\\\n    grep -Eo '^(\\w+/)*(\\w+[-_])?[0-9]+' |\\\n    grep -Eo '(\\w+[-])+[0-9]+' |\\\n    tr \"[:lower:]\" \"[:upper:]\"\n}\n\ncontained_in_list() {\n  list=$1\n  delimiter=$2\n  item=$3\n  [[ \"$list\" =~ ($delimiter|^)$item($delimiter|$) ]]\n}\n\nCOMMIT_EDITMSG_FILE=$1\nCOMMIT_MESSAGE=$(cat \"$COMMIT_EDITMSG_FILE\")\nBRANCH_NAME=$(determine_branch_name)\nSTORY_NUMBER=$(determine_story_number \"$BRANCH_NAME\")\nEXCLUDED_BRANCES=\"master, develop\"\n\nif [ -n \"$BRANCH_NAME\" ] \u0026\u0026  ! contained_in_list \"$EXCLUDED_BRANCES\" \", \" \"$BRANCH_NAME\"; then\n  if [ \"$STORY_NUMBER\" = \"\" ] || [[ \"$COMMIT_MESSAGE\" == \"[$STORY_NUMBER]\"* ]]; then\n    exit 0\n  else\n    echo \"[$STORY_NUMBER] $COMMIT_MESSAGE\" \u003e \"$COMMIT_EDITMSG_FILE\"\n  fi\nfi\n``` \n\nFirst, we request a non-ambiguous abbreviation for the object referenced by HEAD:\n   \n```sh\ndetermine_branch_name() {\n  git rev-parse --abbrev-ref HEAD\n}\n```\n\nGiven the branch name, `determine_story_number` chains multiple extended regular expressions to identify the story number in case it exists. In addition, all lowercased letters are replaced by upper case letters:\n\n```sh\ndetermine_story_number() {\n  content=$1\n  \n  echo \"$content\" |\\\n    grep -Eo '^(\\w+/)*(\\w+[-_])?[0-9]+' |\\\n    grep -Eo '(\\w+[-])+[0-9]+' |\\\n    tr \"[:lower:]\" \"[:upper:]\"\n}\n```\n\n\u003e Note: paths with an arbitrary step count are allowed:\n\u003e    - /feature/SN-374324-Implement-Dark-Mode\n\u003e    - /feature/navigation/SN-725342-Handle-In-App-Deeplink\n\nTo ensure that commits on the `master` or `develop` branch are not affected, we exit early in case that the branch is mentioned in the list of excluded branches. Likewise, we also ensure that the original commit message does not contain the story number yet. When all previous conditions are met, the original commit message is prefixed with the story number by modifying the content of the `COMMIT_EDITMSG_FILE`:\n\n```sh\nif [ -n \"$BRANCH_NAME\" ] \u0026\u0026  ! contained_in_list \"$EXCLUDED_BRANCES\" \", \" \"$BRANCH_NAME\"; then\n  if [ \"$STORY_NUMBER\" = \"\" ] || [[ \"$COMMIT_MESSAGE\" == \"[$STORY_NUMBER]\"* ]]; then\n    exit 0\n  else\n    echo \"[$STORY_NUMBER] $COMMIT_MESSAGE\" \u003e \"$COMMIT_EDITMSG_FILE\"\n  fi\nfi\n```\n\n## Using the Prepare Commit Message Hook in your Projects\n\nThe following steps are necessary to activate the hook in your project:\n\n1. Navigate to the *hooks*' directory:\n\n   ```sh\n   cd /\u003cgit-repository\u003e/.git/hooks\n   ```\n\n2. Create a file called `prepare-commit-msg`:\n\n   ```sh\n   touch prepare-commit-msg\n   ```\n\n   \u003e Note: You can also remove the suffix `.sample` from `prepare-commit-msg.sample` in case it exists.\n\n3. Copy the script as the `prepare-commit-msg` hook's content:\n\n   ```sh\n   cat \u003cscript content\u003e \u003e prepare-commit-msg\n   ```\n\n4. Make the hook executable by updating its permissions:\n\n   ```sh\n   chmod a+x prepare-commit-msg\n   ```\n\nThat's it! As soon as the hook is active, the story number is read from the branch name and automatically included in every commit. \n\n# References:\n\n- [Git Commit Messages - Best Practices](https://initialcommit.com/blog/git-commit-messages-best-practices) - Matthew Forsyth\n- [Branch Naming Conventions](https://deepsource.io/blog/git-branch-naming-conventions/) - Sanket\n\nHappy Coding 🚀","title":"Story Numbers in Commit Messages: Leveraging the power of Git Hooks","description":"Especially in large software projects with many developers involved,\n            it is best practice to include the story number from the ticket system\n            like Jira or Azure DevOps in every commit. This will let you refer to\n            the original requirements quickly and see how the team thought about the\n            feature, bug fix or release when it was developed. Still, manually adding\n            the number to every commit is cumbersome. Hence, today, we will learn how\n            to automatically derive the story number from the branch name and automate\n            that procedure using Git Commit Hooks.","images":[{"url":"/images/article_13_11_2022_branch_history.png","width":2608,"height":941,"alt":"Article Teaser Image","type":"image/png"}]}},"__N_SSG":true},"page":"/articles/[id]","query":{"id":"13_11_2022"},"buildId":"-3w302hGf1IOKCnTy-i41","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>

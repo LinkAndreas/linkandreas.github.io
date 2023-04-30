@@ -1,0 +1,347 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta property="og:type" content="website"/><meta property="og:locale" content="en_US"/><title>Automating your iOS App Development Workflow: Continuous Deployment with GitHub Actions</title><meta name="robots" content="index,follow"/><meta name="description" content="In agile software development, continuous deployment is key to collect 
+            user feedback leading to more reliable and successful iOS apps. Still, deploying to 
+            AppStore Connect is challenging due to managing signing certificates, provisioning profiles, 
+            and build numbers. In this article, we&#x27;ll explore how to automate this process, allowing 
+            you to release your apps with a single button press."/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:site" content="@site"/><meta name="twitter:creator" content="@handle"/><meta property="og:title" content="Automating your iOS App Development Workflow: Continuous Deployment with GitHub Actions"/><meta property="og:description" content="In agile software development, continuous deployment is key to collect 
+            user feedback leading to more reliable and successful iOS apps. Still, deploying to 
+            AppStore Connect is challenging due to managing signing certificates, provisioning profiles, 
+            and build numbers. In this article, we&#x27;ll explore how to automate this process, allowing 
+            you to release your apps with a single button press."/><meta property="og:url" content="https://www.linkandreas.de/articles/17_04_2023"/><meta property="og:site_name" content="Andreas Link"/><link rel="canonical" href="https://www.linkandreas.de/articles/17_04_2023"/><meta name="next-head-count" content="15"/><script id="show-banner" data-nscript="beforeInteractive">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script><link rel="preload" href="/_next/static/css/5d1a40d87bdc9ae6.css" as="style"/><link rel="stylesheet" href="/_next/static/css/5d1a40d87bdc9ae6.css" data-n-g=""/><link rel="preload" href="/_next/static/css/88dd2e2cc48225a2.css" as="style"/><link rel="stylesheet" href="/_next/static/css/88dd2e2cc48225a2.css" data-n-p=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script><script src="/_next/static/chunks/webpack-631d87836c08b1b9.js" defer=""></script><script src="/_next/static/chunks/framework-2c79e2a64abdb08b.js" defer=""></script><script src="/_next/static/chunks/main-deafda337c616f20.js" defer=""></script><script src="/_next/static/chunks/pages/_app-2d88e0ac7b041052.js" defer=""></script><script src="/_next/static/chunks/675-1303c59f4dea6577.js" defer=""></script><script src="/_next/static/chunks/252-0372aac53a566808.js" defer=""></script><script src="/_next/static/chunks/pages/articles/%5Bid%5D-1393d3dfdb918466.js" defer=""></script><script src="/_next/static/-3w302hGf1IOKCnTy-i41/_buildManifest.js" defer=""></script><script src="/_next/static/-3w302hGf1IOKCnTy-i41/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div class="App_appContainer___ZcR0"><div class="container-fluid"><nav class="navbar navbar-expand-md navbar-dark bg-transparent"><a class="navbar-brand" href="/articles">Andreas Link</a><button aria-controls="responsive-navbar-nav" type="button" aria-label="Toggle navigation" class="navbar-toggler collapsed"><span class="navbar-toggler-icon"></span></button><div class="navbar-collapse collapse" id="responsive-navbar-nav"><div class="ml-auto navbar-nav"><a data-rr-ui-event-key="/articles" class="nav-link" href="/articles">Articles</a><a data-rr-ui-event-key="/licenses" class="nav-link" href="/licenses">Licenses</a><a data-rr-ui-event-key="/timity" class="nav-link" href="/timity">Timity</a><a data-rr-ui-event-key="/publications" class="nav-link" href="/publications">Publications</a><a data-rr-ui-event-key="/about" class="nav-link" href="/about">About</a></div></div></nav></div><div class="App_content__2tPe8"><div class="_id__articleContainer__XAN2P"><h1>Automating your iOS App Development Workflow: Continuous Deployment with GitHub Actions</h1>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">In agile software development, continuous deployment is key to collect user feedback leading to more reliable and successful iOS apps. Still, deploying to AppStore Connect is challenging due to managing signing certificates, provisioning profiles, and build numbers. In this article, we&#x27;ll explore how to automate this process, allowing you to release your apps with a single button press.</p>
+<h2>Environment Variables</h2>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">First, we need to configure the following environment variables in your project&#x27;s settings (<code node="[object Object]">Project</code> &gt; <code node="[object Object]">Settings</code> &gt; <code node="[object Object]">Security</code> &gt; <code node="[object Object]">Secrets and Environment Variables</code> &gt; <code node="[object Object]">actions</code>):</p>
+<table node="[object Object]" class="TableRenderer_tableBlock__iAHTZ"><thead><tr><th>Key</th><th>Value (Example)</th></tr></thead><tbody><tr><td>APP_ID</td><td>1234567</td></tr><tr><td>TEAM_ID</td><td>A123456789</td></tr><tr><td>BUNDLE_ID</td><td>com.example.app</td></tr><tr><td>PROVISIONING_PROFILE_NAME</td><td>Distribution</td></tr><tr><td>SIMULATOR_DEVICE_TYPE</td><td>iPhone-14</td></tr><tr><td>SIMULATOR_RUNTIME</td><td>iOS-16-2</td></tr></tbody></table>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Explanation:</p>
+<ul>
+<li><code node="[object Object]">APP_ID</code>: The identifier that uniquely identifies the application.<!-- -->
+<ul>
+<li>Location: AppStore Connect &gt; Apps &gt; App &gt; App Information &gt; Apple ID</li>
+</ul>
+</li>
+<li><code node="[object Object]">TEAM_ID</code>: The identifier for the team enrolled in the Apple Developer Program.<!-- -->
+<ul>
+<li>Location: AppStore Connect &gt; Edit Profile &gt; TeamID</li>
+</ul>
+</li>
+<li><code node="[object Object]">BUNDLE_ID</code>: The identifier used by Apple to uniquely identify the application.<!-- -->
+<ul>
+<li>Location: AppStore Connect &gt; Apps &gt; App &gt; App Information &gt; Bundle Identifier</li>
+</ul>
+</li>
+<li><code node="[object Object]">PROVISIONING_PROFILE_NAME</code>: The name of the provisioning profile.</li>
+<li><code node="[object Object]">SIMULATOR_DEVICE_TYPE</code>: The simulator device used to run tests in the workflow.</li>
+<li><code node="[object Object]">SIMULATOR_RUNTIME</code>: The Runtime version of the iOS simulator.</li>
+</ul>
+<h2>Secrets</h2>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Next, we create the following secrets in the project&#x27;s settings:</p>
+<table node="[object Object]" class="TableRenderer_tableBlock__iAHTZ"><thead><tr><th>Key</th><th>Value (Example)</th></tr></thead><tbody><tr><td>API_KEY_BASE64</td><td>XXXXXXXXXX</td></tr><tr><td>API_KEY_ID</td><td>XXXXXXXXXX</td></tr><tr><td>API_KEY_ISSUER_ID</td><td>XXXXXXXXXX</td></tr><tr><td>KEYCHAIN_PASSWORD</td><td>XXXXXXXXXX</td></tr><tr><td>SIGNING_CERTIFICATE_BASE64</td><td>XXXXXXXXXX</td></tr><tr><td>SIGNING_CERTIFICATE_PASSWORD</td><td>XXXXXXXXXX</td></tr><tr><td>PROVISIONING_PROFILE_BASE64</td><td>XXXXXXXXXX</td></tr></tbody></table>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Github secrets store sensitive information in the project&#x27;s repository and provide them as encrypted workflow configuration variables to the workflows, ensuring that their values are hidden from the web interface and can only be updated, not seen, once stored.</p>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Explanation:</p>
+<ul>
+<li><code node="[object Object]">API_KEY_BASE64</code>: The private key to authorize against the AppStore Connect API encoded in base64 format.</li>
+<li><code node="[object Object]">API_KEY_ID</code>: The key&#x27;s Id.<!-- -->
+<ul>
+<li>Location: App Store Connect &gt; Users and Access &gt; Keys</li>
+</ul>
+</li>
+<li><code node="[object Object]">API_KEY_ISSUER_ID</code>: The identifier of the issuer who created the authentication token.<!-- -->
+<ul>
+<li>Location: App Store Connect &gt; Users and Access &gt; Keys &gt; Issuer Id</li>
+</ul>
+</li>
+<li><code node="[object Object]">KEYCHAIN_PASSWORD</code>: The password used to unlock the keychain.</li>
+<li><code node="[object Object]">SIGNING_CERTIFICATE_BASE64</code>: The signing certificate encoded in base64 format.</li>
+<li><code node="[object Object]">SIGNING_CERTIFICATE_PASSWORD</code>: The password for your Apple signing certificate.</li>
+<li><code node="[object Object]">PROVISIONING_PROFILE_BASE64</code>: The provisioning profile encoded in base64 format.</li>
+</ul>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">You can use the following commands to encode secrets in base64 format and copy it to the pasteboard:</p>
+<pre><code class="language-sh" node="[object Object]"># API_KEY_BASE64
+openssl base64 -in AuthKey_{KEY_ID}.p8 | pbcopy
+
+# SIGNING_CERTIFICATE_BASE64
+openssl base64 -in {SIGNING_CERTIFICATE_NAME}.p12 | pbcopy 
+
+# PROVISIONING_PROFILE_BASE64
+openssl base64 -in {PROVISIONING_PROFILE_NAME}.mobileprovision | pbcopy 
+</code></pre>
+<h2>Deployment Workflow</h2>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Having specified all secrets and configuration variables, we can create a dedicated workflow that automates deployment to AppStore Connect. This way, we can distribute the application to TestFlight and get feedback from internal- and external testers.</p>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">We start with the following blueprint:</p>
+<pre><code class="language-yml" node="[object Object]">name: Deploy to App Store Connect
+
+on:
+  workflow_dispatch:
+
+jobs:
+  archive-and-deploy:
+    runs-on: macos-latest
+
+    steps:
+        ...
+</code></pre>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Note that only the manual trigger via the web interface is included to better control when deployment is made. Still, it is possible to enable automatic deployment whenever the <code node="[object Object]">main</code> branch is updated:</p>
+<pre><code class="language-yaml" node="[object Object]">on:
+  push:
+    branches:
+      - main
+</code></pre>
+<h3>Step 1: Checkout Repository</h3>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">First, we use the checkout step to gain access to the source code:</p>
+<pre><code class="language-yaml" node="[object Object]">- name: Checkout repository
+  uses: actions/checkout@v3
+</code></pre>
+<h3>Step 2: Install App Store Connect API Key</h3>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Next, we need to install the private key to the agent such that it can communicate with AppStore Connect:</p>
+<pre><code class="language-sh" node="[object Object]">mkdir ~/.private_keys
+echo -n &quot;$API_KEY_BASE64&quot; | base64 --decode --output ~/.private_AuthKey_${{ secrets.API_KEY_ID }}.p8
+echo &quot;After saving:&quot;
+ls ~/.private_keys
+</code></pre>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">The API Key is decoded from the base64-encoded secret and stored in the current directory.</p>
+<h3>Step 3: Install Signing Certificate</h3>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Next, the signing certificate is decoded and stored in the <code node="[object Object]">app-signing</code> keychain. We unlock the keychain to have access to the signing certificate when archiving the application:</p>
+<pre><code class="language-sh" node="[object Object]">SIGNING_CERTIFICATE_PATH=$RUNNER_TEMP/signing_certificate.p12
+KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+# Read Signing Certificate
+echo -n &quot;$SIGNING_CERTIFICATE_BASE64&quot; | base64 --decode -o &quot;$SIGNING_CERTIFICATE_PATH&quot;
+
+# Create Keychain
+security create-keychain -p &quot;$KEYCHAIN_PASSWORD&quot; &quot;$KEYCHAIN_PATH&quot;
+security set-keychain-settings -lut 21600 &quot;$KEYCHAIN_PATH&quot;
+security unlock-keychain -p &quot;$KEYCHAIN_PASSWORD&quot; &quot;$KEYCHAIN_PATH&quot;
+
+# Import Signing Certificate to Keychain
+security import &quot;$SIGNING_CERTIFICATE_PATH&quot; -P &quot;$SIGNING_CERTIFICATE_PASSWORD&quot; -A -t cert -f pkcs12 -k &quot;$KEYCHAIN_PATH&quot;
+security list-keychain -d user -s &quot;$KEYCHAIN_PATH&quot;
+</code></pre>
+<h3>Step 4: Install Provisioning Profile</h3>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Similarly, the provising profile is decoded and stored in the agent&#x27;s library directory(<code node="[object Object]">~/Library/MobileDevice/Provisioning\ Profiles</code>):</p>
+<pre><code class="language-sh" node="[object Object]">PROVISIONING_PROFILE_PATH=$RUNNER_TEMP/provisioning_profile.mobileprovision
+
+# Read Provisioning Profile
+echo -n &quot;$PROVISIONING_PROFILE_BASE64&quot; | base64 --decode -o &quot;$PROVISIONING_PROFILE_PATH&quot;
+
+# Import Provisioning Profile
+mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+cp $PROVISIONING_PROFILE_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+</code></pre>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">The provisioning profiles specify the devices the application is allowed to run. In addition, they ensure that the app is from a trusted source and has not been tampered with.</p>
+<h3>Step 5: Configure <code node="[object Object]">exportOptions.plist</code></h3>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Next, we inject the provisioning profile&#x27;s name, the Team- and Bundle-ID into the <code node="[object Object]">exportOptions.plist</code> that is used by <code node="[object Object]">xcodebuild</code> when distributing the archive. The injection is done using the <code node="[object Object]">sed</code> command with which we can replace the placeholders <code node="[object Object]">{{Placeholder}}</code> with their corresponding values:</p>
+<pre><code class="language-sh" node="[object Object]">- name: Configure exportOptions.plist
+  env: 
+    TEAM_ID: ${{ vars.TEAM_ID }}
+    BUNDLE_ID: ${{ vars.BUNDLE_ID }}
+    PROVISIONING_PROFILE_NAME: ${{ vars.PROVISIONING_PROFILE_NAME }}
+  run: |
+    sed -i &#x27;&#x27; &quot;s/{{TEAM_ID}}/$TEAM_ID/g&quot; exportOptions.plist
+    sed -i &#x27;&#x27; &quot;s/{{BUNDLE_ID}}/$BUNDLE_ID/g&quot; exportOptions.plist
+    sed -i &#x27;&#x27; &quot;s/{{PROVISIONING_PROFILE_NAME}}/$PROVISIONING_PROFILE_NAME/g&quot; exportOptions.plist
+</code></pre>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">This way, we can customize the export process and specify the distribution method as well as the provisioning profile, used when code signing the app.</p>
+<pre><code class="language-xml" node="[object Object]">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;
+&lt;plist version=&quot;1.0&quot;&gt;
+&lt;dict&gt;
+    &lt;key&gt;method&lt;/key&gt;
+    &lt;string&gt;app-store&lt;/string&gt;
+    &lt;key&gt;teamID&lt;/key&gt;
+    &lt;string&gt;{{TEAM_ID}}&lt;/string&gt;
+    &lt;key&gt;uploadSymbols&lt;/key&gt;
+    &lt;true/&gt;
+    &lt;key&gt;signingStyle&lt;/key&gt;
+    &lt;string&gt;manual&lt;/string&gt;
+    &lt;key&gt;provisioningProfiles&lt;/key&gt;
+    &lt;dict&gt;
+        &lt;key&gt;{{BUNDLE_ID}}&lt;/key&gt;
+        &lt;string&gt;{{PROVISIONING_PROFILE_NAME}}&lt;/string&gt;
+    &lt;/dict&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;
+</code></pre>
+<h3>Step 6: Inject Build Number</h3>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Now that we have the signing certificate, provisioning profile and API Key in place, we need to determine the build number.
+Each buildnmber submitted to AppStore Connect is required to be strictly greater than the maximum known build number of all builds ever submitted. Since manually keeping track of build numbers is tedious, we utitlize the workflow&#x27;s built-in counter, i.e., <code node="[object Object]">github.run_number</code> that is incremented on every build. This way, we only need to specify the marketing version that is shown in the AppStore:</p>
+<pre><code class="language-sh" node="[object Object]">buildNumber=${{ github.run_number }}
+echo &quot;Current build number: $buildNumber&quot;
+agvtool new-version -all $buildNumber
+</code></pre>
+<h3>Step 7: Build, Sign and Archive</h3>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Having setup the environment, we can archive the application as an <code node="[object Object]">xcarchive</code>. Note that we use manual signing with the provising profile that we imported in an earlier step:</p>
+<pre><code class="language-sh" node="[object Object]">set -o pipefail &amp;&amp; xcodebuild clean archive \
+  -scheme &quot;App&quot; \
+  -archivePath $RUNNER_TEMP/App.xcarchive \
+  -sdk iphoneos \
+  -configuration Release \
+  -destination generic/platform=iOS \
+  CODE_SIGN_STYLE=Manual \
+  PROVISIONING_PROFILE_SPECIFIER=Distribution | xcpretty
+</code></pre>
+<h3>Step 8: Export Archive</h3>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">As soon as the archive is built, we can export the iOS AppStore Package (<code node="[object Object]">.ipa</code>) considering the <code node="[object Object]">exportOptions</code>.</p>
+<pre><code class="language-sh" node="[object Object]">ARTIFACT_FILEPATH=$RUNNER_TEMP/App.ipa
+set -o pipefail &amp;&amp; xcodebuild -exportArchive \
+  -archivePath $RUNNER_TEMP/App.xcarchive \
+  -exportOptionsPlist exportOptions.plist \
+  -exportPath $RUNNER_TEMP | xcpretty
+</code></pre>
+<h3>Step 9: Publish Archive</h3>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">An iOS AppStore Package (<code node="[object Object]">.ipa</code>) is technically identical to a <code node="[object Object]">zip</code> file and can be extracted by renaming it&#x27;s file extension. That&#x27;s why it makes sence to publish it as a workflow artifact, such that we can access to the package and verify whether all ressources are properly bundled:</p>
+<pre><code class="language-yaml" node="[object Object]">- name: Publish App.ipa file
+  uses: actions/upload-artifact@v3
+  with:
+    name: App.ipa
+    path: ${{ runner.temp }}/App.ipa
+</code></pre>
+<h3>Step 10: Validate Build Artifact</h3>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Before uploading the application package to AppStore Connect, we use the <code node="[object Object]">altool</code> command to validate it. In case the AppStore will not accept the package the validation will fail. E.g., we might have missed adding an App Icon which is required by the store:</p>
+<pre><code class="language-sh" node="[object Object]">xcrun altool --validate-app \
+  -f ${{ runner.temp }}/App.ipa \
+  -t ios \
+  --apiKey ${{ secrets.API_KEY_ID }} \
+  --apiIssuer ${{ secrets.API_KEY_ISSUER_ID }}
+</code></pre>
+<h3>Step 11: Upload Build Artifact to AppStore Connect</h3>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">In case the validation succeeded, we can upload the package via the AppStore Connect API.</p>
+<pre><code class="language-sh" node="[object Object]">xcrun altool --upload-app \
+  -f ${{ runner.temp }}/App.ipa \
+  -t ios \
+  --apiKey ${{ secrets.API_KEY_ID }} \
+  --apiIssuer ${{ secrets.API_KEY_ISSUER_ID }}
+</code></pre>
+<h3>Step 12: Cleanup keychain and provisioning profile</h3>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Even though Github&#x27;s own runners always ensure that we start with a clean environment it is best practive to clean up certificates that are no longer needed. In case we would use a self hosted runner, these artifacts could otherwiese remain and cause unintended side-effects on subsequent builds.</p>
+<pre><code class="language-sh" node="[object Object]">security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
+rm ~/Library/MobileDevice/Provisioning\ Profiles/provisioning_profile.mobileprovision
+</code></pre>
+<h3>Deploy to AppStore Connect Workflow</h3>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Finally, we obtain the following worklow that is stored as <code node="[object Object]">deploy.yml</code> in the <code node="[object Object]">.github/workflows</code> directory:</p>
+<pre><code class="language-yml" node="[object Object]">name: Deploy to AppStore Connect
+
+on:
+  workflow_dispatch:
+
+jobs:
+  archive-and-deploy:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install App Store Connect Api Key
+        env:
+          API_KEY_BASE64: ${{ secrets.API_KEY_BASE64 }}
+        run: |
+          mkdir ~/.private_keys
+          echo -n &quot;$API_KEY_BASE64&quot; | base64 --decode --output ~/.private_keys/AuthKey_${{ secrets.API_KEY_ID }}.p8
+          echo &quot;After saving:&quot;
+          ls ~/.private_keys
+
+      - name: Install Signing Certificate
+        env:
+          SIGNING_CERTIFICATE_BASE64: ${{ secrets.SIGNING_CERTIFICATE_BASE64 }}
+          SIGNING_CERTIFICATE_PASSWORD: ${{ secrets.SIGNING_CERTIFICATE_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          SIGNING_CERTIFICATE_PATH=$RUNNER_TEMP/signing_certificate.p12
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+          # Read Signing Certificate
+          echo -n &quot;$SIGNING_CERTIFICATE_BASE64&quot; | base64 --decode -o &quot;$SIGNING_CERTIFICATE_PATH&quot;
+
+          # Create Keychain
+          security create-keychain -p &quot;$KEYCHAIN_PASSWORD&quot; &quot;$KEYCHAIN_PATH&quot;
+          security set-keychain-settings -lut 21600 &quot;$KEYCHAIN_PATH&quot;
+          security unlock-keychain -p &quot;$KEYCHAIN_PASSWORD&quot; &quot;$KEYCHAIN_PATH&quot;
+
+          # Import Signing Certificate to Keychain
+          security import &quot;$SIGNING_CERTIFICATE_PATH&quot; -P &quot;$SIGNING_CERTIFICATE_PASSWORD&quot; -A -t cert -f pkcs12 -k &quot;$KEYCHAIN_PATH&quot;
+          security list-keychain -d user -s &quot;$KEYCHAIN_PATH&quot;
+
+      - name: Install Provisioning Profile
+        env:
+          PROVISIONING_PROFILE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
+        run: |
+          PROVISIONING_PROFILE_PATH=$RUNNER_TEMP/provisioning_profile.mobileprovision
+
+          # Read Provisioning Profile
+          echo -n &quot;$PROVISIONING_PROFILE_BASE64&quot; | base64 --decode -o &quot;$PROVISIONING_PROFILE_PATH&quot;
+
+          # Import Provisioning Profile
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp $PROVISIONING_PROFILE_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+
+      - name: Inject Build Number
+        run: |
+          buildNumber=${{ github.run_number }}
+          echo &quot;Current build number: $buildNumber&quot;
+          agvtool new-version -all $buildNumber
+          sed -i &quot;&quot; &quot;s/CFBundleVersion/$buildNumber/&quot; exportOptions.plist
+
+      - name: Configure exportOptions.plist
+        env: 
+          TEAM_ID: ${{ vars.TEAM_ID }}
+          BUNDLE_ID: ${{ vars.BUNDLE_ID }}
+          PROVISIONING_PROFILE_NAME: ${{ vars.PROVISIONING_PROFILE_NAME }}
+        run: |
+          sed -i &#x27;&#x27; &quot;s/{{TEAM_ID}}/$TEAM_ID/g&quot; exportOptions.plist
+          sed -i &#x27;&#x27; &quot;s/{{BUNDLE_ID}}/$BUNDLE_ID/g&quot; exportOptions.plist
+          sed -i &#x27;&#x27; &quot;s/{{PROVISIONING_PROFILE_NAME}}/$PROVISIONING_PROFILE_NAME/g&quot; exportOptions.plist
+
+      - name: Build, Sign and Archive
+        run: |
+          set -o pipefail &amp;&amp; xcodebuild clean archive \
+            -scheme &quot;App&quot; \
+            -archivePath $RUNNER_TEMP/App.xcarchive \
+            -sdk iphoneos \
+            -configuration Release \
+            -destination generic/platform=iOS \
+            CODE_SIGN_STYLE=Manual \
+            PROVISIONING_PROFILE_SPECIFIER=Distribution | xcpretty
+
+      - name: Export archive
+        run: |
+          ARTIFACT_FILEPATH=$RUNNER_TEMP/App.ipa
+          set -o pipefail &amp;&amp; xcodebuild -exportArchive \
+            -archivePath $RUNNER_TEMP/App.xcarchive \
+            -exportOptionsPlist exportOptions.plist \
+            -exportPath $RUNNER_TEMP | xcpretty
+
+      - name: Publish App.ipa file
+        uses: actions/upload-artifact@v3
+        with:
+          name: App.ipa
+          path: ${{ runner.temp }}/App.ipa
+      
+      - name: Validate Build Artifact
+        run: |
+          xcrun altool --validate-app \
+            -f ${{ runner.temp }}/App.ipa \
+            -t ios \
+            --apiKey ${{ secrets.API_KEY_ID }} \
+            --apiIssuer ${{ secrets.API_KEY_ISSUER_ID }}
+
+      - name: Upload Build Artifact to TestFlight
+        run: |
+          xcrun altool --upload-app \
+            -f ${{ runner.temp }}/App.ipa \
+            -t ios \
+            --apiKey ${{ secrets.API_KEY_ID }} \
+            --apiIssuer ${{ secrets.API_KEY_ISSUER_ID }}
+
+      - name: Clean up keychain and provisioning profile
+        if: ${{ always() }}
+        run: |
+          security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
+          rm ~/Library/MobileDevice/Provisioning\ Profiles/provisioning_profile.mobileprovision
+</code></pre>
+<h1>Conclusion</h1>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">In this article, we went through the necessary steps to automate deployment of an iOS application via Github Actions. Having setup the dedicated workflow, we can release the app upon the press of a button and rather focus on building features while getting valuable feedback from testers and users.</p>
+<h1>References:</h1>
+<ul>
+<li><a href="https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development">Sign Xcode Applications</a> - Github</li>
+<li><a href="https://www.cobeisfresh.com/blog/how-to-implement-a-ci-cd-workflow-for-ios-using-github-actions">iOS CI/CD Worklfow using Github Actions</a> - cobeisfresh</li>
+</ul>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Happy Coding 🚀</p></div></div><footer class="Footer_footer__pJUho"><p>Made by<!-- --> <a class="inline" href="/about">Andreas Link</a> <!-- -->in Karlsruhe</p><div><div><a href="https://www.iubenda.com/privacy-policy/86928215" class="iubenda-black no-brand iubenda-noiframe iubenda-embed iubenda-noiframe ">Privacy Policy</a></div></div></footer></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"article":{"id":"17_04_2023","date":"17th of April 2023","markdown":"# Automating your iOS App Development Workflow: Continuous Deployment with GitHub Actions\n\nIn agile software development, continuous deployment is key to collect user feedback leading to more reliable and successful iOS apps. Still, deploying to AppStore Connect is challenging due to managing signing certificates, provisioning profiles, and build numbers. In this article, we'll explore how to automate this process, allowing you to release your apps with a single button press.\n\n## Environment Variables\n\nFirst, we need to configure the following environment variables in your project's settings (`Project` \u003e `Settings` \u003e `Security` \u003e `Secrets and Environment Variables` \u003e `actions`):\n\n| Key                       | Value (Example)   |\n|---------------------------|-------------------|\n| APP_ID                    | 1234567           |\n| TEAM_ID                   | A123456789        |\n| BUNDLE_ID                 | com.example.app   |\n| PROVISIONING_PROFILE_NAME | Distribution      |\n| SIMULATOR_DEVICE_TYPE     | iPhone-14         |\n| SIMULATOR_RUNTIME         | iOS-16-2          |\n\nExplanation:\n- `APP_ID`: The identifier that uniquely identifies the application.\n  - Location: AppStore Connect \u003e Apps \u003e App \u003e App Information \u003e Apple ID\n- `TEAM_ID`: The identifier for the team enrolled in the Apple Developer Program.\n  - Location: AppStore Connect \u003e Edit Profile \u003e TeamID\n- `BUNDLE_ID`: The identifier used by Apple to uniquely identify the application.\n  - Location: AppStore Connect \u003e Apps \u003e App \u003e App Information \u003e Bundle Identifier\n- `PROVISIONING_PROFILE_NAME`: The name of the provisioning profile.\n- `SIMULATOR_DEVICE_TYPE`: The simulator device used to run tests in the workflow.\n- `SIMULATOR_RUNTIME`: The Runtime version of the iOS simulator.\n\n## Secrets\n\nNext, we create the following secrets in the project's settings:\n\n| Key                            | Value (Example)      |\n|--------------------------------|----------------------|\n| API_KEY_BASE64       \t         | XXXXXXXXXX           |\n| API_KEY_ID                     | XXXXXXXXXX           |\n| API_KEY_ISSUER_ID              | XXXXXXXXXX           |\n| KEYCHAIN_PASSWORD              | XXXXXXXXXX           |\n| SIGNING_CERTIFICATE_BASE64     | XXXXXXXXXX           |\n| SIGNING_CERTIFICATE_PASSWORD   | XXXXXXXXXX           |\n| PROVISIONING_PROFILE_BASE64    | XXXXXXXXXX           |\n\nGithub secrets store sensitive information in the project's repository and provide them as encrypted workflow configuration variables to the workflows, ensuring that their values are hidden from the web interface and can only be updated, not seen, once stored.\n\nExplanation:\n- `API_KEY_BASE64`: The private key to authorize against the AppStore Connect API encoded in base64 format.\n- `API_KEY_ID`: The key's Id.\n  - Location: App Store Connect \u003e Users and Access \u003e Keys\n- `API_KEY_ISSUER_ID`: The identifier of the issuer who created the authentication token.\n  - Location: App Store Connect \u003e Users and Access \u003e Keys \u003e Issuer Id\n- `KEYCHAIN_PASSWORD`: The password used to unlock the keychain.\n- `SIGNING_CERTIFICATE_BASE64`: The signing certificate encoded in base64 format.\n- `SIGNING_CERTIFICATE_PASSWORD`: The password for your Apple signing certificate.\n- `PROVISIONING_PROFILE_BASE64`: The provisioning profile encoded in base64 format.\n\nYou can use the following commands to encode secrets in base64 format and copy it to the pasteboard:\n\n```sh\n# API_KEY_BASE64\nopenssl base64 -in AuthKey_{KEY_ID}.p8 | pbcopy\n\n# SIGNING_CERTIFICATE_BASE64\nopenssl base64 -in {SIGNING_CERTIFICATE_NAME}.p12 | pbcopy \n\n# PROVISIONING_PROFILE_BASE64\nopenssl base64 -in {PROVISIONING_PROFILE_NAME}.mobileprovision | pbcopy \n```\n\n## Deployment Workflow\n\nHaving specified all secrets and configuration variables, we can create a dedicated workflow that automates deployment to AppStore Connect. This way, we can distribute the application to TestFlight and get feedback from internal- and external testers.\n\nWe start with the following blueprint:\n\n```yml\nname: Deploy to App Store Connect\n\non:\n  workflow_dispatch:\n\njobs:\n  archive-and-deploy:\n    runs-on: macos-latest\n\n    steps:\n        ...\n```\n\nNote that only the manual trigger via the web interface is included to better control when deployment is made. Still, it is possible to enable automatic deployment whenever the `main` branch is updated:\n\n```yaml\non:\n  push:\n    branches:\n      - main\n```\n\n###  Step 1: Checkout Repository\n\nFirst, we use the checkout step to gain access to the source code:\n\n```yaml\n- name: Checkout repository\n  uses: actions/checkout@v3\n```\n\n### Step 2: Install App Store Connect API Key \n\nNext, we need to install the private key to the agent such that it can communicate with AppStore Connect:\n\n```sh\nmkdir ~/.private_keys\necho -n \"$API_KEY_BASE64\" | base64 --decode --output ~/.private_AuthKey_${{ secrets.API_KEY_ID }}.p8\necho \"After saving:\"\nls ~/.private_keys\n```\n\nThe API Key is decoded from the base64-encoded secret and stored in the current directory.\n\n### Step 3: Install Signing Certificate\n\nNext, the signing certificate is decoded and stored in the `app-signing` keychain. We unlock the keychain to have access to the signing certificate when archiving the application:\n\n```sh\nSIGNING_CERTIFICATE_PATH=$RUNNER_TEMP/signing_certificate.p12\nKEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db\n\n# Read Signing Certificate\necho -n \"$SIGNING_CERTIFICATE_BASE64\" | base64 --decode -o \"$SIGNING_CERTIFICATE_PATH\"\n\n# Create Keychain\nsecurity create-keychain -p \"$KEYCHAIN_PASSWORD\" \"$KEYCHAIN_PATH\"\nsecurity set-keychain-settings -lut 21600 \"$KEYCHAIN_PATH\"\nsecurity unlock-keychain -p \"$KEYCHAIN_PASSWORD\" \"$KEYCHAIN_PATH\"\n\n# Import Signing Certificate to Keychain\nsecurity import \"$SIGNING_CERTIFICATE_PATH\" -P \"$SIGNING_CERTIFICATE_PASSWORD\" -A -t cert -f pkcs12 -k \"$KEYCHAIN_PATH\"\nsecurity list-keychain -d user -s \"$KEYCHAIN_PATH\"\n```\n\n### Step 4: Install Provisioning Profile\n\nSimilarly, the provising profile is decoded and stored in the agent's library directory(`~/Library/MobileDevice/Provisioning\\ Profiles`):\n\n```sh\nPROVISIONING_PROFILE_PATH=$RUNNER_TEMP/provisioning_profile.mobileprovision\n\n# Read Provisioning Profile\necho -n \"$PROVISIONING_PROFILE_BASE64\" | base64 --decode -o \"$PROVISIONING_PROFILE_PATH\"\n\n# Import Provisioning Profile\nmkdir -p ~/Library/MobileDevice/Provisioning\\ Profiles\ncp $PROVISIONING_PROFILE_PATH ~/Library/MobileDevice/Provisioning\\ Profiles\n```\n\nThe provisioning profiles specify the devices the application is allowed to run. In addition, they ensure that the app is from a trusted source and has not been tampered with. \n\n### Step 5: Configure `exportOptions.plist`\n\nNext, we inject the provisioning profile's name, the Team- and Bundle-ID into the `exportOptions.plist` that is used by `xcodebuild` when distributing the archive. The injection is done using the `sed` command with which we can replace the placeholders `{{Placeholder}}` with their corresponding values:\n\n```sh\n- name: Configure exportOptions.plist\n  env: \n    TEAM_ID: ${{ vars.TEAM_ID }}\n    BUNDLE_ID: ${{ vars.BUNDLE_ID }}\n    PROVISIONING_PROFILE_NAME: ${{ vars.PROVISIONING_PROFILE_NAME }}\n  run: |\n    sed -i '' \"s/{{TEAM_ID}}/$TEAM_ID/g\" exportOptions.plist\n    sed -i '' \"s/{{BUNDLE_ID}}/$BUNDLE_ID/g\" exportOptions.plist\n    sed -i '' \"s/{{PROVISIONING_PROFILE_NAME}}/$PROVISIONING_PROFILE_NAME/g\" exportOptions.plist\n```\n\nThis way, we can customize the export process and specify the distribution method as well as the provisioning profile, used when code signing the app.\n\n```xml\n\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003c!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"\u003e\n\u003cplist version=\"1.0\"\u003e\n\u003cdict\u003e\n    \u003ckey\u003emethod\u003c/key\u003e\n    \u003cstring\u003eapp-store\u003c/string\u003e\n    \u003ckey\u003eteamID\u003c/key\u003e\n    \u003cstring\u003e{{TEAM_ID}}\u003c/string\u003e\n    \u003ckey\u003euploadSymbols\u003c/key\u003e\n    \u003ctrue/\u003e\n    \u003ckey\u003esigningStyle\u003c/key\u003e\n    \u003cstring\u003emanual\u003c/string\u003e\n    \u003ckey\u003eprovisioningProfiles\u003c/key\u003e\n    \u003cdict\u003e\n        \u003ckey\u003e{{BUNDLE_ID}}\u003c/key\u003e\n        \u003cstring\u003e{{PROVISIONING_PROFILE_NAME}}\u003c/string\u003e\n    \u003c/dict\u003e\n\u003c/dict\u003e\n\u003c/plist\u003e\n```\n\n### Step 6: Inject Build Number\n\nNow that we have the signing certificate, provisioning profile and API Key in place, we need to determine the build number.\nEach buildnmber submitted to AppStore Connect is required to be strictly greater than the maximum known build number of all builds ever submitted. Since manually keeping track of build numbers is tedious, we utitlize the workflow's built-in counter, i.e., `github.run_number` that is incremented on every build. This way, we only need to specify the marketing version that is shown in the AppStore:  \n\n```sh\nbuildNumber=${{ github.run_number }}\necho \"Current build number: $buildNumber\"\nagvtool new-version -all $buildNumber\n```\n\n### Step 7: Build, Sign and Archive\n\nHaving setup the environment, we can archive the application as an `xcarchive`. Note that we use manual signing with the provising profile that we imported in an earlier step: \n\n```sh\nset -o pipefail \u0026\u0026 xcodebuild clean archive \\\n  -scheme \"App\" \\\n  -archivePath $RUNNER_TEMP/App.xcarchive \\\n  -sdk iphoneos \\\n  -configuration Release \\\n  -destination generic/platform=iOS \\\n  CODE_SIGN_STYLE=Manual \\\n  PROVISIONING_PROFILE_SPECIFIER=Distribution | xcpretty\n```\n\n### Step 8: Export Archive\n\nAs soon as the archive is built, we can export the iOS AppStore Package (`.ipa`) considering the `exportOptions`.\n\n```sh\nARTIFACT_FILEPATH=$RUNNER_TEMP/App.ipa\nset -o pipefail \u0026\u0026 xcodebuild -exportArchive \\\n  -archivePath $RUNNER_TEMP/App.xcarchive \\\n  -exportOptionsPlist exportOptions.plist \\\n  -exportPath $RUNNER_TEMP | xcpretty\n```\n\n### Step 9: Publish Archive\n\nAn iOS AppStore Package (`.ipa`) is technically identical to a `zip` file and can be extracted by renaming it's file extension. That's why it makes sence to publish it as a workflow artifact, such that we can access to the package and verify whether all ressources are properly bundled:\n\n```yaml\n- name: Publish App.ipa file\n  uses: actions/upload-artifact@v3\n  with:\n    name: App.ipa\n    path: ${{ runner.temp }}/App.ipa\n```\n\n### Step 10: Validate Build Artifact\n\nBefore uploading the application package to AppStore Connect, we use the `altool` command to validate it. In case the AppStore will not accept the package the validation will fail. E.g., we might have missed adding an App Icon which is required by the store:\n\n```sh\nxcrun altool --validate-app \\\n  -f ${{ runner.temp }}/App.ipa \\\n  -t ios \\\n  --apiKey ${{ secrets.API_KEY_ID }} \\\n  --apiIssuer ${{ secrets.API_KEY_ISSUER_ID }}\n```\n\n### Step 11: Upload Build Artifact to AppStore Connect\n\nIn case the validation succeeded, we can upload the package via the AppStore Connect API.\n\n```sh\nxcrun altool --upload-app \\\n  -f ${{ runner.temp }}/App.ipa \\\n  -t ios \\\n  --apiKey ${{ secrets.API_KEY_ID }} \\\n  --apiIssuer ${{ secrets.API_KEY_ISSUER_ID }}\n```\n\n### Step 12: Cleanup keychain and provisioning profile\n\nEven though Github's own runners always ensure that we start with a clean environment it is best practive to clean up certificates that are no longer needed. In case we would use a self hosted runner, these artifacts could otherwiese remain and cause unintended side-effects on subsequent builds.\n\n```sh\nsecurity delete-keychain $RUNNER_TEMP/app-signing.keychain-db\nrm ~/Library/MobileDevice/Provisioning\\ Profiles/provisioning_profile.mobileprovision\n```\n\n### Deploy to AppStore Connect Workflow\n\nFinally, we obtain the following worklow that is stored as `deploy.yml` in the `.github/workflows` directory:\n\n```yml\nname: Deploy to AppStore Connect\n\non:\n  workflow_dispatch:\n\njobs:\n  archive-and-deploy:\n    runs-on: macos-latest\n\n    steps:\n      - name: Checkout repository\n        uses: actions/checkout@v3\n\n      - name: Install App Store Connect Api Key\n        env:\n          API_KEY_BASE64: ${{ secrets.API_KEY_BASE64 }}\n        run: |\n          mkdir ~/.private_keys\n          echo -n \"$API_KEY_BASE64\" | base64 --decode --output ~/.private_keys/AuthKey_${{ secrets.API_KEY_ID }}.p8\n          echo \"After saving:\"\n          ls ~/.private_keys\n\n      - name: Install Signing Certificate\n        env:\n          SIGNING_CERTIFICATE_BASE64: ${{ secrets.SIGNING_CERTIFICATE_BASE64 }}\n          SIGNING_CERTIFICATE_PASSWORD: ${{ secrets.SIGNING_CERTIFICATE_PASSWORD }}\n          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}\n        run: |\n          SIGNING_CERTIFICATE_PATH=$RUNNER_TEMP/signing_certificate.p12\n          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db\n\n          # Read Signing Certificate\n          echo -n \"$SIGNING_CERTIFICATE_BASE64\" | base64 --decode -o \"$SIGNING_CERTIFICATE_PATH\"\n\n          # Create Keychain\n          security create-keychain -p \"$KEYCHAIN_PASSWORD\" \"$KEYCHAIN_PATH\"\n          security set-keychain-settings -lut 21600 \"$KEYCHAIN_PATH\"\n          security unlock-keychain -p \"$KEYCHAIN_PASSWORD\" \"$KEYCHAIN_PATH\"\n\n          # Import Signing Certificate to Keychain\n          security import \"$SIGNING_CERTIFICATE_PATH\" -P \"$SIGNING_CERTIFICATE_PASSWORD\" -A -t cert -f pkcs12 -k \"$KEYCHAIN_PATH\"\n          security list-keychain -d user -s \"$KEYCHAIN_PATH\"\n\n      - name: Install Provisioning Profile\n        env:\n          PROVISIONING_PROFILE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}\n        run: |\n          PROVISIONING_PROFILE_PATH=$RUNNER_TEMP/provisioning_profile.mobileprovision\n\n          # Read Provisioning Profile\n          echo -n \"$PROVISIONING_PROFILE_BASE64\" | base64 --decode -o \"$PROVISIONING_PROFILE_PATH\"\n\n          # Import Provisioning Profile\n          mkdir -p ~/Library/MobileDevice/Provisioning\\ Profiles\n          cp $PROVISIONING_PROFILE_PATH ~/Library/MobileDevice/Provisioning\\ Profiles\n\n      - name: Inject Build Number\n        run: |\n          buildNumber=${{ github.run_number }}\n          echo \"Current build number: $buildNumber\"\n          agvtool new-version -all $buildNumber\n          sed -i \"\" \"s/CFBundleVersion/$buildNumber/\" exportOptions.plist\n\n      - name: Configure exportOptions.plist\n        env: \n          TEAM_ID: ${{ vars.TEAM_ID }}\n          BUNDLE_ID: ${{ vars.BUNDLE_ID }}\n          PROVISIONING_PROFILE_NAME: ${{ vars.PROVISIONING_PROFILE_NAME }}\n        run: |\n          sed -i '' \"s/{{TEAM_ID}}/$TEAM_ID/g\" exportOptions.plist\n          sed -i '' \"s/{{BUNDLE_ID}}/$BUNDLE_ID/g\" exportOptions.plist\n          sed -i '' \"s/{{PROVISIONING_PROFILE_NAME}}/$PROVISIONING_PROFILE_NAME/g\" exportOptions.plist\n\n      - name: Build, Sign and Archive\n        run: |\n          set -o pipefail \u0026\u0026 xcodebuild clean archive \\\n            -scheme \"App\" \\\n            -archivePath $RUNNER_TEMP/App.xcarchive \\\n            -sdk iphoneos \\\n            -configuration Release \\\n            -destination generic/platform=iOS \\\n            CODE_SIGN_STYLE=Manual \\\n            PROVISIONING_PROFILE_SPECIFIER=Distribution | xcpretty\n\n      - name: Export archive\n        run: |\n          ARTIFACT_FILEPATH=$RUNNER_TEMP/App.ipa\n          set -o pipefail \u0026\u0026 xcodebuild -exportArchive \\\n            -archivePath $RUNNER_TEMP/App.xcarchive \\\n            -exportOptionsPlist exportOptions.plist \\\n            -exportPath $RUNNER_TEMP | xcpretty\n\n      - name: Publish App.ipa file\n        uses: actions/upload-artifact@v3\n        with:\n          name: App.ipa\n          path: ${{ runner.temp }}/App.ipa\n      \n      - name: Validate Build Artifact\n        run: |\n          xcrun altool --validate-app \\\n            -f ${{ runner.temp }}/App.ipa \\\n            -t ios \\\n            --apiKey ${{ secrets.API_KEY_ID }} \\\n            --apiIssuer ${{ secrets.API_KEY_ISSUER_ID }}\n\n      - name: Upload Build Artifact to TestFlight\n        run: |\n          xcrun altool --upload-app \\\n            -f ${{ runner.temp }}/App.ipa \\\n            -t ios \\\n            --apiKey ${{ secrets.API_KEY_ID }} \\\n            --apiIssuer ${{ secrets.API_KEY_ISSUER_ID }}\n\n      - name: Clean up keychain and provisioning profile\n        if: ${{ always() }}\n        run: |\n          security delete-keychain $RUNNER_TEMP/app-signing.keychain-db\n          rm ~/Library/MobileDevice/Provisioning\\ Profiles/provisioning_profile.mobileprovision\n```\n\n# Conclusion\n\nIn this article, we went through the necessary steps to automate deployment of an iOS application via Github Actions. Having setup the dedicated workflow, we can release the app upon the press of a button and rather focus on building features while getting valuable feedback from testers and users. \n\n# References:\n\n- [Sign Xcode Applications](https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development) - Github\n- [iOS CI/CD Worklfow using Github Actions](https://www.cobeisfresh.com/blog/how-to-implement-a-ci-cd-workflow-for-ios-using-github-actions) - cobeisfresh\n\nHappy Coding 🚀","title":"Automating your iOS App Development Workflow: Continuous Deployment with GitHub Actions","description":"In agile software development, continuous deployment is key to collect \n            user feedback leading to more reliable and successful iOS apps. Still, deploying to \n            AppStore Connect is challenging due to managing signing certificates, provisioning profiles, \n            and build numbers. In this article, we'll explore how to automate this process, allowing \n            you to release your apps with a single button press.","images":[]}},"__N_SSG":true},"page":"/articles/[id]","query":{"id":"17_04_2023"},"buildId":"-3w302hGf1IOKCnTy-i41","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta property="og:type" content="website"/><meta property="og:locale" content="en_US"/><title>Automating your iOS App Development Workflow: Continuous Testing with GitHub Actions</title><meta name="robots" content="index,follow"/><meta name="description" content="Are you striving to iterate quickly to deliver new features,
+            all while ensuring the reliability and performance of your iOS application? 
+            Efficient workflows are key to achiving this goal. In this article, we&#x27;ll 
+            explore how we can leverage the power of Github Actions to automate testing 
+            of iOS applications."/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:site" content="@site"/><meta name="twitter:creator" content="@handle"/><meta property="og:title" content="Automating your iOS App Development Workflow: Continuous Testing with GitHub Actions"/><meta property="og:description" content="Are you striving to iterate quickly to deliver new features,
+            all while ensuring the reliability and performance of your iOS application? 
+            Efficient workflows are key to achiving this goal. In this article, we&#x27;ll 
+            explore how we can leverage the power of Github Actions to automate testing 
+            of iOS applications."/><meta property="og:url" content="https://www.linkandreas.de/articles/10_04_2023"/><meta property="og:site_name" content="Andreas Link"/><link rel="canonical" href="https://www.linkandreas.de/articles/10_04_2023"/><meta name="next-head-count" content="15"/><script id="show-banner" data-nscript="beforeInteractive">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script><link rel="preload" href="/_next/static/css/5d1a40d87bdc9ae6.css" as="style"/><link rel="stylesheet" href="/_next/static/css/5d1a40d87bdc9ae6.css" data-n-g=""/><link rel="preload" href="/_next/static/css/88dd2e2cc48225a2.css" as="style"/><link rel="stylesheet" href="/_next/static/css/88dd2e2cc48225a2.css" data-n-p=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script><script src="/_next/static/chunks/webpack-631d87836c08b1b9.js" defer=""></script><script src="/_next/static/chunks/framework-2c79e2a64abdb08b.js" defer=""></script><script src="/_next/static/chunks/main-deafda337c616f20.js" defer=""></script><script src="/_next/static/chunks/pages/_app-2d88e0ac7b041052.js" defer=""></script><script src="/_next/static/chunks/675-1303c59f4dea6577.js" defer=""></script><script src="/_next/static/chunks/252-0372aac53a566808.js" defer=""></script><script src="/_next/static/chunks/pages/articles/%5Bid%5D-1393d3dfdb918466.js" defer=""></script><script src="/_next/static/-3w302hGf1IOKCnTy-i41/_buildManifest.js" defer=""></script><script src="/_next/static/-3w302hGf1IOKCnTy-i41/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div class="App_appContainer___ZcR0"><div class="container-fluid"><nav class="navbar navbar-expand-md navbar-dark bg-transparent"><a class="navbar-brand" href="/articles">Andreas Link</a><button aria-controls="responsive-navbar-nav" type="button" aria-label="Toggle navigation" class="navbar-toggler collapsed"><span class="navbar-toggler-icon"></span></button><div class="navbar-collapse collapse" id="responsive-navbar-nav"><div class="ml-auto navbar-nav"><a data-rr-ui-event-key="/articles" class="nav-link" href="/articles">Articles</a><a data-rr-ui-event-key="/licenses" class="nav-link" href="/licenses">Licenses</a><a data-rr-ui-event-key="/timity" class="nav-link" href="/timity">Timity</a><a data-rr-ui-event-key="/publications" class="nav-link" href="/publications">Publications</a><a data-rr-ui-event-key="/about" class="nav-link" href="/about">About</a></div></div></nav></div><div class="App_content__2tPe8"><div class="_id__articleContainer__XAN2P"><h1>Automating your iOS App Development Workflow: Continuous Testing with GitHub Actions</h1>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Are you striving to iterate quickly to deliver new features, all while ensuring the reliability and performance of your iOS application? Efficient workflows are key to achiving this goal. In this article, we&#x27;ll explore how we can leverage the power of Github Actions to automate testing and continuous deployment of iOS applications.</p>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Let&#x27;s focus on the required steps to automate test execution when a pull-request is created:</p>
+<h2>Test Execution Workflow</h2>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Unit tests are crucial in software development as they identify errors early in the process and enable safe code refactoring without regression. Running them often is particularly important in large-scale projects with multiple developers involved to obtain valuable feedback and maintain high code quality standards.</p>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">We initiate the &quot;Unit Tests&quot; workflow by establishing a blueprint that runs on agents featuring the latest macOS version. The workflow is either triggered manually via the Web interface or automatically upon branch activity after pull request creation:</p>
+<pre><code class="language-yml" node="[object Object]">name: Unit Tests
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  execute-unit-tests:
+    runs-on: macos-latest
+
+    steps:
+      ...
+</code></pre>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Next, we specify the steps that are required to execute unit tests on the agent:</p>
+<h3>Step 1: Checkout Repository</h3>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">First, we need to checkout the repository to gain access to the source code. Github Actions offers the <code node="[object Object]">checkout@v3</code> step that checks-out your repository under <code node="[object Object]">GITHUB_WORKSPACE</code>:</p>
+<pre><code class="language-yaml" node="[object Object]">- name: Checkout repository
+  uses: actions/checkout@v3
+</code></pre>
+<h3>Step 2: Create and Boot &#x27;iPhoneForTesting&#x27; Simulator</h3>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Next, we create and boot the iOS Simulator, that is utilized to execute the tests. By default, <code node="[object Object]">xcodebuild</code> selects any of the existing simulators on the agent, which may result in issues, particularly when using snapshot testing, due to potential variations in device dimensions and properties.</p>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3"><code node="[object Object]">SIMULATOR_DEVICE_TYPE</code> and <code node="[object Object]">SIMULATOR_RUNTIME</code> are environment variables that specify the exact device type and runtime. This way, all tests are executed on the same simulator accross agents. After the simulator is booted, we store its identifier in an environment variable (<code node="[object Object]">SIMULATOR_IDENTIFIER</code>) to reference it as destination during test execution:</p>
+<pre><code class="language-sh" node="[object Object]">identifier=$(
+  xcrun simctl create iPhoneForTesting \
+  com.apple.CoreSimulator.SimDeviceType.$SIMULATOR_DEVICE_TYPE \
+  com.apple.CoreSimulator.SimRuntime.$SIMULATOR_RUNTIME
+)
+echo &quot;Created iPhoneForTesting with identifier: $identifier&quot;
+xcrun simctl boot $identifier
+echo &quot;Booted iPhoneForTesting with identifier: $identifier&quot;
+echo &quot;SIMULATOR_IDENTIFIER=$identifier&quot; &gt;&gt; $GITHUB_ENV
+</code></pre>
+<h3>Step 3: Execute Tests</h3>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">As soon as the simulator is configured, we set it as destination and execute the tests after cleaning the project (<code node="[object Object]">xcodebuild clean test</code>). Note that we set a custom <code node="[object Object]">derivedDataPath</code> as well as <code node="[object Object]">resultBundlePath</code> and also enable Code Covergae to access code coverage reports. In addition, we pipe the output generated from <code node="[object Object]">xcodebuild</code>, store it in a local <code node="[object Object]">xcodebuild.log</code> file and also pass it on to <code node="[object Object]">xcpretty</code> that prints the output in a human readable format to the console.</p>
+<pre><code class="language-sh" node="[object Object]">set -o pipefail &amp;&amp; xcodebuild clean test \
+  -scheme &quot;App&quot; \
+  -derivedDataPath $RUNNER_TEMP/build \
+  -configuration &#x27;Debug&#x27; \
+  -destination &quot;platform=iOS Simulator,id=${SIMULATOR_IDENTIFIER}&quot; \
+  -resultBundlePath $RUNNER_TEMP/App.xcresult \
+  -enableCodeCoverage YES | tee $RUNNER_TEMP/xcodebuild.log | xcpretty
+</code></pre>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Without specifying <code node="[object Object]">set -o pipefail</code> the command will only consider the exit status of the rightmost command, i.e., of <code node="[object Object]">xcpretty</code>. By specifying <code node="[object Object]">set -o pipefail</code> we ensure that output of <code node="[object Object]">xcodebuild</code> is considered for the exit status of the whole command.</p>
+<h3>Step 4: Publish xcodebuild.log</h3>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">The <code node="[object Object]">xcodebuild.log</code> file contains the raw output of <code node="[object Object]">xcodebuild</code> and is useful to investigate why the command has failed. Sometimes the error is hard to find and may be hidden by <code node="[object Object]">xcpretty</code>. Publising the raw output as build artifact allows us to better understand what went wrong:</p>
+<pre><code class="language-yaml" node="[object Object]">- name: Publish xcodebuild.log
+  uses: actions/upload-artifact@v3
+  with:
+    name: xcodebuild.log
+    path: ${{ runner.temp }}/xcodebuild.log
+</code></pre>
+<h3>Step 5: Remove &#x27;iPhoneForTesting&#x27; Simulator</h3>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Finally, after test execution is done, we can remove the simulator from the agent. Note that instead of only removing the simulator thet was created in the second step, we search for the identifiers of all simulators named <code node="[object Object]">iPhoneForTesting</code> to cleanup the agent even when a previous removal has failed:</p>
+<pre><code class="language-sh" node="[object Object]">killall Simulator 2&gt;&amp;1 || true
+xcrun simctl list devices | \
+  grep &quot;iPhoneForTesting&quot; | \
+  grep -E -o -i &quot;([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})&quot; | \
+  while read -r identifier; do \
+    xcrun simctl delete &quot;$identifier&quot;; \
+    &quot;Removed simulator with identifier: $identifier&quot;; \
+  done
+</code></pre>
+<h3>Unit Test Workflow</h3>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">After combining all steps, we obtain the following worklow that is stored as <code node="[object Object]">test.yml</code> in the <code node="[object Object]">.github/workflows</code> directory:</p>
+<pre><code class="language-yml" node="[object Object]">name: Unit Tests
+on:
+  workflow_dispatch:
+
+jobs:
+  execute-unit-tests:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create and Boot &#x27;iPhoneForTesting&#x27; Simulator
+        env: 
+          SIMULATOR_DEVICE_TYPE: ${{ vars.SIMULATOR_DEVICE_TYPE }}
+          SIMULATOR_RUNTIME: ${{ vars.SIMULATOR_RUNTIME }}
+        run: |
+          identifier=$(xcrun simctl create iPhoneForTesting com.apple.CoreSimulator.SimDeviceType.$SIMULATOR_DEVICE_TYPE com.apple.CoreSimulator.SimRuntime.$SIMULATOR_RUNTIME)
+          echo &quot;Created iPhoneForTesting with identifier: $identifier&quot;
+          xcrun simctl boot $identifier
+          echo &quot;Booted iPhoneForTesting with identifier: $identifier&quot;
+          echo &quot;SIMULATOR_IDENTIFIER=$identifier&quot; &gt;&gt; $GITHUB_ENV
+
+      - name: Test
+        env:
+          SIMULATOR_IDENTIFIER: ${{ env.SIMULATOR_IDENTIFIER }}
+        run: |
+          set -o pipefail &amp;&amp; xcodebuild clean test \
+            -scheme &quot;App&quot; \
+            -derivedDataPath $RUNNER_TEMP/build\
+            -configuration &#x27;Debug&#x27; \
+            -destination &quot;platform=iOS Simulator,id=${SIMULATOR_IDENTIFIER}&quot; \
+            -resultBundlePath $RUNNER_TEMP/App.xcresult \
+            -enableCodeCoverage YES | tee $RUNNER_TEMP/xcodebuild.log | xcpretty
+
+      - name: Publish xcodebuild.log
+        uses: actions/upload-artifact@v3
+        with:
+          name: xcodebuild.log
+          path: ${{ runner.temp }}/xcodebuild.log
+
+      - name: Remove &#x27;iPhoneForTesting&#x27; Simulator
+        if: ${{ always() }}
+        run: |
+          killall Simulator 2&gt;&amp;1 || true
+          xcrun simctl list devices | \
+            grep &quot;iPhoneForTesting&quot; | \
+            grep -E -o -i &quot;([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})&quot; | \
+            while read -r identifier; do xcrun simctl delete &quot;$identifier&quot;; echo &quot;Removed simulator with identifier: $identifier&quot;; done
+</code></pre>
+<h1>Conclusion</h1>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">In this article, we explored how we can leverage the power of github actions to automate test execution whenever a pull-request is created. This is particularly useful in larger teams, as it effectively minimizes the occurrence of bugs and ensures continuous enhancement of the codebase.</p>
+<h1>References:</h1>
+<ul>
+<li><a href="https://docs.github.com/en/actions/quickstart">Quickstart for Github Actions</a> - Github</li>
+<li><a href="https://developer.apple.com/library/archive/technotes/tn2339/_index.html">Building from the Command Line with Xcode</a> - Apple</li>
+</ul>
+<p node="[object Object]" class="ParagraphRenderer_paragraphBlock__kuQm3">Happy Coding 🚀</p></div></div><footer class="Footer_footer__pJUho"><p>Made by<!-- --> <a class="inline" href="/about">Andreas Link</a> <!-- -->in Karlsruhe</p><div><div><a href="https://www.iubenda.com/privacy-policy/86928215" class="iubenda-black no-brand iubenda-noiframe iubenda-embed iubenda-noiframe ">Privacy Policy</a></div></div></footer></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"article":{"id":"10_04_2023","date":"10th of April 2023","markdown":"# Automating your iOS App Development Workflow: Continuous Testing with GitHub Actions\n\nAre you striving to iterate quickly to deliver new features, all while ensuring the reliability and performance of your iOS application? Efficient workflows are key to achiving this goal. In this article, we'll explore how we can leverage the power of Github Actions to automate testing and continuous deployment of iOS applications.\n\nLet's focus on the required steps to automate test execution when a pull-request is created:\n\n## Test Execution Workflow\n\nUnit tests are crucial in software development as they identify errors early in the process and enable safe code refactoring without regression. Running them often is particularly important in large-scale projects with multiple developers involved to obtain valuable feedback and maintain high code quality standards.\n\nWe initiate the \"Unit Tests\" workflow by establishing a blueprint that runs on agents featuring the latest macOS version. The workflow is either triggered manually via the Web interface or automatically upon branch activity after pull request creation:\n\n```yml\nname: Unit Tests\non:\n  pull_request:\n  workflow_dispatch:\n\njobs:\n  execute-unit-tests:\n    runs-on: macos-latest\n\n    steps:\n      ...\n```\n\nNext, we specify the steps that are required to execute unit tests on the agent:\n\n### Step 1: Checkout Repository\n\nFirst, we need to checkout the repository to gain access to the source code. Github Actions offers the `checkout@v3` step that checks-out your repository under `GITHUB_WORKSPACE`:\n\n```yaml\n- name: Checkout repository\n  uses: actions/checkout@v3\n```\n\n### Step 2: Create and Boot 'iPhoneForTesting' Simulator\n\nNext, we create and boot the iOS Simulator, that is utilized to execute the tests. By default, `xcodebuild` selects any of the existing simulators on the agent, which may result in issues, particularly when using snapshot testing, due to potential variations in device dimensions and properties. \n\n`SIMULATOR_DEVICE_TYPE` and `SIMULATOR_RUNTIME` are environment variables that specify the exact device type and runtime. This way, all tests are executed on the same simulator accross agents. After the simulator is booted, we store its identifier in an environment variable (`SIMULATOR_IDENTIFIER`) to reference it as destination during test execution: \n\n```sh\nidentifier=$(\n  xcrun simctl create iPhoneForTesting \\\n  com.apple.CoreSimulator.SimDeviceType.$SIMULATOR_DEVICE_TYPE \\\n  com.apple.CoreSimulator.SimRuntime.$SIMULATOR_RUNTIME\n)\necho \"Created iPhoneForTesting with identifier: $identifier\"\nxcrun simctl boot $identifier\necho \"Booted iPhoneForTesting with identifier: $identifier\"\necho \"SIMULATOR_IDENTIFIER=$identifier\" \u003e\u003e $GITHUB_ENV\n```\n\n### Step 3: Execute Tests\n\nAs soon as the simulator is configured, we set it as destination and execute the tests after cleaning the project (`xcodebuild clean test`). Note that we set a custom `derivedDataPath` as well as `resultBundlePath` and also enable Code Covergae to access code coverage reports. In addition, we pipe the output generated from `xcodebuild`, store it in a local `xcodebuild.log` file and also pass it on to `xcpretty` that prints the output in a human readable format to the console.\n\n```sh\nset -o pipefail \u0026\u0026 xcodebuild clean test \\\n  -scheme \"App\" \\\n  -derivedDataPath $RUNNER_TEMP/build \\\n  -configuration 'Debug' \\\n  -destination \"platform=iOS Simulator,id=${SIMULATOR_IDENTIFIER}\" \\\n  -resultBundlePath $RUNNER_TEMP/App.xcresult \\\n  -enableCodeCoverage YES | tee $RUNNER_TEMP/xcodebuild.log | xcpretty\n```\n\nWithout specifying `set -o pipefail` the command will only consider the exit status of the rightmost command, i.e., of `xcpretty`. By specifying `set -o pipefail` we ensure that output of `xcodebuild` is considered for the exit status of the whole command.\n\n### Step 4: Publish xcodebuild.log\n\nThe `xcodebuild.log` file contains the raw output of `xcodebuild` and is useful to investigate why the command has failed. Sometimes the error is hard to find and may be hidden by `xcpretty`. Publising the raw output as build artifact allows us to better understand what went wrong:\n\n```yaml\n- name: Publish xcodebuild.log\n  uses: actions/upload-artifact@v3\n  with:\n    name: xcodebuild.log\n    path: ${{ runner.temp }}/xcodebuild.log\n```\n\n### Step 5: Remove 'iPhoneForTesting' Simulator\n\nFinally, after test execution is done, we can remove the simulator from the agent. Note that instead of only removing the simulator thet was created in the second step, we search for the identifiers of all simulators named `iPhoneForTesting` to cleanup the agent even when a previous removal has failed:\n\n```sh\nkillall Simulator 2\u003e\u00261 || true\nxcrun simctl list devices | \\\n  grep \"iPhoneForTesting\" | \\\n  grep -E -o -i \"([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})\" | \\\n  while read -r identifier; do \\\n    xcrun simctl delete \"$identifier\"; \\\n    \"Removed simulator with identifier: $identifier\"; \\\n  done\n```\n\n### Unit Test Workflow\n\nAfter combining all steps, we obtain the following worklow that is stored as `test.yml` in the `.github/workflows` directory:\n\n```yml\nname: Unit Tests\non:\n  workflow_dispatch:\n\njobs:\n  execute-unit-tests:\n    runs-on: macos-latest\n\n    steps:\n      - name: Checkout repository\n        uses: actions/checkout@v3\n\n      - name: Create and Boot 'iPhoneForTesting' Simulator\n        env: \n          SIMULATOR_DEVICE_TYPE: ${{ vars.SIMULATOR_DEVICE_TYPE }}\n          SIMULATOR_RUNTIME: ${{ vars.SIMULATOR_RUNTIME }}\n        run: |\n          identifier=$(xcrun simctl create iPhoneForTesting com.apple.CoreSimulator.SimDeviceType.$SIMULATOR_DEVICE_TYPE com.apple.CoreSimulator.SimRuntime.$SIMULATOR_RUNTIME)\n          echo \"Created iPhoneForTesting with identifier: $identifier\"\n          xcrun simctl boot $identifier\n          echo \"Booted iPhoneForTesting with identifier: $identifier\"\n          echo \"SIMULATOR_IDENTIFIER=$identifier\" \u003e\u003e $GITHUB_ENV\n\n      - name: Test\n        env:\n          SIMULATOR_IDENTIFIER: ${{ env.SIMULATOR_IDENTIFIER }}\n        run: |\n          set -o pipefail \u0026\u0026 xcodebuild clean test \\\n            -scheme \"App\" \\\n            -derivedDataPath $RUNNER_TEMP/build\\\n            -configuration 'Debug' \\\n            -destination \"platform=iOS Simulator,id=${SIMULATOR_IDENTIFIER}\" \\\n            -resultBundlePath $RUNNER_TEMP/App.xcresult \\\n            -enableCodeCoverage YES | tee $RUNNER_TEMP/xcodebuild.log | xcpretty\n\n      - name: Publish xcodebuild.log\n        uses: actions/upload-artifact@v3\n        with:\n          name: xcodebuild.log\n          path: ${{ runner.temp }}/xcodebuild.log\n\n      - name: Remove 'iPhoneForTesting' Simulator\n        if: ${{ always() }}\n        run: |\n          killall Simulator 2\u003e\u00261 || true\n          xcrun simctl list devices | \\\n            grep \"iPhoneForTesting\" | \\\n            grep -E -o -i \"([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})\" | \\\n            while read -r identifier; do xcrun simctl delete \"$identifier\"; echo \"Removed simulator with identifier: $identifier\"; done\n```\n\n# Conclusion\n\nIn this article, we explored how we can leverage the power of github actions to automate test execution whenever a pull-request is created. This is particularly useful in larger teams, as it effectively minimizes the occurrence of bugs and ensures continuous enhancement of the codebase.\n\n# References:\n\n- [Quickstart for Github Actions](https://docs.github.com/en/actions/quickstart) - Github\n- [Building from the Command Line with Xcode](https://developer.apple.com/library/archive/technotes/tn2339/_index.html) - Apple\n\nHappy Coding 🚀","title":"Automating your iOS App Development Workflow: Continuous Testing with GitHub Actions","description":"Are you striving to iterate quickly to deliver new features,\n            all while ensuring the reliability and performance of your iOS application? \n            Efficient workflows are key to achiving this goal. In this article, we'll \n            explore how we can leverage the power of Github Actions to automate testing \n            of iOS applications.","images":[]}},"__N_SSG":true},"page":"/articles/[id]","query":{"id":"10_04_2023"},"buildId":"-3w302hGf1IOKCnTy-i41","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>
