@@ -44,7 +44,7 @@ const articles = [
             that procedure using Git Commit Hooks.`,
         images: [
             {
-                url: "/images/article_13_11_2022_branch_history.png",
+                url: "/images/article_13_11_2022_branch_history_with_bg.png",
                 width: 2608,
                 height: 941,
                 alt: 'Article Teaser Image',
@@ -72,11 +72,11 @@ const articles = [
             features rather than writing repetitive error-prone code.`,
         images: [
             {
-                url: "/images/article_16_03_2022_logo_dark.png",
-                width: 3705,
-                height: 1267,
+                url: "/images/article_16_03_2022_logo_social_filled_light.png",
+                width: 3706,
+                height: 1853,
                 alt: 'Article Teaser Image',
-                type: 'image/jpeg',
+                type: 'image/png',
             }
         ]
     },
@@ -100,7 +100,7 @@ const articles = [
                 width: 2282,
                 height: 1342,
                 alt: 'Article Teaser Image',
-                type: 'image/jpeg',
+                type: 'image/png',
             }
         ]
     }
