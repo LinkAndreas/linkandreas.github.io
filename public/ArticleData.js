@@ -45,8 +45,8 @@ const articles = [
         images: [
             {
                 url: "/images/article_13_11_2022_branch_history.png",
-                width: 615,
-                height: 222,
+                width: 2608,
+                height: 941,
                 alt: 'Article Teaser Image',
                 type: 'image/png',
             }
