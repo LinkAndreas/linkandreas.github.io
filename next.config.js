@@ -3,10 +3,11 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   output: 'export',
-  distDir: 'dist',
   images: {
-    unoptimized: true,
+    loader: 'akamai',
+    path: '',
   },
+  assetPrefix: './',
   webpack: (config) => {
     config.module.rules.push({
       test: /\.md$/,
