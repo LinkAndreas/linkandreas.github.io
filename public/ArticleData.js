@@ -44,11 +44,11 @@ const articles = [
             that procedure using Git Commit Hooks.`,
         images: [
             {
-                url: "/images/article_13_11_2022_branch_history.svg",
+                url: "/images/article_13_11_2022_branch_history.png",
                 width: 615,
                 height: 222,
                 alt: 'Article Teaser Image',
-                type: 'image/svg',
+                type: 'image/png',
             }
         ]
     },
