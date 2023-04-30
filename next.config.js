@@ -4,10 +4,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 module.exports = {
   output: 'export',
   images: {
-    loader: 'akamai',
-    path: '',
+    unoptimized: true,
   },
-  assetPrefix: './',
   webpack: (config) => {
     config.module.rules.push({
       test: /\.md$/,

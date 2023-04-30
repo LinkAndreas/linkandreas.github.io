@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches:
+      - feature/Migrate-to-next-js
       - master
 jobs:
   build-and-deploy:
