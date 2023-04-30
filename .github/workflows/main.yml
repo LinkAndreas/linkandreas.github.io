@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - feature/Migrate-to-next-js
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
