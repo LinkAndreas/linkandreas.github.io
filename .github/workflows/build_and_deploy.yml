@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - feature/Adapt-preview-images
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
