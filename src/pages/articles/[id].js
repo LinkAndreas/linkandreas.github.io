@@ -149,7 +149,7 @@ function getLinkPreviewHTML(title) {
     }
 
     .contentContainer p {
-      font-size: 22pt;
+      font-size: 33pt;
     }
 
     .templateContainer h1 {
