@@ -14,8 +14,7 @@ const articles = [
             user feedback leading to more reliable and successful iOS apps. Still, deploying to 
             AppStore Connect is challenging due to managing signing certificates, provisioning profiles, 
             and build numbers. In this article, we'll explore how to automate this process, allowing 
-            you to release your apps with a single button press.`,
-        images: []
+            you to release your apps with a single button press.`
     },
     {
         id: '10_04_2023',
@@ -26,8 +25,7 @@ const articles = [
             all while ensuring the reliability and performance of your iOS application? 
             Efficient workflows are key to achiving this goal. In this article, we'll 
             explore how we can leverage the power of Github Actions to automate testing 
-            of iOS applications.`,
-        images: []
+            of iOS applications.`
     },
     {
         id: '13_11_2022',
@@ -41,15 +39,7 @@ const articles = [
             feature, bug fix or release when it was developed. Still, manually adding
             the number to every commit is cumbersome. Hence, today, we will learn how
             to automatically derive the story number from the branch name and automate
-            that procedure using Git Commit Hooks.`,
-        images: [
-            {
-                url: "/images/article_13_11_2022_branch_history_with_bg.png",
-                width: 2608,
-                height: 941,
-                alt: 'Article Teaser Image',
-            }
-        ]
+            that procedure using Git Commit Hooks.`
     },
     {
         id: '16_03_2022',
@@ -68,15 +58,7 @@ const articles = [
     
             AsyncResourceView offers a consistent way to deal with loading as well as
             error states in SwiftUI applications. This way, developers can focus on
-            features rather than writing repetitive error-prone code.`,
-        images: [
-            {
-                url: "/images/article_16_03_2022_logo_social_filled_light.png",
-                width: 3706,
-                height: 1853,
-                alt: 'Article Teaser Image',
-            }
-        ]
+            features rather than writing repetitive error-prone code.`
     },
     {
         id: '09_03_2021',
@@ -91,15 +73,7 @@ const articles = [
     
             To mitigate this issue, I developed Licenses, a native macOS
             app that automates this procedure by collecting and exporting
-            your licenses into a single spreadsheet (CSV) file.`,
-        images: [
-            {
-                url: "/images/article_09_03_2021_app.png",
-                width: 2282,
-                height: 1342,
-                alt: 'Article Teaser Image',
-            }
-        ]
+            your licenses into a single spreadsheet (CSV) file.`
     }
 ];
 
