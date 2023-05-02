@@ -110,15 +110,11 @@ function getLinkPreviewHTML(title) {
   
   <body>
     <div class="templateContainer">
-    <div class="upperContainer">
-        <h1>${title}</h1>
-    </div>
-    <div class="lowerContainer">
-        <div class="infoContainer">
-            <div class="infoTitle">
-                Andreas Link
-            </div>
-        </div>
+      <div class="contentContainer">
+          <h1>${title}</h1>
+          <div class="spacer"></div>
+          <p><span class="highlight">linkandreas.de</span> - Articles about iOS development</p>
+      </div>
     </div>
   </body>
   <style>
@@ -126,49 +122,47 @@ function getLinkPreviewHTML(title) {
       margin: 0;
       padding: 0;
     }
+
+    .spacer {
+      flex: 1;
+    }
+
     .templateContainer {
       display: flex;
       flex-flow: column nowrap;
       height: 100vh;
+      align-items: start;
     }
 
-    .upperContainer,
-    .lowerContainer {
+    .contentContainer {
         display: flex;
         flex-flow: column nowrap;
         align-items: left;
-        justify-content: center;
+        justify-content: start;
+        padding-top: 10%; 
+        padding-left: 5%;
+        padding-right: 5%;
+        padding-bottom: 10%;
+        height: 100%;
+        color: #e0e2e4;
+        background-color: #040406;
     }
 
-    .upperContainer {
-        padding-left: 2%;
-        padding-right: 2%;
-        height: 85%;
-        color: #3b3b3b;
-        background-color: white;
-    }
-
-    .lowerContainer {
-        display: flex;
-        flex-flow: column nowrap;
-        align-items: start;
-        justify-content: end;
-        height: 30%;
-        padding-bottom: 20pt;
-        padding-left: 2%;
-        padding-right: 2%;
-        color: white;
-        background-color: black;
+    .contentContainer p {
+      font-size: 22pt;
     }
 
     .templateContainer h1 {
         font-size: 50pt;
     }
 
-    .infoContainer {
-        display: flex;
-        flex-flow: row;
-        align-items: baseline;
+    .highlight {
+      color: #f77f00;
+    }
+
+    .captionContainer {
+      display: flex;
+      flex-flow: row nowrap;
     }
 
     .infoTitle {
