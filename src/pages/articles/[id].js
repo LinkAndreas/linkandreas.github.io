@@ -1,8 +1,8 @@
 import React from 'react';
 import fs from "fs";
 import path from 'path';
-import { promisify } from 'util';
 import puppeteer from 'puppeteer';
+import { promisify } from 'util';
 import { NextSeo } from 'next-seo';
 import { articles } from "../../../public/ArticleData.js";
 import ReactMarkdown from "react-markdown";
@@ -40,8 +40,8 @@ export async function getStaticProps({ params }) {
     const page = await browser.newPage();
     await page.setContent(html);
     await page.setViewport({ width: 1200, height: 630 });
-    const image = await page.screenshot({ type: 'png' });
-    const imagePath = path.join(process.cwd(), 'public', 'images', 'link_previews', `${id}.png`);
+    const image = await page.screenshot({ type: 'jpeg' });
+    const imagePath = path.join(process.cwd(), 'public', 'images', 'previews', `${id}.jpeg`);
     await writeFile(imagePath, image);
 
     return {
@@ -65,7 +65,7 @@ export default function Article({ article }) {
           description: article.description,
           images: [
             {
-              url: `https://www.linkandreas.de/images/link_previews/${article.id}.png`,
+              url: `https://www.linkandreas.de/images/previews/${article.id}.jpeg`,
               width: 1200,
               height: 630,
               alt: 'Link Preview Image',
