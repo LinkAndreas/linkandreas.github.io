@@ -8,7 +8,7 @@ export default function ArticleItem({ id, title, body, date }) {
       <div className={styles.dateContainer}>
         <h3 className="timityOrange">{date}</h3>
       </div>
-      <Link href={`articles/${id}`}>{title}</Link>
+      <Link href={`https://linkandreas.de/articles/${id}`}>{title}</Link>
       {body}
     </div>
   );

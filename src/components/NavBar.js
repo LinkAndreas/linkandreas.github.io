@@ -6,25 +6,25 @@ export default function NavBar() {
   return (
     <Container fluid>
       <Navbar collapseOnSelect expand="md" bg="transparent" variant="dark">
-        <Navbar.Brand as={Link} href="/articles">
+        <Navbar.Brand as={Link} href="https://linkandreas.de/articles">
           Andreas Link
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ml-auto">
-            <Nav.Link as={Link} href="/articles">
+            <Nav.Link as={Link} href="https://linkandreas.de/articles">
               Articles
             </Nav.Link>
-            <Nav.Link as={Link} href="/licenses">
+            <Nav.Link as={Link} href="https://linkandreas.de/licenses">
               Licenses
             </Nav.Link>
-            <Nav.Link as={Link} href="/timity">
+            <Nav.Link as={Link} href="https://linkandreas.de/timity">
               Timity
             </Nav.Link>
-            <Nav.Link as={Link} href="/publications">
+            <Nav.Link as={Link} href="https://linkandreas.de/publications">
               Publications
             </Nav.Link>
-            <Nav.Link as={Link} href="/about">
+            <Nav.Link as={Link} href="https://linkandreas.de/about">
               About
             </Nav.Link>
           </Nav>

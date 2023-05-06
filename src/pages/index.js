@@ -24,7 +24,7 @@ function generateRssFeed() {
   const feed = new RSS({
     title: 'linkandreas.de',
     site_url: 'https://linkandreas.de',
-    feed_url: 'https://linkandreas.de/rss',
+    feed_url: 'https://linkandreas.de/rss/',
   });
 
   articles.forEach(article => {
