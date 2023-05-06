@@ -3,11 +3,12 @@ import article4 from "./articles/10_04_2023.md";
 import article3 from "./articles/13_11_2022.md";
 import article2 from "./articles/16_03_2022.md";
 import article1 from "./articles/09_03_2021.md";
+import rfc822Date from "rfc822-date";
 
 const articles = [
     {
-        id: '17_04_2023',
-        date: '17th of April 2023',
+        id: '2023-04-17',
+        date: rfc822Date(new Date('2023-04-17')),
         markdown: article5,
         title: 'Automating your iOS App Development Workflow: Continuous Deployment with GitHub Actions',
         description: `In agile software development, continuous deployment is key to collect 
@@ -17,8 +18,8 @@ const articles = [
             you to release your apps with a single button press.`
     },
     {
-        id: '10_04_2023',
-        date: '10th of April 2023',
+        id: '2023-04-10',
+        date: rfc822Date(new Date('2023-04-10')),
         markdown: article4,
         title: 'Automating your iOS App Development Workflow: Continuous Testing with GitHub Actions',
         description: `Are you striving to iterate quickly to deliver new features,
@@ -28,8 +29,8 @@ const articles = [
             of iOS applications.`
     },
     {
-        id: '13_11_2022',
-        date: '13th of November 2022',
+        id: '2022-11-13',
+        date: rfc822Date(new Date('2022-11-13')),
         markdown: article3,
         title: 'Story Numbers in Commit Messages: Leveraging the power of Git Hooks',
         description: `Especially in large software projects with many developers involved,
@@ -42,8 +43,8 @@ const articles = [
             that procedure using Git Commit Hooks.`
     },
     {
-        id: '16_03_2022',
-        date: '16th of March 2022',
+        id: '2022-03-16',
+        date: rfc822Date(new Date('2022-03-16')),
         markdown: article2,
         title: 'AsyncResourceView: Simplified Resource Loading',
         description: `Modern apps heavily rely on resources that are received
@@ -61,8 +62,8 @@ const articles = [
             features rather than writing repetitive error-prone code.`
     },
     {
-        id: '09_03_2021',
-        date: '9th of March 2021',
+        id: '2021-03-09',
+        date: rfc822Date(new Date(`2021-03-09`)),
         markdown: article1,
         title: 'Building a native macOS app using SwiftUI and Combine',
         description: `Have you ever been asked to put together the list of licenses 
