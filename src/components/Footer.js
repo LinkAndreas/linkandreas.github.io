@@ -8,7 +8,7 @@ export default function Footer() {
     <footer className={styles.footer}>
       <p>
         Made by{" "}
-        <NavLink className="inline" href="/about">
+        <NavLink className="inline" href="https://linkandreas.de/about">
           Andreas Link
         </NavLink>{" "}
         in Karlsruhe
