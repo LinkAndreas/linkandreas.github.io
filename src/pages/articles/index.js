@@ -1,6 +1,6 @@
 import React from "react";
 import { NextSeo } from "next-seo";
-import { articles } from "../../../public/ArticleData.js";
+import { articles } from "../../data/ArticleData.js";
 import ArticleItem from "../../components/ArticleItem.js";
 import styles from "../../styles/Articles.module.css";
 
@@ -30,7 +30,7 @@ export default function Articles() {
             <ArticleItem
               key={index}
               id={article.id}
-              date={article.date}
+              date={formatDate(new Date(Date.parse(article.date)))}
               title={article.title}
               body={
                 <div>
@@ -44,10 +44,14 @@ export default function Articles() {
                 </div>
               }
             />
-          ))
-          }
+          ))}
         </div>
       </div>
     </>
   );
+}
+
+function formatDate(date) {
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  return date.toLocaleDateString('en-US', options);
 }
