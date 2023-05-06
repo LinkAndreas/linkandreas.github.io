@@ -5,7 +5,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <link rel="alternate" type="application/rss+xml" title="linkandreas.de: Articles about iOS development" href="/api/rss" />
+        <link rel="alternate" type="application/rss+xml" title="linkandreas.de" href="/rss" />
       </Head>
       <body>
         <Main />

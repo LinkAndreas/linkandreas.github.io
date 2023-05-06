@@ -22,7 +22,7 @@ export async function getStaticProps() {
 
 function generateRssFeed() {
   const feed = new RSS({
-    title: 'linkandreas.de: Articles about iOS Development - RSS Feed',
+    title: 'linkandreas.de',
     site_url: 'https://linkandreas.de',
     feed_url: 'https://linkandreas.de/rss',
   });
