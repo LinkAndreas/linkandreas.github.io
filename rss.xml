@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[linkandreas.de: Articles about iOS Development - RSS Feed]]></title>
+        <description><![CDATA[linkandreas.de: Articles about iOS Development - RSS Feed]]></description>
+        <link>https://linkandreas.de</link>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Sat, 06 May 2023 09:55:16 GMT</lastBuildDate>
+        <atom:link href="https://linkandreas.de/rss" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Automating your iOS App Development Workflow: Continuous Deployment with GitHub Actions]]></title>
+            <description><![CDATA[In agile software development, continuous deployment is key to collect 
+            user feedback leading to more reliable and successful iOS apps. Still, deploying to 
+            AppStore Connect is challenging due to managing signing certificates, provisioning profiles, 
+            and build numbers. In this article, we'll explore how to automate this process, allowing 
+            you to release your apps with a single button press.]]></description>
+            <link>https://linkandreas.de/articles/2023-04-17</link>
+            <guid isPermaLink="true">https://linkandreas.de/articles/2023-04-17</guid>
+            <pubDate>Mon, 17 Apr 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Automating your iOS App Development Workflow: Continuous Testing with GitHub Actions]]></title>
+            <description><![CDATA[Are you striving to iterate quickly to deliver new features,
+            all while ensuring the reliability and performance of your iOS application? 
+            Efficient workflows are key to achiving this goal. In this article, we'll 
+            explore how we can leverage the power of Github Actions to automate testing 
+            of iOS applications.]]></description>
+            <link>https://linkandreas.de/articles/2023-04-10</link>
+            <guid isPermaLink="true">https://linkandreas.de/articles/2023-04-10</guid>
+            <pubDate>Mon, 10 Apr 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Story Numbers in Commit Messages: Leveraging the power of Git Hooks]]></title>
+            <description><![CDATA[Especially in large software projects with many developers involved,
+            it is best practice to include the story number from the ticket system
+            like Jira or Azure DevOps in every commit. This will let you refer to
+            the original requirements quickly and see how the team thought about the
+            feature, bug fix or release when it was developed. Still, manually adding
+            the number to every commit is cumbersome. Hence, today, we will learn how
+            to automatically derive the story number from the branch name and automate
+            that procedure using Git Commit Hooks.]]></description>
+            <link>https://linkandreas.de/articles/2022-11-13</link>
+            <guid isPermaLink="true">https://linkandreas.de/articles/2022-11-13</guid>
+            <pubDate>Sun, 13 Nov 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[AsyncResourceView: Simplified Resource Loading]]></title>
+            <description><![CDATA[Modern apps heavily rely on resources that are received
+            over the network, and hence may be affected by connectivity issues
+            or data loss. If, for example, you travel by train within Germany,
+            you may be surprised how often you will experience radio gaps or
+            interruptions due to weak cellular reception. Hence, we as developers
+            have to design our apps to include feedback when an action takes longer
+            than expected and offer the ability to retry the action in case that
+            it failed. This way, we can make our apps stand out, since they can
+            cope with conditions that are far from optimal.
+    
+            AsyncResourceView offers a consistent way to deal with loading as well as
+            error states in SwiftUI applications. This way, developers can focus on
+            features rather than writing repetitive error-prone code.]]></description>
+            <link>https://linkandreas.de/articles/2022-03-16</link>
+            <guid isPermaLink="true">https://linkandreas.de/articles/2022-03-16</guid>
+            <pubDate>Wed, 16 Mar 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Building a native macOS app using SwiftUI and Combine]]></title>
+            <description><![CDATA[Have you ever been asked to put together the list of licenses 
+            of all frameworks that are used within your iOS, iPad OS, or
+            macOS app? Manually completing this task quickly becomes
+            tedious but may be required due to legal- or customer
+            requests.
+    
+            To mitigate this issue, I developed Licenses, a native macOS
+            app that automates this procedure by collecting and exporting
+            your licenses into a single spreadsheet (CSV) file.]]></description>
+            <link>https://linkandreas.de/articles/2021-03-09</link>
+            <guid isPermaLink="true">https://linkandreas.de/articles/2021-03-09</guid>
+            <pubDate>Tue, 09 Mar 2021 00:00:00 GMT</pubDate>
+        </item>
+    </channel>
+</rss>
