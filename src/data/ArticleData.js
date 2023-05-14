@@ -24,9 +24,9 @@ const articles = [
         title: 'Automating your iOS App Development Workflow: Continuous Testing with GitHub Actions',
         description: `Are you striving to iterate quickly to deliver new features,
             all while ensuring the reliability and performance of your iOS application? 
-            Efficient workflows are key to achiving this goal. In this article, we'll 
-            explore how we can leverage the power of Github Actions to automate testing 
-            of iOS applications.`
+            Efficient workflows are key to achieving this goal. In this article, we'll explore 
+            how we can leverage the power of GitHub Actions to automate testing as part of the 
+            continuous integration process for iOS applications.`
     },
     {
         id: '2022-11-13',
