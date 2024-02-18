@@ -4,7 +4,7 @@
         <description><![CDATA[linkandreas.de]]></description>
         <link>https://linkandreas.de</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Sat, 06 May 2023 10:02:03 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 18 Feb 2024 09:53:00 GMT</lastBuildDate>
         <atom:link href="https://linkandreas.de/rss" rel="self" type="application/rss+xml"/>
         <item>
             <title><![CDATA[Automating your iOS App Development Workflow: Continuous Deployment with GitHub Actions]]></title>
@@ -21,9 +21,9 @@
             <title><![CDATA[Automating your iOS App Development Workflow: Continuous Testing with GitHub Actions]]></title>
             <description><![CDATA[Are you striving to iterate quickly to deliver new features,
             all while ensuring the reliability and performance of your iOS application? 
-            Efficient workflows are key to achiving this goal. In this article, we'll 
-            explore how we can leverage the power of Github Actions to automate testing 
-            of iOS applications.]]></description>
+            Efficient workflows are key to achieving this goal. In this article, we'll explore 
+            how we can leverage the power of GitHub Actions to automate testing as part of the 
+            continuous integration process for iOS applications.]]></description>
             <link>https://linkandreas.de/articles/2023-04-10</link>
             <guid isPermaLink="true">https://linkandreas.de/articles/2023-04-10</guid>
             <pubDate>Mon, 10 Apr 2023 00:00:00 GMT</pubDate>

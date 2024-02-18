@@ -2,7 +2,6 @@ const CnameWebpackPlugin = require('cname-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
-  output: 'export',
   images: {
     unoptimized: true,
   },
