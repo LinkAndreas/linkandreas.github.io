@@ -15,13 +15,13 @@ const articles = [
         description: `Networking serves as the backbone of mobile applications, 
             facilitating seamless communication and enabling rich user experiences. 
             However, it also introduces complexity, especially when dealing with 
-            modular applications that are built from independent features, 
-            maintained by different feature teams. Modularity offers many benefits, 
-            such as a faster development cycle and better scalability. 
-            But it also requires a consistent and robust approach to handle networking 
-            across different features, as networking is a cross-cutting concern 
-            that cannot be easily encapsulated in any of them. In this article, 
-            we explore the key concepts to deal with networking in modular iOS applications.`
+            modular applications that are built from independent features.
+            Modularity offers many benefits, such as a faster development cycle 
+            and better scalability. But it also requires a robust approach to handle 
+            cross-cutting concerns among features. Since networking is a 
+            cross-cutting concern, it cannot be easily encapsulated in any of them.
+            In this article, we explore a lightweight approach to deal with 
+            networking in modular iOS applications.`
     },
     {
         id: '2023-04-17',
