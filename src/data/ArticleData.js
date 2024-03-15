@@ -1,4 +1,4 @@
-import article6 from "./articles/18_02_2024.md";
+import article6 from "./articles/15_03_2024.md";
 import article5 from "./articles/17_04_2023.md";
 import article4 from "./articles/10_04_2023.md";
 import article3 from "./articles/13_11_2022.md";
@@ -8,8 +8,8 @@ import rfc822Date from "rfc822-date";
 
 const articles = [
     {
-        id: '2024-02-18',
-        date: rfc822Date(new Date('2024-02-18')),
+        id: '2024-03-15',
+        date: rfc822Date(new Date('2024-03-15')),
         markdown: article6,
         title: 'Networking in large-scale iOS Applications',
         description: `Networking serves as the backbone of mobile applications, 
