@@ -1,3 +1,4 @@
+import article6 from "./articles/16_03_2024.md";
 import article5 from "./articles/17_04_2023.md";
 import article4 from "./articles/10_04_2023.md";
 import article3 from "./articles/13_11_2022.md";
@@ -6,6 +7,22 @@ import article1 from "./articles/09_03_2021.md";
 import rfc822Date from "rfc822-date";
 
 const articles = [
+    {
+        id: '2024-03-16',
+        date: rfc822Date(new Date('2024-03-16')),
+        markdown: article6,
+        title: 'Networking for Large-Scale iOS Applications',
+        description: `Networking serves as the backbone of mobile applications, 
+            facilitating seamless communication and enabling rich user experiences. 
+            However, it also introduces complexity, especially when dealing with 
+            modular applications that are built from independent features.
+            Modularity offers many benefits, such as a faster development cycle 
+            and better scalability. But it also requires a robust approach to handle 
+            cross-cutting concerns among features. Since networking is a 
+            cross-cutting concern, it cannot be easily encapsulated in any of them.
+            In this article, we explore a lightweight approach for dealing with 
+            networking in modular iOS applications.`
+    },
     {
         id: '2023-04-17',
         date: rfc822Date(new Date('2023-04-17')),

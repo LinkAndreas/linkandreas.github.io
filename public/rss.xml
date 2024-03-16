@@ -4,8 +4,24 @@
         <description><![CDATA[linkandreas.de]]></description>
         <link>https://linkandreas.de</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Sat, 06 May 2023 10:02:03 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 16 Mar 2024 10:25:13 GMT</lastBuildDate>
         <atom:link href="https://linkandreas.de/rss" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Networking for Large-Scale iOS Applications]]></title>
+            <description><![CDATA[Networking serves as the backbone of mobile applications, 
+            facilitating seamless communication and enabling rich user experiences. 
+            However, it also introduces complexity, especially when dealing with 
+            modular applications that are built from independent features.
+            Modularity offers many benefits, such as a faster development cycle 
+            and better scalability. But it also requires a robust approach to handle 
+            cross-cutting concerns among features. Since networking is a 
+            cross-cutting concern, it cannot be easily encapsulated in any of them.
+            In this article, we explore a lightweight approach for dealing with 
+            networking in modular iOS applications.]]></description>
+            <link>https://linkandreas.de/articles/2024-03-16</link>
+            <guid isPermaLink="true">https://linkandreas.de/articles/2024-03-16</guid>
+            <pubDate>Sat, 16 Mar 2024 00:00:00 GMT</pubDate>
+        </item>
         <item>
             <title><![CDATA[Automating your iOS App Development Workflow: Continuous Deployment with GitHub Actions]]></title>
             <description><![CDATA[In agile software development, continuous deployment is key to collect 
@@ -21,9 +37,9 @@
             <title><![CDATA[Automating your iOS App Development Workflow: Continuous Testing with GitHub Actions]]></title>
             <description><![CDATA[Are you striving to iterate quickly to deliver new features,
             all while ensuring the reliability and performance of your iOS application? 
-            Efficient workflows are key to achiving this goal. In this article, we'll 
-            explore how we can leverage the power of Github Actions to automate testing 
-            of iOS applications.]]></description>
+            Efficient workflows are key to achieving this goal. In this article, we'll explore 
+            how we can leverage the power of GitHub Actions to automate testing as part of the 
+            continuous integration process for iOS applications.]]></description>
             <link>https://linkandreas.de/articles/2023-04-10</link>
             <guid isPermaLink="true">https://linkandreas.de/articles/2023-04-10</guid>
             <pubDate>Mon, 10 Apr 2023 00:00:00 GMT</pubDate>
