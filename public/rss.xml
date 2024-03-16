@@ -4,10 +4,10 @@
         <description><![CDATA[linkandreas.de]]></description>
         <link>https://linkandreas.de</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Fri, 15 Mar 2024 08:53:36 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 16 Mar 2024 10:21:41 GMT</lastBuildDate>
         <atom:link href="https://linkandreas.de/rss" rel="self" type="application/rss+xml"/>
         <item>
-            <title><![CDATA[Networking in large-scale iOS Applications]]></title>
+            <title><![CDATA[Networking for Large-Scale iOS Applications]]></title>
             <description><![CDATA[Networking serves as the backbone of mobile applications, 
             facilitating seamless communication and enabling rich user experiences. 
             However, it also introduces complexity, especially when dealing with 
@@ -16,11 +16,11 @@
             and better scalability. But it also requires a robust approach to handle 
             cross-cutting concerns among features. Since networking is a 
             cross-cutting concern, it cannot be easily encapsulated in any of them.
-            In this article, we explore a lightweight approach to deal with 
+            In this article, we explore a lightweight approach for dealing with 
             networking in modular iOS applications.]]></description>
-            <link>https://linkandreas.de/articles/2024-03-15</link>
-            <guid isPermaLink="true">https://linkandreas.de/articles/2024-03-15</guid>
-            <pubDate>Fri, 15 Mar 2024 00:00:00 GMT</pubDate>
+            <link>https://linkandreas.de/articles/2024-03-16</link>
+            <guid isPermaLink="true">https://linkandreas.de/articles/2024-03-16</guid>
+            <pubDate>Sat, 16 Mar 2024 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Automating your iOS App Development Workflow: Continuous Deployment with GitHub Actions]]></title>

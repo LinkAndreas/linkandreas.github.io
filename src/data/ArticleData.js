@@ -11,7 +11,7 @@ const articles = [
         id: '2024-03-16',
         date: rfc822Date(new Date('2024-03-16')),
         markdown: article6,
-        title: 'Networking for large-scale iOS Applications',
+        title: 'Networking for Large-Scale iOS Applications',
         description: `Networking serves as the backbone of mobile applications, 
             facilitating seamless communication and enabling rich user experiences. 
             However, it also introduces complexity, especially when dealing with 
