@@ -15,7 +15,6 @@ jobs:
           npm run clean
           npm run bootstrap
           npm run build
-          npm run export
           touch ./out/.nojekyll
 
       - name: Deploy 🚀
