@@ -38,7 +38,7 @@ export async function getStaticProps({ params }) {
   const id = params.id
   const article = articles.find(article => article.id === id);
   const html = generateLinkPreviewHTML(article.title);
-  const browser = await puppeteer.launch({ headless: "new" });
+  const browser = await puppeteer.launch({ headless: "new", args: ['--no-sandbox', '--disable-setuid-sandbox'] });
 
   try {
     const page = await browser.newPage();
