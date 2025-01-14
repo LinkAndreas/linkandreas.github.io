@@ -4,3 +4,25 @@
 
 My Portfolio using Next.js, React, Babel and Webpack:
 - [linkandreas.de](https://www.linkandreas.de)
+
+## Setup Instructions
+
+### Development
+
+1. Clean workspace: 
+
+```sh
+npm run clean
+```
+
+2. Install dependencies 
+
+```sh
+npm run bootstrap
+```
+
+3. Run Dev Server
+
+```sh
+npm run dev
+```
