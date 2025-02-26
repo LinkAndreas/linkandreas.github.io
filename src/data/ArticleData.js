@@ -1,3 +1,4 @@
+import article7 from "./articles/26_02_2025.md";
 import article6 from "./articles/16_03_2024.md";
 import article5 from "./articles/17_04_2023.md";
 import article4 from "./articles/10_04_2023.md";
@@ -7,6 +8,13 @@ import article1 from "./articles/09_03_2021.md";
 import rfc822Date from "rfc822-date";
 
 const articles = [
+    {
+        id: '2025-02-26',
+        date: rfc822Date(new Date('2025-02-26')),
+        markdown: article7,
+        title: 'Monorepo Migration Done Right: Transitioning Within a Large Codebase While Preserving Git History',
+        description: `Article Description`
+    },
     {
         id: '2024-03-16',
         date: rfc822Date(new Date('2024-03-16')),
