@@ -4,7 +4,7 @@
         <description><![CDATA[linkandreas.de]]></description>
         <link>https://linkandreas.de</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Mon, 21 Apr 2025 05:03:19 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 24 Apr 2025 04:15:15 GMT</lastBuildDate>
         <atom:link href="https://linkandreas.de/rss" rel="self" type="application/rss+xml"/>
         <item>
             <title><![CDATA[Boosting Developer Produtivity: Migrating to a Mono-Repo While Keeping Git History Intact]]></title>
@@ -15,7 +15,7 @@
             collaboration and demonstrate a Python script to automate the migration process.]]></description>
             <link>https://linkandreas.de/articles/2025-04-21</link>
             <guid isPermaLink="true">https://linkandreas.de/articles/2025-04-21</guid>
-            <pubDate>Tue, 15 Apr 2025 00:00:00 GMT</pubDate>
+            <pubDate>Mon, 21 Apr 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Networking for Large-Scale iOS Applications]]></title>

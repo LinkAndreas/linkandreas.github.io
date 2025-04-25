@@ -1,4 +1,4 @@
-import article7 from "./articles/21_04_2025.md";
+import article7 from "./articles/25_04_2025.md";
 import article6 from "./articles/16_03_2024.md";
 import article5 from "./articles/17_04_2023.md";
 import article4 from "./articles/10_04_2023.md";
@@ -9,10 +9,10 @@ import rfc822Date from "rfc822-date";
 
 const articles = [
     {
-        id: '2025-04-21',
-        date: rfc822Date(new Date('2025-04-21')),
+        id: '2025-04-25',
+        date: rfc822Date(new Date('2025-04-25')),
         markdown: article7,
-        title: 'Boosting Developer Produtivity: Migrating to a Mono-Repo While Keeping Git History Intact',
+        title: 'Mono-Repo Migration: Boosting Developer Productivity While Keeping Git History Intact',
         description: `Modularization is essential for scaling large software projects, enabling faster 
             development and better maintainability. However, when modules are split across multiple 
             repositories, developer productivity can suffer due to the overhead of coordinating changes 
