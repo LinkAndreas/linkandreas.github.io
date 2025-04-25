@@ -88,7 +88,7 @@ export default function Article({ article }) {
               code: CodeRenderer,
               img: ImageRenderer,
               p: ParagraphRenderer,
-              table: TableRenderer,
+              table: TableRenderer
             }}
             remarkPlugins={[gfm]}
           >
