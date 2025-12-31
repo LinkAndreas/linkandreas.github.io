@@ -1,26 +1,32 @@
 import React from "react";
-import { NextSeo } from "next-seo";
+import Head from "next/head";
+import { generateNextSeo } from "next-seo/pages";
 import PublicationItem from "../components/PublicationItem";
 import styles from "../styles/Publications.module.css";
 
 export default function Publications() {
   return (
     <>
-      <NextSeo
-        title="Publications - Link Andreas"
-        canonical={"https://www.linkandreas.de/publications"}
-        openGraph={{
-          url: "https://www.linkandreas.de/publications",
-          title: "Publications - Link Andreas",
-          images: [],
-          siteName: 'Andreas Link',
-        }}
-        twitter={{
-          handle: '@handle',
-          site: '@site',
-          cardType: 'summary_large_image',
-        }}
-      />
+      <Head>
+          {/* Next SEO tags */}
+          {
+            generateNextSeo({
+              title:"Publications - Link Andreas",
+              canonical: "https://www.linkandreas.de/publications",
+              openGraph: {
+                url: "https://www.linkandreas.de/publications",
+                title: "Publications - Link Andreas",
+                images: [],
+                siteName: 'Andreas Link',
+              },
+              twitter: {
+                handle: '@handle',
+                site: '@site',
+                cardType: 'summary_large_image',
+              }
+            })
+          }
+      </Head>
       <div className={styles.publicationsContainer}>
         <div>
           <h2>2018</h2>

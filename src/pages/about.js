@@ -1,5 +1,6 @@
 import React from "react";
-import { NextSeo } from "next-seo";
+import Head from "next/head";
+import { generateNextSeo } from "next-seo/pages";
 import Avatar from "../components/Avatar.js";
 import BibliographyEntry from "../components/BibliographyEntry.js";
 import styles from "../styles/About.module.css";
@@ -10,21 +11,26 @@ import companyIcon from "../../public/images/about_company.png";
 export default function About() {
   return (
     <>
-      <NextSeo
-        title="About - Link Andreas"
-        canonical={"https://www.linkandreas.de/publications"}
-        openGraph={{
-          url: "https://www.linkandreas.de/publications",
-          title: "About - Link Andreas",
-          images: [],
-          siteName: 'Andreas Link',
-        }}
-        twitter={{
-          handle: '@handle',
-          site: '@site',
-          cardType: 'summary_large_image',
-        }}
-      />
+      <Head>
+        {/* Next SEO tags */}
+        {
+          generateNextSeo({
+            title:"About - Link Andreas",
+            canonical: "https://www.linkandreas.de/publications",
+            openGraph: {
+              url: "https://www.linkandreas.de/publications",
+              title: "About - Link Andreas",
+              images: [],
+              siteName: 'Andreas Link',
+            },
+            twitter: {
+              handle: '@handle',
+              site: '@site',
+              cardType: 'summary_large_image',
+            }
+          })
+        }
+      </Head>
       <div className={styles.aboutContainer}>
         <div className={styles.aboutContent}>
           <Avatar />
