@@ -1,6 +1,7 @@
 import React from "react";
 import Image from 'next/image'
-import { NextSeo } from 'next-seo';
+import Head from "next/head";
+import { generateNextSeo } from "next-seo/pages";
 import AppInfo from "../components/AppInfo.js";
 import MacAppStoreBadge from "../components/MacAppStoreBadge.js";
 import Feature from "../components/Feature.js";
@@ -18,31 +19,36 @@ import csvIcon from "../../public/images/licenses_CSV.png";
 export default function Licenses() {
   return (
     <>
-      <NextSeo
-        title="Licenses - Link Andreas"
-        description="Spot and export licenses"
-        canonical={"https://www.linkandreas.de/licenses"}
-        openGraph={{
-          url: "https://www.linkandreas.de/licenses",
-          title: "Licenses - Link Andreas",
-          description: "Spot and export licenses",
-          images: [
-            {
-              url: "https://www.linkandreas.de/images/licenses_app.png",
-              width: 2282,
-              height: 1342,
-              alt: 'Licenses Teaser Image',
-              type: 'image/png',
+      <Head>
+        {/* Next SEO tags */}
+        {
+          generateNextSeo({
+            title: "Licenses - Link Andreas",
+            description: "Spot and export licenses",
+            canonical: "https://www.linkandreas.de/licenses",
+            openGraph: {
+              url: "https://www.linkandreas.de/licenses",
+              title: "Licenses - Link Andreas",
+              description: "Spot and export licenses",
+              images: [
+                {
+                  url: "https://www.linkandreas.de/images/licenses_app.png",
+                  width: 2282,
+                  height: 1342,
+                  alt: 'Licenses Teaser Image',
+                  type: 'image/png',
+                }
+              ],
+              siteName: 'Andreas Link',
+            },
+            twitter: {
+              handle: '@handle',
+              site: '@site',
+              cardType: 'summary_large_image',
             }
-          ],
-          siteName: 'Andreas Link',
-        }}
-        twitter={{
-          handle: '@handle',
-          site: '@site',
-          cardType: 'summary_large_image',
-        }}
-      />
+          })
+        }
+      </Head>
       <div className={styles.licensesContainer}>
         <AppInfo
           title="Licenses"
