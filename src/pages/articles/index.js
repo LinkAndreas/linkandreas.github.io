@@ -1,5 +1,6 @@
 import React from "react";
-import { NextSeo } from "next-seo";
+import Head from "next/head";
+import { generateNextSeo } from "next-seo/pages";
 import { articles } from "../../data/ArticleData.js";
 import ArticleItem from "../../components/ArticleItem.js";
 import styles from "../../styles/Articles.module.css";
@@ -7,23 +8,28 @@ import styles from "../../styles/Articles.module.css";
 export default function Articles() {
   return (
     <>
-      <NextSeo
-        title="Articles - Link Andreas"
-        description="Articles about iOS Development."
-        canonical={"https://www.linkandreas.de/articles"}
-        openGraph={{
-          url: "https://www.linkandreas.de/articles",
-          title: "Articles - Link Andreas",
-          description: "Articles about iOS Development.",
-          images: [],
-          siteName: 'Andreas Link',
-        }}
-        twitter={{
-          handle: '@handle',
-          site: '@site',
-          cardType: 'summary_large_image',
-        }}
-      />
+      <Head>
+          {/* Next SEO tags */}
+          {
+            generateNextSeo({
+              title: "Articles - Link Andreas",
+              description: "Articles about iOS Development.",
+              canonical: "https://www.linkandreas.de/articles",
+              openGraph: {
+                url: "https://www.linkandreas.de/articles",
+                title: "Articles - Link Andreas",
+                description: "Articles about iOS Development.",
+                images: [],
+                siteName: 'Andreas Link',
+              },
+              twitter: {
+                handle: '@handle',
+                site: '@site',
+                cardType: 'summary_large_image',
+              },
+            })
+          }
+      </Head>
       <div className={styles.articlesContainer}>
         <div>
           {articles.map((article, index) => (

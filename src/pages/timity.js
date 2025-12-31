@@ -1,6 +1,7 @@
 import React from "react";
 import Image from 'next/image'
-import { NextSeo } from "next-seo";
+import Head from "next/head";
+import { generateNextSeo } from "next-seo/pages";
 import AppInfo from "../components/AppInfo.js";
 import AppStoreBadge from "../components/AppStoreBadge.js";
 import Feature from "../components/Feature.js";
@@ -20,31 +21,36 @@ import durationCalculator from "../../public/images/timity_durationCalculator.pn
 export default function Timity() {
   return (
     <>
-      <NextSeo
-        title="Timity - Link Andreas"
-        description="The missing Time Calculator"
-        canonical={"https://www.linkandreas.de/timity"}
-        openGraph={{
-          url: "https://www.linkandreas.de/timity",
-          title: "Timity - Link Andreas",
-          description: "The missing Time Calculator",
-          images: [
-            {
-              url: "https://www.linkandreas.de/images/timity_app.png",
-              width: 1194,
-              height: 785,
-              alt: 'Timity Teaser Image',
-              type: 'image/png',
-            }
-          ],
-          siteName: 'Andreas Link',
-        }}
-        twitter={{
-          handle: '@handle',
-          site: '@site',
-          cardType: 'summary_large_image',
-        }}
-      />
+      <Head>
+          {/* Next SEO tags */}
+          {
+            generateNextSeo({
+              title: "Timity - Link Andreas",
+              description: "The missing Time Calculator",
+              canonical: "https://www.linkandreas.de/timity",
+              openGraph: {
+                url: "https://www.linkandreas.de/timity",
+                title: "Timity - Link Andreas",
+                description: "The missing Time Calculator",
+                images: [
+                  {
+                    url: "https://www.linkandreas.de/images/timity_app.png",
+                    width: 1194,
+                    height: 785,
+                    alt: 'Timity Teaser Image',
+                    type: 'image/png',
+                  }
+                ],
+                siteName: 'Andreas Link',
+              },
+              twitter: {
+                handle: '@handle',
+                site: '@site',
+                cardType: 'summary_large_image',
+              },
+            })
+          }
+      </Head>
       <div className={styles.timityContainer}>
         <AppInfo
           title="Timity"

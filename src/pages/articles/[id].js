@@ -3,7 +3,8 @@ import fs from "fs";
 import path from 'path';
 import puppeteer from 'puppeteer';
 import { promisify } from 'util';
-import { NextSeo } from 'next-seo';
+import Head from "next/head";
+import { generateNextSeo } from "next-seo/pages";
 import { articles } from "../../data/ArticleData.js";
 import generateLinkPreviewHTML from '../../util/LinkPreview.js';
 import ReactMarkdown from "react-markdown";
@@ -57,30 +58,35 @@ export async function getStaticProps({ params }) {
 export default function Article({ article }) {
   return (
     <>
-      <NextSeo
-        title={article.title}
-        description={article.description}
-        canonical={"https://www.linkandreas.de/articles/" + article.id}
-        openGraph={{
-          url: "https://www.linkandreas.de/articles/" + article.id,
-          title: article.title,
-          description: article.description,
-          images: [
-            {
-              url: `https://www.linkandreas.de/images/previews/${article.id}.jpeg`,
-              width: 1200,
-              height: 630,
-              alt: 'Link Preview Image',
-            }
-          ],
-          siteName: 'Andreas Link',
-        }}
-        twitter={{
-          handle: '@handle',
-          site: '@site',
-          cardType: 'summary_large_image',
-        }}
-      />
+      <Head>
+          {/* Next SEO tags */}
+          {
+            generateNextSeo({
+              title: article.title,
+              description: article.description,
+              canonical: "https://www.linkandreas.de/articles/" + article.id,
+              openGraph: {
+                url: "https://www.linkandreas.de/articles/" + article.id,
+                title: article.title,
+                description: article.description,
+                images: [
+                  {
+                    url: `https://www.linkandreas.de/images/previews/${article.id}.jpeg`,
+                    width: 1200,
+                    height: 630,
+                    alt: 'Link Preview Image',
+                  }
+                ],
+                siteName: 'Andreas Link',
+              },
+              twitter: {
+                handle: '@handle',
+                site: '@site',
+                cardType: 'summary_large_image',
+              }
+            })
+          }
+      </Head>
       <div className={styles.articleContainer}>
         {article != null ? (
           <ReactMarkdown
