@@ -15,6 +15,9 @@ export default function NavBar() {
             <Nav.Link as={Link} href="/articles">
               Articles
             </Nav.Link>
+            <Nav.Link as={Link} href="/imgzen">
+              ImgZen
+            </Nav.Link>
             <Nav.Link as={Link} href="/licenses">
               Licenses
             </Nav.Link>
