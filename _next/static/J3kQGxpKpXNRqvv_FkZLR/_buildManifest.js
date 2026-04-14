@@ -1,9 +1,9 @@
 self.__BUILD_MANIFEST = {
   "/": [
-    "static/chunks/e25eacc8cb820fb3.js"
+    "static/chunks/35e374af461bd462.js"
   ],
   "/_error": [
-    "static/chunks/02757bd64ad4c853.js"
+    "static/chunks/311c2338cd582462.js"
   ],
   "/about": [
     "static/chunks/f457220e1e134f77.js"
@@ -14,14 +14,17 @@ self.__BUILD_MANIFEST = {
   "/articles/[id]": [
     "static/chunks/9a4a6cfd52a03ebb.js"
   ],
+  "/imgzen": [
+    "static/chunks/8015f1a33e924f50.js"
+  ],
   "/licenses": [
-    "static/chunks/bd7674ed8c03ed85.js"
+    "static/chunks/482fe2c5fa5e0c3a.js"
   ],
   "/publications": [
     "static/chunks/32e23bb69a52c2c8.js"
   ],
   "/timity": [
-    "static/chunks/58081e76a3e46cf3.js"
+    "static/chunks/584953cf1ecd0a33.js"
   ],
   "__rewrites": {
     "afterFiles": [],
@@ -35,6 +38,7 @@ self.__BUILD_MANIFEST = {
     "/about",
     "/articles",
     "/articles/[id]",
+    "/imgzen",
     "/licenses",
     "/publications",
     "/timity"
