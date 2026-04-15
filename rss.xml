@@ -4,7 +4,7 @@
         <description><![CDATA[linkandreas.de]]></description>
         <link>https://linkandreas.de</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 15 Apr 2026 08:18:02 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 15 Apr 2026 08:19:47 GMT</lastBuildDate>
         <atom:link href="https://linkandreas.de/rss" rel="self" type="application/rss+xml"/>
         <item>
             <title><![CDATA[Mono-Repo Migration: Boosting Developer Productivity While Keeping Git History Intact]]></title>
