@@ -1,6 +1,6 @@
 # Andreas Link's Portfolio:
 
-[![Version](https://img.shields.io/badge/version-2.9.0-blue)](https://github.com/LinkAndreas/linkandreas.github.io/releases)
+[![Version](https://img.shields.io/badge/version-3.0.0-blue)](https://github.com/LinkAndreas/linkandreas.github.io/releases)
 [![Build and Deploy](https://github.com/LinkAndreas/linkandreas.github.io/actions/workflows/build_and_deploy.yml/badge.svg)](https://github.com/LinkAndreas/linkandreas.github.io/actions/workflows/build_and_deploy.yml)
 [![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB)](https://reactjs.org/)
