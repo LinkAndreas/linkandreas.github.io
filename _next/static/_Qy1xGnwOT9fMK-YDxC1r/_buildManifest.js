@@ -15,7 +15,7 @@ self.__BUILD_MANIFEST = {
     "static/chunks/184.szc6hcfha.js"
   ],
   "/imgzen": [
-    "static/chunks/0opd7eubh17hh.js"
+    "static/chunks/0f_schz8e1-v3.js"
   ],
   "/licenses": [
     "static/chunks/0her0erryvztd.js"
