@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import { generateNextSeo } from "next-seo/pages";
-import styles from "../../styles/ImgZen/privacy.module.css";
+import styles from "../../../styles/ImgZen/privacy.module.css";
 
 export default function ImgZenPrivacy() {
   return (
@@ -11,9 +11,9 @@ export default function ImgZenPrivacy() {
           title: "Privacy Policy – ImgZen",
           description:
             "Privacy Policy for ImgZen by Andreas Link. ImgZen does not collect, store, or process any personal data.",
-          canonical: "https://www.linkandreas.de/imgzen/privacy",
+          canonical: "https://www.linkandreas.de/imgzen/privacy/en",
           openGraph: {
-            url: "https://www.linkandreas.de/imgzen/privacy",
+            url: "https://www.linkandreas.de/imgzen/privacy/en",
             title: "Privacy Policy – ImgZen",
             description:
               "Privacy Policy for ImgZen by Andreas Link.",
@@ -22,7 +22,7 @@ export default function ImgZenPrivacy() {
         })}
       </Head>
       <div className={styles.container}>
-        <h1>Privacy Policy for ImgZen</h1>
+        <h1>Privacy Policy - ImgZen</h1>
         <p>
           <strong>Effective Date:</strong> April 15, 2026
         </p>
