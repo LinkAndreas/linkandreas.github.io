@@ -3,7 +3,7 @@ self.__BUILD_MANIFEST = {
     "static/chunks/0~xn1bqrq45ay.js"
   ],
   "/_error": [
-    "static/chunks/07qb8nnsfmbq9.js"
+    "static/chunks/0h9hilnhl9xp_.js"
   ],
   "/about": [
     "static/chunks/0cia0hlg.bl44.js"
@@ -16,6 +16,9 @@ self.__BUILD_MANIFEST = {
   ],
   "/imgzen": [
     "static/chunks/0kuvc3f57h6-..js"
+  ],
+  "/imgzen/privacy": [
+    "static/chunks/0xodbm5uaozpj.js"
   ],
   "/imgzen/privacy/de": [
     "static/chunks/16xoend6_6.di.js"
@@ -45,6 +48,7 @@ self.__BUILD_MANIFEST = {
     "/articles",
     "/articles/[id]",
     "/imgzen",
+    "/imgzen/privacy",
     "/imgzen/privacy/de",
     "/imgzen/privacy/en",
     "/licenses",
