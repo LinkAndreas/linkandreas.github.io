@@ -1,8 +1,25 @@
 import React from "react";
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Container, Navbar, Nav } from "react-bootstrap";
 
+const navItems = [
+  { label: "Articles", href: "/articles" },
+  { label: "ImgZen", href: "/imgzen" },
+  { label: "Licenses", href: "/licenses" },
+  { label: "Timity", href: "/timity" },
+  { label: "Publications", href: "/publications" },
+  { label: "About", href: "/about" },
+];
+
 export default function NavBar() {
+  const { pathname } = useRouter();
+
+  function isActive(href) {
+    if (href === "/") return pathname === "/";
+    return pathname === href || pathname.startsWith(href + "/");
+  }
+
   return (
     <Container fluid>
       <Navbar collapseOnSelect expand="md" bg="transparent" variant="dark">
@@ -12,24 +29,11 @@ export default function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ml-auto">
-            <Nav.Link as={Link} href="/articles">
-              Articles
-            </Nav.Link>
-            <Nav.Link as={Link} href="/imgzen">
-              ImgZen
-            </Nav.Link>
-            <Nav.Link as={Link} href="/licenses">
-              Licenses
-            </Nav.Link>
-            <Nav.Link as={Link} href="/timity">
-              Timity
-            </Nav.Link>
-            <Nav.Link as={Link} href="/publications">
-              Publications
-            </Nav.Link>
-            <Nav.Link as={Link} href="/about">
-              About
-            </Nav.Link>
+            {navItems.map(({ label, href }) => (
+              <Nav.Link key={href} as={Link} href={href} active={isActive(href)}>
+                {label}
+              </Nav.Link>
+            ))}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
