@@ -11,9 +11,9 @@ import styles from "../styles/ImgZen.module.css";
 
 import screenshot from "../../public/images/imgzen_app.png";
 import appIcon from "../../public/images/imgzen_appIcon.png";
-import formatConverter from "../../public/images/imgzen_converter.png";
+import formatConverter from "../../public/images/imgzen_convert.png";
 import batchProcessing from "../../public/images/imgzen_batch.png";
-import qualityControl from "../../public/images/imgzen_quality.png";
+import qualityControl from "../../public/images/imgzen_control.png";
 import imageSources from "../../public/images/imgzen_sources.png";
 import exportOptions from "../../public/images/imgzen_export.png";
 import privacy from "../../public/images/imgzen_privacy.png";
