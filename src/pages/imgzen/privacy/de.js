@@ -3,7 +3,7 @@ import Head from "next/head";
 import { generateNextSeo } from "next-seo/pages";
 import styles from "../../../styles/ImgZen/privacy.module.css";
 
-export default function ImgZenPrivacy() {
+export default function ImgZenPrivacyDE() {
     return (
         <>
             <Head>
@@ -124,4 +124,4 @@ export default function ImgZenPrivacy() {
     );
 }
 
-ImgZenPrivacy.getLayout = (page) => page;
+ImgZenPrivacyDE.getLayout = (page) => page;
