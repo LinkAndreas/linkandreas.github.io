@@ -10,7 +10,21 @@ import "../../public/styles/navBar.css";
 import "../../public/styles/code.css";
 import "../../public/styles/styles.css";
 
+function DefaultLayout({ children }) {
+  return (
+    <div className={styles.appContainer}>
+      <NavBar />
+      <div className={styles.content}>
+        {children}
+      </div>
+      <Footer />
+    </div>
+  );
+}
+
 export default function MyApp({ Component, pageProps }) {
+  const getLayout = Component.getLayout || ((page) => <DefaultLayout>{page}</DefaultLayout>);
+
   return (
     <>
       <Head>
@@ -35,13 +49,7 @@ export default function MyApp({ Component, pageProps }) {
           })
         }
       </Head>
-      <div className={styles.appContainer}>
-        <NavBar />
-        <div className={styles.content}>
-          <Component {...pageProps} />
-        </div>
-        <Footer />
-      </div>
+      {getLayout(<Component {...pageProps} />)}
     </>
   )
 }

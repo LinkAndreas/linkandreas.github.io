@@ -2,21 +2,21 @@ import React from "react";
 import Image from 'next/image'
 import Head from "next/head";
 import { generateNextSeo } from "next-seo/pages";
-import AppInfo from "../components/AppInfo.js";
-import AppStoreBadge from "../components/AppStoreBadge.js";
-import Feature from "../components/Feature.js";
-import FeatureGrid from "../components/FeatureGrid.js";
-import AppleLegalNotes from "../components/AppleLegalNotes.js";
-import styles from "../styles/ImgZen.module.css";
+import AppInfo from "../../components/AppInfo.js";
+import AppStoreBadge from "../../components/AppStoreBadge.js";
+import Feature from "../../components/Feature.js";
+import FeatureGrid from "../../components/FeatureGrid.js";
+import AppleLegalNotes from "../../components/AppleLegalNotes.js";
+import styles from "../../styles/ImgZen/index.module.css";
 
-import screenshot from "../../public/images/imgzen_app.png";
-import appIcon from "../../public/images/imgzen_appIcon.png";
-import formatConverter from "../../public/images/imgzen_convert.png";
-import batchProcessing from "../../public/images/imgzen_batch.png";
-import qualityControl from "../../public/images/imgzen_control.png";
-import imageSources from "../../public/images/imgzen_sources.png";
-import exportOptions from "../../public/images/imgzen_export.png";
-import privacy from "../../public/images/imgzen_privacy.png";
+import screenshot from "../../../public/images/imgzen_app.png";
+import appIcon from "../../../public/images/imgzen_appIcon.png";
+import formatConverter from "../../../public/images/imgzen_convert.png";
+import batchProcessing from "../../../public/images/imgzen_batch.png";
+import qualityControl from "../../../public/images/imgzen_control.png";
+import imageSources from "../../../public/images/imgzen_sources.png";
+import exportOptions from "../../../public/images/imgzen_export.png";
+import privacy from "../../../public/images/imgzen_privacy.png";
 
 export default function ImgZen() {
   return (
