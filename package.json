@@ -1,6 +1,6 @@
 {
   "name": "linkandreas.github.io",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "Andreas Link's Portfolio",
   "homepage": "http://linkandreas.github.io",
   "scripts": {
@@ -16,7 +16,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/LinkAndreas/linkandreas.github.io/issues"
   },
