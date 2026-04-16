@@ -114,7 +114,7 @@ export default function ImgZenPrivacyEN() {
           <strong>Andreas Link</strong>
           <br />
           Email:{" "}
-          <a href="mailto:privacy@linkandreas.de">imgzen@linkandreas.de</a>
+          <a href="mailto:privacy@linkandreas.de">privacy@linkandreas.de</a>
         </p>
 
         <footer className={styles.footer}>
