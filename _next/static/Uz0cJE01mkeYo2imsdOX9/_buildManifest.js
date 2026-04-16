@@ -21,10 +21,10 @@ self.__BUILD_MANIFEST = {
     "static/chunks/0xodbm5uaozpj.js"
   ],
   "/imgzen/privacy/de": [
-    "static/chunks/0tqqch_hson3s.js"
+    "static/chunks/0.ofljchg6yrr.js"
   ],
   "/imgzen/privacy/en": [
-    "static/chunks/0g_9xd5e7i1fd.js"
+    "static/chunks/0i08g7xl.38ic.js"
   ],
   "/licenses": [
     "static/chunks/0m64wrj5874_k.js"
