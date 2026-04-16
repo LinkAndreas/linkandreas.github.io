@@ -1,6 +1,6 @@
 # Andreas Link's Portfolio:
 
-[![Version](https://img.shields.io/badge/version-3.1.1-blue)](https://github.com/LinkAndreas/linkandreas.github.io/releases)
+[![Version](https://img.shields.io/badge/version-3.1.2-blue)](https://github.com/LinkAndreas/linkandreas.github.io/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build and Deploy](https://github.com/LinkAndreas/linkandreas.github.io/actions/workflows/build_and_deploy.yml/badge.svg)](https://github.com/LinkAndreas/linkandreas.github.io/actions/workflows/build_and_deploy.yml)
 [![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=next.js&logoColor=white)](https://nextjs.org/)
