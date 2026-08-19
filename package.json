@@ -1,6 +1,6 @@
 {
   "name": "linkandreas.github.io",
-  "version": "3.1.3",
+  "version": "3.1.4",
   "description": "Andreas Link's Portfolio",
   "homepage": "http://linkandreas.github.io",
   "scripts": {
@@ -62,5 +62,8 @@
     "last 2 Edge versions",
     "last 2 Opera versions",
     "last 2 OperaMobile versions"
-  ]
+  ],
+  "allowScripts": {
+    "puppeteer@25.0.2": true
+  }
 }
