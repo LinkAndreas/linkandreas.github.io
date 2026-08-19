@@ -62,5 +62,8 @@
     "last 2 Edge versions",
     "last 2 Opera versions",
     "last 2 OperaMobile versions"
-  ]
+  ],
+  "allowScripts": {
+    "puppeteer@25.0.2": true
+  }
 }
