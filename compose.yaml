@@ -1,0 +1,16 @@
+name: linkandreas-website
+
+services:
+  linkandreas-website:
+    # Built by GitHub Actions (.github/workflows/deploy.yml); TAG is the commit SHA of the deploy.
+    image: ghcr.io/linkandreas/linkandreas-website:${TAG:-latest}
+    container_name: linkandreas-website
+    # No published ports: the cloudflared container on the `web` network reaches it at
+    # http://linkandreas-website:32773 and serves it (with HTTPS) at the domain.
+    networks:
+      - web
+    restart: unless-stopped
+
+networks:
+  web:
+    external: true
