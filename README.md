@@ -1,8 +1,8 @@
 # Andreas Link's Portfolio:
 
-[![Version](https://img.shields.io/badge/version-3.1.4-blue)](https://github.com/LinkAndreas/linkandreas.github.io/releases)
+[![Version](https://img.shields.io/badge/version-3.2.0-blue)](https://github.com/LinkAndreas/linkandreas.github.io/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build and Deploy](https://github.com/LinkAndreas/linkandreas.github.io/actions/workflows/build_and_deploy.yml/badge.svg)](https://github.com/LinkAndreas/linkandreas.github.io/actions/workflows/build_and_deploy.yml)
+[![Deploy to Hostinger VPS](https://github.com/LinkAndreas/linkandreas.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/LinkAndreas/linkandreas.github.io/actions/workflows/deploy.yml)
 [![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB)](https://reactjs.org/)
 
@@ -28,7 +28,7 @@ Welcome to my personal portfolio. This repository contains the source code for [
 - **UI Library**: [React](https://reactjs.org/) & [React Bootstrap](https://react-bootstrap.github.io/)
 - **Styling**: CSS Modules
 - **Content**: Markdown (Remark/Rehype)
-- **Deployment**: GitHub Actions & GitHub Pages
+- **Deployment**: GitHub Actions, GitHub Container Registry & Docker (Caddy) on a Hostinger VPS behind a Cloudflare Tunnel
 
 ---
 
